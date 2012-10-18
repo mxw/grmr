@@ -25,6 +25,8 @@
 \sectionfont{\large}
 \subsectionfont{\normalsize}
 
+\newcommand{\Sequitur}{\textsc{Sequitur}\xspace}
+
 \begin{document}
 \bibliographystyle{plain}
 
@@ -45,38 +47,39 @@ used in lossy compression algorithms.
 \subsection{Grammar Compression}
 
 As described in the introduction, the proposed research shares many of its
-goals with the sequitur algorithm described in \cite{sequitur}. The authors of
+goals with the \Sequitur algorithm described in \cite{sequitur}. The authors of
 \cite{sequitur} demonstrate how context free grammars offer a means of
 simultaneously revealing the structure of data streams and compressing them
 effectively. They also develop an effective algorithm based on iteratively
-rewriting grammars to keep them small and efficient. Sequitur yields intriguing
-grammar based analyses of texts and musical scores, but an inspection of its
-results yields that it isn't able to detect and compress larger scale structure
-because of small fluctuations that occur in natural streams. This was part of
-our inspiration for trying to achieve both better compression and better
-structural analysis by ignoring small scale fluctuations.
+rewriting grammars to keep them small and efficient. \Sequitur yields
+intriguing grammar based analyses of texts and musical scores, but an
+inspection of its results yields that it isn't able to detect and compress
+larger scale structure because of small fluctuations that occur in natural
+streams. This was part of our inspiration for trying to achieve both better
+compression and better structural analysis by ignoring small scale
+fluctuations.
 
-In \cite{sequitur2}, the detailed compression scheme used in the Sequitur
+In \cite{sequitur2}, the detailed compression scheme used in the \Sequitur
 algorithm is described.  By sending the grammar over in an implicit,
 local-pointer based scheme, they are able to represent the grammar with very
 little overhead. A similar scheme should be easily adaptable to any grammar
 based compression scheme.
 
-Finally, within the realm of Sequitur based compression, \cite{nevillphd}
-explores a variety of ad-hoc extensions to the Sequitur algorithm which improve
+Finally, within the realm of \Sequitur based compression, \cite{nevillphd}
+explores a variety of ad-hoc extensions to the \Sequitur algorithm which improve
 its compression performance on structured data. These ranged from introducing
 domain-specific constraints to their grammar, adding a few steps of
 backtracking to their normally greedy grammar formation, to guessing
 unifications in attempting to infer recursive grammar rules. Though these may
 invalidate some of their theoretical results on the asymptotic performance of
-Sequitur, in practice they seem to have worked and add on nicely into the
+\Sequitur, in practice they seem to have worked and add on nicely into the
 grammar inference framework.
 
 The intution that grammar inference can support many detailed policies is made
 more formal in \cite{grammarcodes}. The authors classify the properties a
 grammar needs to function as a good compressor, and moreover give a set of
 reduction rules for putting grammar into the appropriate form. Within this
-context, grammar inference algorithms similar to Sequitur can be described as
+context, grammar inference algorithms similar to \Sequitur can be described as
 simple applications of their reduction rules to different ways of generating
 base grammars. Even more examples of the variety of grammar inference schemes
 possible under this general framework of reducing grammars can be found in
