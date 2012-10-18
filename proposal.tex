@@ -127,6 +127,52 @@ to make to improve grammar structure by introducing lossiness.
 
 \subsection{Lossy Compression}
 
+While we were unable to find work in the area of lossy grammar compression, a
+number of existing techniques for lossy hierarchical compression more broadly
+may be applicable.  Kieffer notes that lossless hierarchical compression
+methods, including context-free grammars, can be used interchangeably to
+equivalently represent the structure of a given input \cite{tutorial}.
+However, we found no such claims for lossy hierarchical compression methods.
+
+Kieffer briefly identifies two primary methods for lossy hierarchical
+compression: wavelet-based and fractal-based schemes \cite{tutorial}.  In
+wavelet-based schemas, a signal is compressed by recording the largest
+coefficients of its wavelet decomposition, given a suitable wavelet function.
+Clustered coefficients can be stored in a compact form and used to encode
+hierarchical structure.  The JPEG image format uses a similar technique in
+order to compress images lossily \cite{jpeg}.
+
+In fractal compression, we wish to determine a set of contraction maps $w_i$
+over the domain of the data such that the fixed point of the $W(B) = \bigcup
+w_i(B)$ is the data set itself.  In this way, this fractal transform captures
+the self-similarity of an input by equating it with a covering of contractions
+of itself.  By restricting $w_i$ in, say, image compression, to affine
+transformations, we can easily represent each contraction map by a small
+sequence of coefficients.  Barnsley describes how to ``home in'' on the right
+coefficients to approximately represent a given input.  Interestingly, fractal
+compression on images can sometimes produce results which appear to be of much
+higher resolution than the original, which suggests that the technique provides
+some great measure of insight into the data's structure.
+
+Witten, \emph{et.\ al.}\ apply fractal compression to the area of text
+compression in order to generate texts which approximate a given input.  This
+yields a extraordinarily high compression ratio at the expense of time.  The
+authors do not supply their algorithm for fractal-based generation, but suggest
+that their particular algorithm may only be applicable to a certain style of
+prosaic text.
+
+Work has also been done regarding the lossy compression of particular input
+formats.  For text, methods such as replacing words with synonyms
+\cite{semanticlossy} or reordering the middle letters of a word (i.e., all
+letters save for the first and last) \cite{semilossless} have been explored.
+Applying such methods before transforming text into a grammar might yield
+interesting structural results, although we suspect that, as non-hierarchical
+schemes, they may not.
+
+We will try to adapt this variety of lossy compression techniques to function
+at the different points in the process of converting data into the form of a
+compressed grammar.
+
 \section{Research Plan}
 
 The proposed research project will involve designing new lossy grammar
@@ -185,7 +231,12 @@ strings generated from actual CFGs but with small amounts of noise added in.
 These will reveal best case behavior in compressing a nearly-perfectly
 structured dataset.
 
-\subsection{Implementation and Resources}
+\subsection{Resources}
+
+The primary resources we will require is source code or a functioning binary
+for the existing lossy compression, grammar transformation, and grammar
+compression algorithms we wish to use for our overall lossy grammar compression
+scheme.
 
 \subsection{Possible Issues}
 
