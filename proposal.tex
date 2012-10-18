@@ -129,7 +129,28 @@ the CFG such as those described in \cite{sequitur2}
 
 \subsection{Evaluation Methodology}
 
-There are two important metrics in evaluating our
+There are two important metrics we plan on evaluating our algorithm with. First,
+the lossiness it introduces should allow it to compress very well. This can be
+quantified by comparing its compression ratio with other grammar based and 
+general compression schemes on text sources, especially semi-structured text 
+which might best exhibit nearly hierarchical data.
+
+We would also like to make use of our algorithm to reveal the inherent 
+structure in text data. Our hope is that allowing lossiness will alow it 
+to capture larger scale structures, so we plan on subjectively evaluating 
+the CFGs produced for how well they group the components that a human
+might perceive in pieces of text.
+
+Comparing our runtime with existing algorithms can be done in a
+straightforward way.
+
+We plan on evaluating our algorithm on standard english prose texts, but
+we also suspect that the texts which will prove most interesting to 
+analyze are those with slightly more structure imposed on them. Human-made
+tables such as the genealogical trees discussed in \cite{nevillphd} are a
+good example, as are simple musical pieces. Slightly more artificial
+examples we might try include strings generated from actual CFGs but with
+small amounts of noise added in.
 
 \subsection{Implementation and Resources}
 
