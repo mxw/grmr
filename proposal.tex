@@ -38,11 +38,11 @@
 \section{Introduction and Goals}
 
 Many sources of data exhibit natural hierarchical structure, but it is
-oftentimes difficult to apprehend this structure at a high level due to small
-fluctuations in the data at the lower levels of the hierarchy.  If one is
+often difficult to apprehend this structure at a high level due to small
+fluctuations at the lower levels of the hierarchy.  If one is
 interested primarily in the structure of the data, a lossy compression scheme
 has the potential to mitigate some of this low-level noise in favor of the
-high-level signal, and can reduce the data size to boot.
+high-level signal, and can greatly reduce the compressed data size.
 
 One method of exploring, and then compressing, the hierarchical structure of
 data is to transform the data into a grammar.  The \Sequitur algorithm of
@@ -61,8 +61,8 @@ increase human understanding of a complex document and yield good compression
 ratios.  Notably, if we are interested in the structure rather than the
 details, we surmise that the lossiness we introduce can be highly desirable.
 For instance, introducing lossiness to \Sequitur's transformation on musical
-passages could result in interesting, even music-theoretically sound
-reductions, of a given piece.
+passages could result in interesting, even music-theoretically sound, 
+reductions of a given piece.
 
 As with \Sequitur, the scope of our problem will encompass the full conversion
 pathway of the input data---both the grammar transformation and the grammar
@@ -72,13 +72,15 @@ the process.
 There seems to be little existing work done in the intersection of grammar
 compression and lossy compression.  Thus, we will compare our work to existing
 techniques both in lossless hierarchical compression and lossy non-hierarchical
-compression.  Moreover, we will not concern ourselves with fitting our lossy
-grammar compression into overarching information-theoretic developments.
+compression.  Moreover, we are not too concerned with fitting our lossy
+grammar compression into information theoretical developments, since
+our main concerns are achieving interesting human comprehensible compressions
+with reasonable fidelity and good ratios as a benchmark.
 
 \section{Background}
 
 Though we have not found very much previous work in the area of lossy grammar
-based compression, our proposed research will try to build upon powerful
+based compression, our proposed research will try to build upon established
 results in grammar based compression and incorporate some of ideas currently
 used in lossy compression algorithms.
 
@@ -139,7 +141,7 @@ Starting with an existing grammar inference algorithm, or perhaps with a simple
 variation based on the reduction rules in \cite{grammarcodes}, there are three
 places we might introduce lossiness into the system.  We could
 \begin{itemize}
-  \item perform text-transforms on the input before applying a grammar
+  \item perform text-transforms on the input before applying grammar
     inference algorithms;
   \item modify the grammar inference algorithm so that it generates a lossy
     grammar on the fly; or
@@ -170,7 +172,9 @@ produced for how well they group the components that a human might perceive in
 pieces of text.
 
 Comparing our runtime with existing algorithms can be done in a straightforward
-way.
+way. Though our main focus will be on smaller datasets with human-readable
+structures, we will also experiment to see the effects of lossiness on
+scalability.
 
 We plan on evaluating our algorithm on standard english prose texts, but we
 also suspect that the texts which will prove most interesting to analyze are
@@ -178,6 +182,8 @@ those with slightly more structure imposed on them. Human-made tables such as
 the genealogical trees discussed in \cite{nevillphd} are a good example, as are
 simple musical pieces. Slightly more artificial examples we might try include
 strings generated from actual CFGs but with small amounts of noise added in.
+These will reveal best case behavior in compressing a nearly-perfectly
+structured dataset.
 
 \subsection{Implementation and Resources}
 
