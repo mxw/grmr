@@ -33,98 +33,100 @@
 \date{10-17-12}
 \maketitle
 
-\begin{abstract}
-Test (\cite{sequitur})
-\end{abstract}
-
 \section{Introduction and Goals}
 
 \section{Background}
 
-Though we have not found very much previous work in the area of lossy grammar based compression,
-our proposed research will try to build upon powerful results in grammar based compression and
-incorporate some of ideas currently used in lossy compression algorithms.
+Though we have not found very much previous work in the area of lossy grammar
+based compression, our proposed research will try to build upon powerful
+results in grammar based compression and incorporate some of ideas currently
+used in lossy compression algorithms.
 
 \subsection{Grammar Compression}
 
-As described in the introduction, the proposed research shares many of its goals with the sequitur
-algorithm described in \cite{sequitur}. The authors of \cite{sequitur} demonstrate how 
-context free grammars offer a means of simultaneously revealing the structure of
-data streams and compressing them effectively. They also develop an effective algorithm
-based on iteratively rewriting grammars to keep them small and efficient. Sequitur
-yields intriguing grammar based analyses of texts and musical scores, but an inspection of its
-results yields that it isn't able to detect and compress larger scale structure because
-of small fluctuations that occur in natural streams. This was part of our inspiration for
-trying to achieve both better compression and better structural analysis by ignoring
-small scale fluctuations.
+As described in the introduction, the proposed research shares many of its
+goals with the sequitur algorithm described in \cite{sequitur}. The authors of
+\cite{sequitur} demonstrate how context free grammars offer a means of
+simultaneously revealing the structure of data streams and compressing them
+effectively. They also develop an effective algorithm based on iteratively
+rewriting grammars to keep them small and efficient. Sequitur yields intriguing
+grammar based analyses of texts and musical scores, but an inspection of its
+results yields that it isn't able to detect and compress larger scale structure
+because of small fluctuations that occur in natural streams. This was part of
+our inspiration for trying to achieve both better compression and better
+structural analysis by ignoring small scale fluctuations.
 
-In \cite{sequitur2}, the detailed compression scheme used in the Sequitur algorithm is described.
-By sending the grammar over in an implicit, local-pointer based scheme, they are able to
-represent the grammar with very little overhead. A similar scheme should be easily adaptable to any
-grammar based compression scheme.
+In \cite{sequitur2}, the detailed compression scheme used in the Sequitur
+algorithm is described.  By sending the grammar over in an implicit,
+local-pointer based scheme, they are able to represent the grammar with very
+little overhead. A similar scheme should be easily adaptable to any grammar
+based compression scheme.
 
-Finally, within the realm of Sequitur based compression, \cite{nevillphd} explores a variety
-of ad-hoc extensions to the Sequitur algorithm which improve its compression performance
-on structured data. These ranged from introducing domain-specific constraints to their
-grammar, adding a few steps of backtracking to their normally greedy grammar formation,
-to guessing unifications in attempting to infer recursive grammar rules. Though these
-may invalidate some of their theoretical results on the asymptotic performance of
-Sequitur, in practice they seem to have worked and add on nicely into the grammar inference
-framework.
+Finally, within the realm of Sequitur based compression, \cite{nevillphd}
+explores a variety of ad-hoc extensions to the Sequitur algorithm which improve
+its compression performance on structured data. These ranged from introducing
+domain-specific constraints to their grammar, adding a few steps of
+backtracking to their normally greedy grammar formation, to guessing
+unifications in attempting to infer recursive grammar rules. Though these may
+invalidate some of their theoretical results on the asymptotic performance of
+Sequitur, in practice they seem to have worked and add on nicely into the
+grammar inference framework.
 
-The intution that grammar inference can support many detailed policies is made more formal
-in \cite{grammarcodes}. The authors classify the properties a grammar needs to function
-as a good compressor, and moreover give a set of reduction rules for putting grammar into
-the appropriate form. Within this context, grammar inference algorithms similar to Sequitur
-can be described as simple applications of their reduction rules to different ways
-of generating base grammars. Even more examples of the variety of grammar inference schemes
-possible under this general framework of reducing grammars can be found in 
+The intution that grammar inference can support many detailed policies is made
+more formal in \cite{grammarcodes}. The authors classify the properties a
+grammar needs to function as a good compressor, and moreover give a set of
+reduction rules for putting grammar into the appropriate form. Within this
+context, grammar inference algorithms similar to Sequitur can be described as
+simple applications of their reduction rules to different ways of generating
+base grammars. Even more examples of the variety of grammar inference schemes
+possible under this general framework of reducing grammars can be found in
 \cite{efficientgreedy}
 
-There has also been very interesting work analyzing how grammar based algorithms compare with
-the theoretical best lossless grammar for a string, in the line of \cite{approximate}. However,
-these analytic bounds for lossless grammars are outside the scope of our proposed research.
+There has also been very interesting work analyzing how grammar based
+algorithms compare with the theoretical best lossless grammar for a string, in
+the line of \cite{approximation}. However, these analytic bounds for lossless
+grammars are outside the scope of our proposed research.
 
-In summary, established work on grammar inference algorithms provides a solid set of tools
-for experimenting with the kinds of local modifications we propose to make to improve
-grammar structure by introducing lossiness.
+In summary, established work on grammar inference algorithms provides a solid
+set of tools for experimenting with the kinds of local modifications we propose
+to make to improve grammar structure by introducing lossiness.
 
 \subsection{Lossy Compression}
 
 \section{Research Plan}
 
-The proposed research project will involve designing new lossy grammar compression
-algorithms, implementing them, and comparing their performance with existing methods.
-If time permits we would also like to prove lower bounds on the runtime of our
-algorithm and upper bounds on the size of the grammar it generates.
+The proposed research project will involve designing new lossy grammar
+compression algorithms, implementing them, and comparing their performance with
+existing methods.  If time permits we would also like to prove lower bounds on
+the runtime of our algorithm and upper bounds on the size of the grammar it
+generates.
 
 \subsection{Algorithm Design}
 
-Starting with an existing grammar inference algorithm, or perhaps with a
-simple variation based
-on the reduction rules in \cite{grammarcodes}, there are 3 places we might introduce
-lossiness into the system. We could
+Starting with an existing grammar inference algorithm, or perhaps with a simple
+variation based on the reduction rules in \cite{grammarcodes}, there are 3
+places we might introduce lossiness into the system. We could
 \begin{itemize}
-\item perform text-transforms on the input before applying a 
-      grammar inference algorithms
-\item modify the grammar inference algorithm so that it generates a lossy
-      grammar on the fly
-\item take a lossless grammar code and apply lossy transforms to it
+  \item perform text-transforms on the input before applying a grammar
+    inference algorithms
+  \item modify the grammar inference algorithm so that it generates a lossy
+    grammar on the fly
+  \item take a lossless grammar code and apply lossy transforms to it
 \end{itemize}
 
 Of these, the first could provide the biggest potential for taking advantage of
 source-specific knowledge of what kinds of data we can ignore. The second
-allows the most control over precisely how a grammar can be formed, and would not
-be too difficult to build into reduction-rule based frameworks. The third would
-be the most general, since it could be applied to any CFG, but may be difficult
-to get consistent performance from.
+allows the most control over precisely how a grammar can be formed, and would
+not be too difficult to build into reduction-rule based frameworks. The third
+would be the most general, since it could be applied to any CFG, but may be
+difficult to get consistent performance from.
 
-After a lossy CFG is obtained, we plan on using standard methods for encoding the CFG
-such as those described in \cite{sequitur2}
+After a lossy CFG is obtained, we plan on using standard methods for encoding
+the CFG such as those described in \cite{sequitur2}
 
 \subsection{Evaluation Methodology}
 
-There are two important metrics in evaluating our 
+There are two important metrics in evaluating our
 
 \subsection{Implementation and Resources}
 
