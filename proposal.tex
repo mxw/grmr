@@ -44,6 +44,26 @@ interested primarily in the structure of the data, a lossy compression scheme
 has the potential to mitigate some of this low-level noise in favor of the
 high-level signal, and can reduce the data size to boot.
 
+One method of exploring, and then compressing, the hierarchical structure of
+data is to transform the data into a grammar.  The \Sequitur algorithm of
+\cite{sequitur} does exactly this, demonstrating how context-free grammars in
+particular offer a means of simultaneously revealing the structure of data
+inputs and compressing it efficiently.  However, inspection of \Sequitur's
+results reveals that it is unable to detect and to compress larger scale
+structure because of the aforementioned low-level fluctuations.
+
+We are interested in whether lossy compression techniques can be combined with
+CFG transformation and compression techniques like \Sequitur's in order (a) to
+illuminate the high-level grammatical structure of the data, and (b) to more
+effectively compress the data with some tolerable degree of lossiness.  That
+is, our goals are twofold---we wish to develop a technique which can both
+increase human understanding of a complex document and yield good compression
+ratios.  Notably, if we are interested in the structure rather than the
+details, we surmise that the lossiness we introduce can be highly desirable.
+For instance, introducing lossiness to \Sequitur's transformation on musical
+passages could result in interesting, even music-theoretically sound
+reductions, of a given piece.
+
 \section{Background}
 
 Though we have not found very much previous work in the area of lossy grammar
