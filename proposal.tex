@@ -20,7 +20,7 @@
 \usepackage{natbib}
 
 \pagestyle{fancy}
-\fancyhead[RO]{Max Wang \& Edward Gan}
+\fancyhead[RO]{Edward Gan \& Max Wang}
 
 \sectionfont{\large}
 \subsectionfont{\normalsize}
@@ -47,47 +47,46 @@ used in lossy compression algorithms.
 \subsection{Grammar Compression}
 
 As described in the introduction, the proposed research shares many of its
-goals with the \Sequitur algorithm described in \cite{sequitur}. The authors of
-\cite{sequitur} demonstrate how context free grammars offer a means of
+goals with the \Sequitur algorithm described in \cite{sequitur}.  The authors
+of \cite{sequitur} demonstrate how context free grammars offer a means of
 simultaneously revealing the structure of data streams and compressing them
-effectively. They also develop an effective algorithm based on iteratively
+efficiently.  They also develop an effective algorithm based on iteratively
 rewriting grammars to keep them small and efficient. \Sequitur yields
-intriguing grammar based analyses of texts and musical scores, but an
-inspection of its results yields that it isn't able to detect and compress
-larger scale structure because of small fluctuations that occur in natural
-streams. This was part of our inspiration for trying to achieve both better
-compression and better structural analysis by ignoring small scale
-fluctuations.
+intriguing grammar based analyses of texts and musical scores, inspection of
+its results finds that it unable to detect and compress larger scale structure
+because of small fluctuations that occur in natural streams.  This was part of
+our inspiration for trying to achieve both better compression and better
+structural analysis by ignoring small scale fluctuations.
 
 In \cite{sequitur2}, the detailed compression scheme used in the \Sequitur
 algorithm is described.  By sending the grammar over in an implicit,
 local-pointer based scheme, they are able to represent the grammar with very
-little overhead. A similar scheme should be easily adaptable to any grammar
+little overhead.  A similar scheme should be easily adaptable to any grammar
 based compression scheme.
 
 Finally, within the realm of \Sequitur based compression, \cite{nevillphd}
 explores a variety of ad-hoc extensions to the \Sequitur algorithm which improve
-its compression performance on structured data. These ranged from introducing
+its compression performance on structured data.  These ranged from introducing
 domain-specific constraints to their grammar, adding a few steps of
 backtracking to their normally greedy grammar formation, to guessing
-unifications in attempting to infer recursive grammar rules. Though these may
+unifications in attempting to infer recursive grammar rules.  Though these may
 invalidate some of their theoretical results on the asymptotic performance of
-\Sequitur, in practice they seem to have worked and add on nicely into the
-grammar inference framework.
+\Sequitur, in practice they seem to have worked and add nicely to the grammar
+inference framework.
 
 The intution that grammar inference can support many detailed policies is made
-more formal in \cite{grammarcodes}. The authors classify the properties a
+more formal in \cite{grammarcodes}.  The authors classify the properties a
 grammar needs to function as a good compressor, and moreover give a set of
-reduction rules for putting grammar into the appropriate form. Within this
+reduction rules for putting a grammar into the appropriate form.  Within this
 context, grammar inference algorithms similar to \Sequitur can be described as
 simple applications of their reduction rules to different ways of generating
-base grammars. Even more examples of the variety of grammar inference schemes
+base grammars.  Even more examples of the variety of grammar inference schemes
 possible under this general framework of reducing grammars can be found in
 \cite{efficientgreedy}
 
 There has also been very interesting work analyzing how grammar based
 algorithms compare with the theoretical best lossless grammar for a string, in
-the line of \cite{approximation}. However, these analytic bounds for lossless
+the line of \cite{approximation}.  However, these analytic bounds for lossless
 grammars are outside the scope of our proposed research.
 
 In summary, established work on grammar inference algorithms provides a solid
@@ -107,22 +106,21 @@ generates.
 \subsection{Algorithm Design}
 
 Starting with an existing grammar inference algorithm, or perhaps with a simple
-variation based on the reduction rules in \cite{grammarcodes}, there are 3
-places we might introduce lossiness into the system. We could
+variation based on the reduction rules in \cite{grammarcodes}, there are three
+places we might introduce lossiness into the system.  We could
 \begin{itemize}
   \item perform text-transforms on the input before applying a grammar
-    inference algorithms
+    inference algorithms;
   \item modify the grammar inference algorithm so that it generates a lossy
-    grammar on the fly
-  \item take a lossless grammar code and apply lossy transforms to it
+    grammar on the fly; or
+  \item take a lossless grammar code and apply lossy transforms to it.
 \end{itemize}
-
 Of these, the first could provide the biggest potential for taking advantage of
-source-specific knowledge of what kinds of data we can ignore. The second
+source-specific knowledge of what kinds of data we can ignore.  The second
 allows the most control over precisely how a grammar can be formed, and would
-not be too difficult to build into reduction-rule based frameworks. The third
-would be the most general, since it could be applied to any CFG, but may be
-difficult to get consistent performance from.
+not be too difficult, we expect, to build into reduction-rule based frameworks.
+The third would be the most general, since it could be applied to any CFG, but
+may be difficult to get consistent performance from.
 
 After a lossy CFG is obtained, we plan on using standard methods for encoding
 the CFG such as those described in \cite{sequitur2}
