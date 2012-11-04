@@ -3,6 +3,7 @@
 #
 # Circular linked list entry for a CFG symbol.
 #
+
 class SymbolNode
   # @rule.nil? if the SymbolNode is terminal
   attr_accessor :token, :rule
@@ -258,7 +259,10 @@ end
 str = "aactgaacatgagagacatagagacag"
 
 puts "Sequitur : [#{str}]\n\n"
-puts_grammar Sequitur.new(str).run
+gramm1 = Sequitur.new(str).run
+puts_grammar gramm1
 
 puts "Sequitur : [#{str.reverse}]\n\n"
-puts_grammar Sequitur.new(str.reverse).run
+gramm2 = Sequitur.new(str.reverse).run
+puts_grammar gramm2
+
