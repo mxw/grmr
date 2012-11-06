@@ -1,11 +1,11 @@
 require "cfg"
 
-# Reducer algorithm works as follows:
+# Lossifier algorithm works as follows:
 # > Repeat while there exist similar RHS's above thresh:
 #   > Find most similar pair of RHS's of rules based off lcs length / longer RHS
 #   > Replace the longer of the rules with the shorter
 
-class Reducer
+class Lossifier
   attr_accessor :gramm, :thresh
   def initialize(gramm, thresh=0.5)
     @gramm = gramm
@@ -14,7 +14,7 @@ class Reducer
 
   # try and combine one pair of rules, return true if successful, false if
   # failed
-  def reduceOne
+  def approxOne
     keyset = @gramm.rules.keys
     if keyset.size < 2 then raise "can't reduce" end
 
@@ -33,13 +33,22 @@ class Reducer
         lcsLen = lcs(rhs1,rhs2).size
         curSimilarity = Float(lcsLen)/Float(rhs2.size)
         if curSimilarity > bestSimilarity 
-          bestold = key2
-          bestnew = key1
+          varcount = @gramm.countVars()
+          # replace with the more common variable, or in the case of ties
+          # replace with the shorter variable
+          if(varcount[key1]>=varcount[key2]) then
+            bestold = key2
+            bestnew = key1
+          else
+            bestold = key1
+            bestnew = key2
+          end
           bestSimilarity = curSimilarity
         end
       end
     end
     if (bestSimilarity > @thresh)
+      puts "replaced "+bestold+" with "+bestnew
       @gramm.replaceVar(bestold,bestnew)
       return true
     else
@@ -48,7 +57,9 @@ class Reducer
   end
 
   # iterate reduceOne while it is successful
-  def reduceAll
+  def approxAll
+    while (approxOne())
+    end
   end
 end
 
@@ -85,12 +96,20 @@ def lcs(a, b)
     result.reverse
 end
 
-str = "aactgaacatgagagacatagagacag"
+#str = "aactgaacatgagagacatagagacag"
+#str = "test1test2test3tesg4"
+str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
 gramm1 = Sequitur.new(str).run
 myGrammar = convert_seq(gramm1)
 puts "\n\nReducer test:"
 puts myGrammar.to_s
 puts "---"
-myReducer = Reducer.new(myGrammar)
-myReducer.reduceOne
+myReducer = Lossifier.new(myGrammar)
+myReducer.approxAll
+=begin
+myReducer.gramm.rules["H"]=createSymList("DEa")
 puts (myReducer.gramm.to_s)
+=end
+myReducer.gramm.reduceGramm()
+puts (myReducer.gramm.to_s)
+puts (myReducer.gramm.expandAns.to_s)

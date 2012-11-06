@@ -256,6 +256,7 @@ def puts_grammar(grammar)
   puts "\n"
 end
 
+=begin
 str = "aactgaacatgagagacatagagacag"
 
 puts "Sequitur : [#{str}]\n\n"
@@ -266,3 +267,4 @@ puts "Sequitur : [#{str.reverse}]\n\n"
 gramm2 = Sequitur.new(str.reverse).run
 puts_grammar gramm2
 
+=end
