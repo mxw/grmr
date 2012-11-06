@@ -158,7 +158,6 @@ class GSymbol
     return @token
   end
   def ==(symbol2)
-    raise unless @isVar == symbol2.isVar
     return (@token == symbol2.token and @isVar == symbol2.isVar)
   end
 end

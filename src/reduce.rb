@@ -58,7 +58,10 @@ class Lossifier
 
   # iterate reduceOne while it is successful
   def approxAll
+    count = 0
     while (approxOne())
+      puts "progress"+count.to_s
+      count += 1
     end
   end
 end
@@ -97,8 +100,11 @@ def lcs(a, b)
 end
 
 #str = "aactgaacatgagagacatagagacag"
+#str = "testtesttesttesk"
 #str = "test1test2test3tesg4"
-str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
+#str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
+#str = File.read('lorem.txt')
+str = File.read('jabber.txt')
 gramm1 = Sequitur.new(str).run
 myGrammar = convert_seq(gramm1)
 puts "\n\nReducer test:"
@@ -113,3 +119,5 @@ puts (myReducer.gramm.to_s)
 myReducer.gramm.reduceGramm()
 puts (myReducer.gramm.to_s)
 puts (myReducer.gramm.expandAns.to_s)
+puts "---custom grammar tests---"
+myGrammar = Grammar.new
