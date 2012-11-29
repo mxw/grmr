@@ -33,7 +33,7 @@ module Lossifier
       end
       puts "\n" if @verbose
 
-      return @cfg
+      @cfg
     end
 
     private
@@ -59,10 +59,10 @@ module Lossifier
             # the variable with the longer rule.
             if counts[nonterm1] >= counts[nonterm2]
               @cfg.replace! nonterm2, nonterm1
-              ret = [ nonterm2, nonterm1 ]
+              ret = [nonterm2, nonterm1]
             else
               @cfg.replace! nonterm1, nonterm2
-              ret = [ nonterm1, nonterm2 ]
+              ret = [nonterm1, nonterm2]
             end
 
             return ret

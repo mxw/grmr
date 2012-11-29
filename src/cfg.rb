@@ -58,7 +58,7 @@ class CFG
   end
 
   def subst!(nonterm, string)
-    @rules.each do |lhs, rhs|
+    @rules.each do |_, rhs|
       # XXX: ~ check.
       nodes = rhs.select { |node| node.value == nonterm }
       nodes.each { |node| node.value = string }

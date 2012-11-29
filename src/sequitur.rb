@@ -148,7 +148,7 @@ class Sequitur
   # Convert a Sequitur grammar to a cleaner representation.
   #
   def to_cfg(rule)
-    rules = [ rule ]
+    rules = [rule]
     nonterminals = { rule.token => true }
 
     rules.inject(CFG.new) do |cfg, rule|
