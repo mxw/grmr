@@ -1,3 +1,5 @@
+#!/usr/local/bin/ruby
+
 #
 # lossify.rb - CFG lossifier algorithms.
 #
@@ -68,17 +70,17 @@ module Lossifier
   end
 end
 
-#str = "aactgaacatgagagacatagagacag"
-#str = "testtesttesttesk"
-#str = "test1test2test3tesg4"
-#str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
-#str = File.read('lorem2.txt')
-str = File.read('jabber.txt')
+if ARGV[0].nil?
+  puts "Usage: ./lossify input-file"
+  exit
+end
 
-#puts "Usage: ./lossify input-text" if ARGV[0].nil?
+str = File.read(ARGV[0])
 
+puts "LOSSLESS-----------------------------------------------\n\n"
 cfg = Sequitur.new(str).run
-puts cfg.expand
+puts cfg.expand + "\n"
 
+puts "LOSSY--------------------------------------------------\n\n"
 cfg = Lossifier::Similarity.new(cfg).run
 puts cfg.expand
