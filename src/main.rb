@@ -27,11 +27,11 @@ options.verbose = false
 OptionParser.new do |opts|
   opts.banner = USAGE
 
-  opts.on("-e", "--expand", "Print expansion") do |e|
+  opts.on("-e", "--[no-]expand", "Print expansion") do |e|
     options.expand = e
   end
 
-  opts.on("-g", "Print grammar") do |g|
+  opts.on("-g", "--[no-]print-grammar", "Print grammar") do |g|
     options.print_grammar = g
   end
 
