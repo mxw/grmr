@@ -23,7 +23,6 @@ class Lossifier
     # replace bestold with bestnew
     bestold=""
     bestnew=""
-    bestDifference = 10
     for key1 in keyset
       rhs1 = @gramm.expandVar(key1).to_s
       for key2 in keyset
@@ -35,7 +34,7 @@ class Lossifier
         ## lcsLen = lcs(rhs1,rhs2).size
         lDis = Levenshtein.distance(rhs1,rhs2);
         curDifference = Float(lDis)/Float(rhs2.size)
-        if curDifference < bestDifference 
+        if curDifference < @thresh
           varcount = @gramm.countVars()
           # replace with the more common variable, or in the case of ties
           # replace with the shorter variable
@@ -46,16 +45,12 @@ class Lossifier
             bestold = key1
             bestnew = key2
           end
-          bestDifference = curDifference
+          @gramm.replaceVar(bestold,bestnew)
+          return true
         end
       end
     end
-    if (bestDifference < @thresh)
-      @gramm.replaceVar(bestold,bestnew)
-      return true
-    else
-      return false
-    end
+    return false
   end
 
   # iterate reduceOne while it is successful
@@ -105,7 +100,7 @@ end
 #str = "testtesttesttesk"
 #str = "test1test2test3tesg4"
 #str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
-#str = File.read('lorem.txt')
+#str = File.read('lorem2.txt')
 str = File.read('jabber.txt')
 gramm1 = Sequitur.new(str).run
 myGrammar = convert_seq(gramm1)
