@@ -25,6 +25,13 @@ class List
     each { |node| yield node.value }
   end
 
+  #
+  # Shallow copy.
+  #
+  def copy
+    inject(self.class.new) { |list, node| list << node.value }
+  end
+
   def empty?
     @guard.equal? @guard.next
   end

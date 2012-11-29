@@ -7,9 +7,9 @@ require_relative 'list.rb'
 class CFG
   attr_accessor :rules
 
-  def initialize(start='*')
+  def initialize(start='*', rules={})
     @start = start
-    @rules = {}
+    @rules = rules
     @cache = {}
   end
 
@@ -29,14 +29,24 @@ class CFG
   end
 
   #
+  # Shallow copy.
+  #
+  def copy
+    rules_copy = @rules.inject({}) do |rules_copy, (lhs, rhs)|
+      rules_copy[lhs] = rhs.copy
+      rules_copy
+    end
+    CFG.new @start, rules_copy
+  end
+
+  #
   # Expand a rule out to a string of nonterminals.
   #
   def expand(symbol='*')
     # Use the cached value if possible.
     return @cache[symbol] if @cache.key? symbol
 
-    rhs = @rules[symbol].inject(List.new) { |list, node| list << node.value }
-
+    rhs = @rules[symbol].copy
     loop do
       nonterm = rhs.find { |node| node.value[0].chr == '~' }
       break if nonterm.nil?
@@ -55,27 +65,18 @@ class CFG
     end
   end
 
-=begin
-  # NOTE: No longer works; subst! no longer takes lists.
-  def inline!(nonterm)
-    rhs = @rules[nonterm]
-    @rules.delete nonterm
-    subst! nonterm, rhs
-  end
-=end
-
-  def replace!(src_symb, dst_symb)
-    # If the RHS of dst_symb contains src_symb, we need inline src_symb's RHS a
-    # single level to avoid creating cycles.
+  def replace!(find_symb, repl_symb)
+    # If the RHS of repl_symb contains find_symb, we need inline find_symb's
+    # RHS a single level to avoid creating cycles.
     # XXX: ~ check.
-    src_nodes = @rules[dst_symb].select { |node| node.value == src_symb }
-    src_nodes.each do |lhs_node|
-      @rules[src_symb].each_value { |str| lhs_node.ins_before str }
+    cycle_nodes = @rules[repl_symb].select { |node| node.value == find_symb }
+    cycle_nodes.each do |lhs_node|
+      @rules[find_symb].each_value { |str| lhs_node.ins_before str }
       lhs_node.remove
     end
 
-    @rules.delete src_symb
-    subst! src_symb, dst_symb
+    @rules.delete find_symb
+    subst! find_symb, repl_symb
     @cache = {}
   end
 

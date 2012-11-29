@@ -17,17 +17,22 @@ module Lossifier
   #
   class Similarity
 
-    def initialize(cfg, threshold=0.5)
-      @cfg = cfg
+    def initialize(cfg, verbose=false, threshold=0.5)
+      @cfg = cfg.copy
+      @verbose = verbose
       @threshold = threshold
     end
 
     def run
-      iters = 1
-      while eliminate do
-        iters += 1
-        puts ("iter:"+iters.to_s)
+      puts "> Elimination:" if @verbose
+
+      1.upto(Float::INFINITY) do |i|
+        find, repl = eliminate
+        break if find.nil? or repl.nil?
+        puts ">   [#{i.to_s}]".ljust(10) + find + ':' + repl if @verbose
       end
+      puts "\n" if @verbose
+
       return @cfg
     end
 
@@ -54,17 +59,18 @@ module Lossifier
             # the variable with the longer rule.
             if counts[nonterm1] >= counts[nonterm2]
               @cfg.replace! nonterm2, nonterm1
+              ret = [ nonterm2, nonterm1 ]
             else
               @cfg.replace! nonterm1, nonterm2
+              ret = [ nonterm1, nonterm2 ]
             end
-            puts (nonterm1)+":"+(nonterm2)
 
-            return true
+            return ret
           end
         end
       end
 
-      return false
+      return []
     end
   end
 end
