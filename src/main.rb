@@ -15,6 +15,7 @@ require_relative 'sequitur.rb'
 USAGE = "Usage: ./main.rb [options] input-file"
 ALGORITHMS = {
   'similarity' => Lossifier::Similarity,
+  'cluster' => Lossifier::Cluster,
 }
 
 # Default option values.
