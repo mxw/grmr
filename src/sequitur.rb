@@ -1,10 +1,10 @@
-#!/usr/bin/ruby
-
-require 'list'
-
 #
-# Sequitur instance.
+# sequitur.rb - Sequitur grammar generation.
 #
+
+require_relative 'list.rb'
+require_relative 'cfg.rb'
+
 class Sequitur
   def initialize(input)
     @input = input
@@ -151,17 +151,19 @@ class Sequitur
     rules = [ rule ]
     nonterminals = { rule.token => true }
 
-    rules.each do |rule|
-      rule.map do |node|
+    rules.inject(CFG.new) do |cfg, rule|
+      cfg[rule.token] = rule.inject(List.new) do |list, node|
         symbol = node.value
+
         if not symbol.rule.nil? and not nonterminals[symbol.token]
           rules << symbol.rule
           nonterminals[symbol.token] = true
         end
-      end
-    end
 
-    rules
+        list << symbol.token
+      end
+      cfg
+    end
   end
 
   #
@@ -177,9 +179,7 @@ class Sequitur
     end
 
     def to_s
-      string = inject(@token + ' => ') do |str, node|
-        str + node.value.token
-      end
+      string = inject(@token + ' => ') { |str, node| str + node.to_s }
     end
 
     Node.class_eval do
@@ -220,12 +220,3 @@ class Sequitur
     end
   end
 end
-
-str = "aactgaacatgagagacatagagacag"
-
-puts "Sequitur : [#{str}]\n\n"
-puts Sequitur.new(str).run
-puts ""
-
-puts "Sequitur : [#{str.reverse}]\n\n"
-puts Sequitur.new(str.reverse).run

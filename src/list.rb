@@ -21,6 +21,10 @@ class List
     end
   end
 
+  def each_value
+    each { |node| yield node.value }
+  end
+
   def empty?
     @guard.equal? @guard.next
   end
@@ -52,14 +56,13 @@ class List
   end
 
   def to_s
-    inject('') { |acc, node| acc + node.value.to_s + "\n" }
+    inject('') { |acc, node| acc + node.to_s + "\n" }
   end
 
   private
 
   class Node
-    attr_accessor :next, :prev
-    attr_reader   :value
+    attr_accessor :next, :prev, :value
 
     def initialize(value)
       @value = value
@@ -67,6 +70,10 @@ class List
 
     def <=>(node)
       @value <=> node.value
+    end
+
+    def to_s
+      @value.to_s
     end
 
     def is_guard?; false; end

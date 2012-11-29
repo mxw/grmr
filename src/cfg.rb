@@ -1,4 +1,95 @@
-require "sequitur"
+#
+# Context-Free Grammar structure.
+#
+
+require_relative 'list.rb'
+
+class CFG
+  attr_accessor :rules
+
+  def initialize(start='*')
+    @start = start
+    @rules = {}
+    @cache = {}
+  end
+
+  def [](token)
+    @rules[token]
+  end
+
+  def []=(token, rhs)
+    @cache = {}
+    @rules[token] = rhs
+  end
+
+  def to_s
+    @rules.sort.inject('') do |string, (lhs, rhs)|
+      string + lhs + ' => ' + rhs.to_a.join('') + "\n"
+    end
+  end
+
+  #
+  # Expand a rule out to a string of nonterminals.
+  #
+  def expand(symbol='*')
+    # Use the cached value if possible.
+    return @cache[symbol] if @cache.key? symbol
+
+    rhs = @rules[symbol]
+
+    loop do
+      nonterm = rhs.find { |node| node.value[0].chr == '~' }
+      break if nonterm.nil?
+      nonterm.value = expand nonterm.value
+    end
+
+    rhs = rhs.inject('') { |str, node| str + node.to_s }
+    @cache[symbol] = rhs
+  end
+
+  def subst(nonterm, list)
+    @rules.each do |lhs, rhs|
+      # XXX: ~ check.
+      nodes = rhs.select { |node| node.value == nonterm }
+      nodes.each do |node|
+        list.each_value { |str| node.ins_before str }
+      end
+    end
+  end
+
+  def inline(nonterm)
+    rhs = @rules[nonterm]
+    @rules.delete nonterm
+    subst nonterm, rhs
+  end
+
+  def replace(src_symb, dst_symb)
+    # If the RHS of dst_symb contains src_symb, we need inline src_symb's RHS a
+    # single level to avoid creating cycles.
+    # XXX: ~ check.
+    src_nodes = @rules[dst_symb].select { |node| node.value == src_symb }
+    src_nodes.each do |lhs_node|
+      @rules[src_symb].each_value { |str| lhs_node.ins_before str }
+      lhs_node.remove
+    end
+
+    @rules.delete src_symb
+    subst src_symb, [ dst_symb ]
+    @cache = {}
+  end
+
+  def counts
+    @rules.inject(Hash.new(0)) do |counts, (lhs, rhs)|
+      counts[lhs] = 2 if lhs == @start
+
+      rhs.each do |node|
+        counts[node.value] += 1 if node.value[0] == '~'
+      end
+
+      counts
+    end
+  end
+end
 
 class Grammar
   attr_accessor :rules, :start
@@ -70,8 +161,8 @@ class Grammar
   def expandVar(curVar)
     raise unless (curVar.class == String)
     # if the result is already cached, use the cache
-    if (@expandCache.has_key? curVar) then 
-      return @expandCache[curVar] 
+    if (@expandCache.has_key? curVar) then
+      return @expandCache[curVar]
     end
     curSeq = @rules[curVar]
     nextVarInd = curSeq.index {|sym| sym.isVar}
@@ -96,7 +187,7 @@ class Grammar
   def expandAns()
     return expandVar(@start)
   end
-  
+
   def resetCache()
     @expandCache = {}
   end
@@ -127,7 +218,7 @@ class Grammar
   # Begin reduction methods for making a grammar irreducible-------
   # ----------------------------------------------------------------
   # so far have only implemented rule #1 from "grammar based codes"
-  
+
   def reduceGramm
     progress = true
     while progress
@@ -147,78 +238,3 @@ class Grammar
     return false
   end
 end
-
-class GSymbol
-  attr_accessor :token, :isVar
-  def initialize(isVar,token)
-    @isVar = isVar
-    @token = token
-  end
-  def to_s
-    if(isVar) then
-      return "~"+@token
-    else
-      return @token
-    end
-  end
-  def ==(symbol2)
-    return (@token == symbol2.token and @isVar == symbol2.isVar)
-  end
-end
-
-# string sequence -> symbol list for debugging purposes
-def createSymList(strSeq)
-  outArr = []
-  strSeq.split("").each do |c|
-    if (c.upcase == c)
-      outArr << GSymbol.new(true,c)
-    else
-      outArr << GSymbol.new(false,c)
-    end
-  end
-  return outArr
-end
-
-
-# Converts from the linked-list CFG format used in sequitur to
-# the array + dictionary CFG format here. Algorithm stolen from
-# puts_grammar
-
-def convert_seq(seqGrammar)
-  newGramm = Grammar.new()
-
-  curRules = [seqGrammar]
-  nonterminals = {"*" => true}
-  newGramm.start = "*"
-  nextRules = []
-  while ! (curRules.empty?) do
-    curRules.each do |rule|
-      newVar = rule.token
-      newSeq = []
-      nextsym = rule.next
-      until nextsym.is_head? do
-        if not nextsym.rule.nil?
-          nextRules << nextsym.rule if not nonterminals[nextsym.token]
-          nonterminals[nextsym.token] = true
-          newSeq << GSymbol.new(true,nextsym.token)
-        else
-          newSeq << GSymbol.new(false,nextsym.token)
-        end
-        nextsym = nextsym.next
-      end
-      newGramm.addRule(newVar,newSeq)
-    end
-    curRules = nextRules
-    nextRules = []
-  end
-  return newGramm
-end
-
-=begin
-str = "aactgaacatgagagacatagagacag"
-gramm1 = Sequitur.new(str).run
-myGrammar = convert_seq(gramm1)
-puts myGrammar.expandVar("*").to_s
-myGrammar.replaceVar("E","D")
-puts myGrammar.to_s
-=end
