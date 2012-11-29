@@ -247,7 +247,11 @@ def puts_grammar(grammar)
         nonterminals[symbol.token] = true
       end
 
-      output += symbol.token
+      if symbol.rule == nil
+        output += symbol.token
+      else
+        output += "~"+symbol.token
+      end
       symbol = symbol.next
     end
     puts output

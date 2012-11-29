@@ -155,7 +155,11 @@ class GSymbol
     @token = token
   end
   def to_s
-    return @token
+    if(isVar) then
+      return "~"+@token
+    else
+      return @token
+    end
   end
   def ==(symbol2)
     return (@token == symbol2.token and @isVar == symbol2.isVar)
@@ -186,21 +190,26 @@ def convert_seq(seqGrammar)
   curRules = [seqGrammar]
   nonterminals = {"*" => true}
   newGramm.start = "*"
-  curRules.each do |rule|
-    newVar = rule.token
-    newSeq = []
-    nextsym = rule.next
-    until nextsym.is_head? do
-      if not nextsym.rule.nil?
-        curRules << nextsym.rule if not nonterminals[nextsym.token]
-        nonterminals[nextsym.token] = true
-        newSeq << GSymbol.new(true,nextsym.token)
-      else
-        newSeq << GSymbol.new(false,nextsym.token)
+  nextRules = []
+  while ! (curRules.empty?) do
+    curRules.each do |rule|
+      newVar = rule.token
+      newSeq = []
+      nextsym = rule.next
+      until nextsym.is_head? do
+        if not nextsym.rule.nil?
+          nextRules << nextsym.rule if not nonterminals[nextsym.token]
+          nonterminals[nextsym.token] = true
+          newSeq << GSymbol.new(true,nextsym.token)
+        else
+          newSeq << GSymbol.new(false,nextsym.token)
+        end
+        nextsym = nextsym.next
       end
-      nextsym = nextsym.next
+      newGramm.addRule(newVar,newSeq)
     end
-    newGramm.addRule(newVar,newSeq)
+    curRules = nextRules
+    nextRules = []
   end
   return newGramm
 end

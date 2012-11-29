@@ -45,6 +45,8 @@ class Lossifier
             bestold = key1
             bestnew = key2
           end
+          puts (bestold)+":"+(@gramm.rules[bestold]).to_s
+          puts (bestnew)+":"+(@gramm.rules[bestnew]).to_s
           @gramm.replaceVar(bestold,bestnew)
           return true
         end
@@ -101,20 +103,18 @@ end
 #str = "test1test2test3tesg4"
 #str = "a[a[a[a[xx]a[xx]]a[a[xx]a[xx]]]a[a[a[xx]a[xx]]a[a[xx]a[xx]]]]"
 #str = File.read('lorem2.txt')
-str = File.read('jabber.txt')
+str = File.read('jabber2.txt')
 gramm1 = Sequitur.new(str).run
+puts_grammar gramm1
 myGrammar = convert_seq(gramm1)
 puts "\n\nReducer test:"
 puts myGrammar.to_s
+puts myGrammar.expandAns.to_s
 puts "---"
+=begin
 myReducer = Lossifier.new(myGrammar)
 myReducer.approxAll
-=begin
-myReducer.gramm.rules["H"]=createSymList("DEa")
-puts (myReducer.gramm.to_s)
-=end
 myReducer.gramm.reduceGramm()
 puts (myReducer.gramm.to_s)
 puts (myReducer.gramm.expandAns.to_s)
-puts "---custom grammar tests---"
-myGrammar = Grammar.new
+=end
