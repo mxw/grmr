@@ -27,41 +27,43 @@ module Lossifier
     end
 
     def run
-      loop do
-        catch :again do
-          nonterms = @cfg.rules.keys
-          break if nonterms.size < 2
+      while eliminate do; end
+      return @cfg
+    end
 
-          nonterms.each do |nonterm1|
-            rhs1 = @cfg.expand nonterm1
+    private
 
-            nonterms.each do |nonterm2|
-              next if nonterm1 == nonterm2
+    def eliminate
+      nonterms = @cfg.rules.keys
+      return @cfg if nonterms.size < 2
 
-              rhs2 = @cfg.expand nonterm2
-              next if rhs1.size > rhs2.size
+      nonterms.each do |nonterm1|
+        rhs1 = @cfg.expand nonterm1
 
-              dist = (Levenshtein.distance rhs1, rhs2) / rhs2.size.to_f
-              if dist < @threshold
-                counts = @cfg.counts
+        nonterms.each do |nonterm2|
+          next if nonterm1 == nonterm2
 
-                # Replace the less common variable, or, in the case of a tie,
-                # the variable with the longer rule.
-                if counts[nonterm1] >= counts[nonterm2]
-                  @cfg.replace nonterm2, nonterm1
-                else
-                  @cfg.replace nonterm1, nonterm2
-                end
-                throw :again
-              end
+          rhs2 = @cfg.expand nonterm2
+          next if rhs1.size > rhs2.size
+
+          dist = (Levenshtein.distance rhs1, rhs2) / rhs2.size.to_f
+          if dist < @threshold
+            counts = @cfg.counts
+
+            # Replace the less common variable, or, in the case of a tie,
+            # the variable with the longer rule.
+            if counts[nonterm1] >= counts[nonterm2]
+              @cfg.replace! nonterm2, nonterm1
+            else
+              @cfg.replace! nonterm1, nonterm2
             end
+
+            return true
           end
         end
-
-        break # No replacement, so we're done!
       end
 
-      return @cfg
+      return false
     end
   end
 end
@@ -76,7 +78,7 @@ str = File.read('jabber.txt')
 #puts "Usage: ./lossify input-text" if ARGV[0].nil?
 
 cfg = Sequitur.new(str).run
-puts cfg
+puts cfg.expand
 
 cfg = Lossifier::Similarity.new(cfg).run
-puts cfg
+puts cfg.expand

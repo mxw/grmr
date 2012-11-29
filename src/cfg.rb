@@ -35,7 +35,7 @@ class CFG
     # Use the cached value if possible.
     return @cache[symbol] if @cache.key? symbol
 
-    rhs = @rules[symbol]
+    rhs = @rules[symbol].inject(List.new) { |list, node| list << node.value }
 
     loop do
       nonterm = rhs.find { |node| node.value[0].chr == '~' }
@@ -47,23 +47,24 @@ class CFG
     @cache[symbol] = rhs
   end
 
-  def subst(nonterm, list)
+  def subst!(nonterm, string)
     @rules.each do |lhs, rhs|
       # XXX: ~ check.
       nodes = rhs.select { |node| node.value == nonterm }
-      nodes.each do |node|
-        list.each_value { |str| node.ins_before str }
-      end
+      nodes.each { |node| node.value = string }
     end
   end
 
-  def inline(nonterm)
+=begin
+  # NOTE: No longer works; subst! no longer takes lists.
+  def inline!(nonterm)
     rhs = @rules[nonterm]
     @rules.delete nonterm
-    subst nonterm, rhs
+    subst! nonterm, rhs
   end
+=end
 
-  def replace(src_symb, dst_symb)
+  def replace!(src_symb, dst_symb)
     # If the RHS of dst_symb contains src_symb, we need inline src_symb's RHS a
     # single level to avoid creating cycles.
     # XXX: ~ check.
@@ -74,7 +75,7 @@ class CFG
     end
 
     @rules.delete src_symb
-    subst src_symb, [ dst_symb ]
+    subst! src_symb, dst_symb
     @cache = {}
   end
 
