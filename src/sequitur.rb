@@ -1,105 +1,6 @@
 #!/usr/bin/ruby
 
-#
-# Circular linked list entry for a CFG symbol.
-#
-
-class SymbolNode
-  # @rule.nil? if the SymbolNode is terminal
-  attr_accessor :token, :rule
-  attr_accessor :refcount, :next, :prev
-
-  def initialize(token, rule=nil, is_head=false)
-    @token = token
-    @rule = rule
-    @rule.refcount += 1 unless @rule.nil?
-
-    @refcount = 0
-    @next = self
-    @prev = self
-    @is_head = is_head
-  end
-
-  def is_head?
-    @is_head
-  end
-
-  #
-  # Add `symbol' to the list after ourselves.
-  #
-  def ins_after(symbol)
-    symbol.prev = self
-    symbol.next = @next
-    @next.prev = symbol
-    @next = symbol  # return symbol
-  end
-
-  #
-  # Add `symbol' to the list before ourselves.
-  #
-  def ins_before(symbol)
-    symbol.next = self
-    symbol.prev = @prev
-    @prev.next = symbol
-    @prev = symbol  # return symbol
-  end
-
-  #
-  # Append `symbol' to a list, asserting that self is a list head.
-  #
-  def append(symbol)
-    raise TypeError unless self.is_head?
-    self.ins_before(symbol)
-    self
-  end
-
-  #
-  # Prepend `symbol' to a list, asserting that self is a list head.
-  #
-  def prepend(symbol)
-    raise TypeError unless self.is_head?
-    self.ins_after(symbol)
-    self
-  end
-
-  #
-  # Splice another list into our list, after self's position.
-  #
-  def splice(head)
-    raise TypeError unless head.is_head?
-    self.next.prev = head.prev
-    head.prev.next = self.next
-    self.next = head.next
-    head.next.prev = self  # return self
-  end
-
-  #
-  # Remove a symbol from the list.
-  #
-  def remove
-    @prev.next = @next
-    @next.prev = @prev
-    self
-  end
-
-  #
-  # Delete a symbol, suggesting that it will not be reused and decrementing the
-  # refcount on any attached rule.
-  #
-  def delete
-    @rule.refcount -= 1 unless @rule.nil?
-    self.remove
-  end
-
-  #
-  # Stringifies a digram, throwing an error if we exceeded the bounds of the
-  # symbol list.
-  #
-  def digram
-    raise RangeError if self.is_head? or self.next.is_head?
-    self.token + '#' + self.next.token
-  end
-end
+require 'list'
 
 #
 # Sequitur instance.
@@ -108,23 +9,24 @@ class Sequitur
   def initialize(input)
     @input = input
     @index = {}
-    @grammar = SymbolNode.new("*", nil, true)
-    @nonterm = '@'
-  end
-
-  def run
-    @grammar.append(SymbolNode.new(@input[0].chr))
-
-    @input[1..-1].each_char do |c|
-      symbol = SymbolNode.new(c)
-      @grammar.append(symbol)
-      process symbol.prev
-    end
-    @grammar
+    @grammar = Rule.new('*')
   end
 
   def gen_nonterm
     @nonterm = @nonterm.succ
+    '~' + @nonterm
+  end
+
+  def run
+    @nonterm = '@'
+    @grammar << (Symb.new @input[0].chr)
+
+    @input[1..-1].each_char do |c|
+      @grammar << (Symb.new c)
+      process @grammar.tail.prev
+    end
+
+    to_cfg @grammar
   end
 
   #
@@ -147,7 +49,8 @@ class Sequitur
     isolate symbol
 
     # Replace the digram with a nonterminal.
-    nonterm = symbol.ins_before SymbolNode.new(rule.token, rule)
+    symbol.ins_before(Symb.new rule.token, rule)
+    nonterm = symbol.prev
     rm.call(symbol, rule)
 
     # Process the new neighbor digrams.
@@ -172,17 +75,22 @@ class Sequitur
   #
   def rule_swap(symbol, rule)
     _replace(symbol, rule) do |symbol, rule|
-      rule.ins_after symbol.next.remove
-      rule.ins_after symbol.remove
+      rule.prepend! symbol.next.remove.value
+      rule.prepend! symbol.remove.value
     end
   end
 
+  #
+  # Inline a rule in place of a nonterminal, decrementing the rule's refcount
+  # and processing the new digrams.
+  #
   def inline(nonterm)
-    return if nonterm.rule.nil? or nonterm.rule.refcount > 1
+    return if nonterm.value.rule.nil? or
+              nonterm.value.rule.refcount > 1
 
     # Splice in the rule to replace the nonterminal.
     left, right = nonterm.prev, nonterm.next
-    nonterm.splice nonterm.rule
+    nonterm.splice_after nonterm.value.rule
     nonterm.delete
 
     # Process the new neighbor digrams.
@@ -190,12 +98,15 @@ class Sequitur
     process right.prev
   end
 
+  #
+  # Main Sequitur loop.
+  #
   def process(symbol)
     # Stringify the digram.
     dg = symbol.digram rescue return
 
     if ARGV[0] == "-v"
-      puts_grammar @grammar
+      puts @grammar
     end
 
     if @index.key? dg
@@ -205,17 +116,18 @@ class Sequitur
                 @index[dg] == symbol.next or
                 @index[dg].next == symbol
 
-      # Check if the other occurence is a complete rule.
+      # Check if the other occurrence is a complete rule.
       if @index[dg].prev == @index[dg].next.next
-        rule = @index[dg].prev
+        rule = @index[dg].prev.list
       else
         # Make a new rule.
-        rule = SymbolNode.new(gen_nonterm, nil, true)
+        rule = Rule.new(gen_nonterm)
 
         # Replace the indexed digram with a nonterminal, and populate the new
         # rule with the removed digram.  This ensures that the rule's digram is
         # the one we index, as desired.
         rule_swap(@index[dg], rule)
+        @index[dg] = rule.head
       end
 
       # Replace the new digram with a nonterminal.
@@ -231,44 +143,89 @@ class Sequitur
       @index[dg] = symbol
     end
   end
-end
 
-def puts_grammar(grammar)
-  rules = [ grammar ]
-  nonterminals = { "*" => true }
+  #
+  # Convert a Sequitur grammar to a cleaner representation.
+  #
+  def to_cfg(rule)
+    rules = [ rule ]
+    nonterminals = { rule.token => true }
 
-  rules.each do |rule|
-    output = rule.token + " => "
-
-    symbol = rule.next
-    until symbol.is_head? do
-      if not symbol.rule.nil?
-        rules << symbol.rule if not nonterminals[symbol.token]
-        nonterminals[symbol.token] = true
+    rules.each do |rule|
+      rule.map do |node|
+        symbol = node.value
+        if not symbol.rule.nil? and not nonterminals[symbol.token]
+          rules << symbol.rule
+          nonterminals[symbol.token] = true
+        end
       end
-
-      if symbol.rule == nil
-        output += symbol.token
-      else
-        output += "~"+symbol.token
-      end
-      symbol = symbol.next
     end
-    puts output
+
+    rules
   end
 
-  puts "\n"
+  #
+  # List of symbols representing a rule.
+  #
+  class Rule < List
+    attr_accessor :token, :refcount
+
+    def initialize(token)
+      @token = token
+      @refcount = 0
+      super()
+    end
+
+    def to_s
+      string = inject(@token + ' => ') do |str, node|
+        str + node.value.token
+      end
+    end
+
+    Node.class_eval do
+      #
+      # Delete a symbol, suggesting that it will not be reused and decrementing the
+      # refcount on any attached rule.
+      #
+      def delete
+        @value.rule.refcount -= 1 unless @value.rule.nil?
+        remove
+      end
+
+      #
+      # Stringifies a digram, throwing an error if we exceeded the bounds of the
+      # symbol list.
+      #
+      def digram
+        raise RangeError if is_guard? or @next.is_guard?
+        @value.token + '#' + @next.value.token
+      end
+    end
+  end
+
+  #
+  # Symbol type.  Nonterminals point to their corresponding rule.
+  #
+  class Symb
+    attr_reader :token, :rule
+
+    def initialize(token, rule=nil)
+      @token = token
+      @rule = rule
+      @rule.refcount += 1 unless @rule.nil?
+    end
+
+    def to_s
+      @token.to_s
+    end
+  end
 end
 
-=begin
 str = "aactgaacatgagagacatagagacag"
 
 puts "Sequitur : [#{str}]\n\n"
-gramm1 = Sequitur.new(str).run
-puts_grammar gramm1
+puts Sequitur.new(str).run
+puts ""
 
 puts "Sequitur : [#{str.reverse}]\n\n"
-gramm2 = Sequitur.new(str.reverse).run
-puts_grammar gramm2
-
-=end
+puts Sequitur.new(str.reverse).run

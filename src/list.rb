@@ -8,7 +8,7 @@ class List
   include Enumerable
 
   def initialize
-    @guard = Node.new nil
+    @guard = GuardNode.new self
     @guard.next = @guard
     @guard.prev = @guard
   end
@@ -68,6 +68,8 @@ class List
     def <=>(node)
       @value <=> node.value
     end
+
+    def is_guard?; false; end
 
     #
     # Insert a new node for `value' after self.
@@ -129,5 +131,15 @@ class List
       @next.prev = @prev
       self
     end
+  end
+
+  class GuardNode < Node
+    def initialize(list)
+      @value = nil
+      @list = list
+    end
+
+    def is_guard?; true; end
+    def list; @list; end
   end
 end
