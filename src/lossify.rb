@@ -29,7 +29,11 @@ module Lossifier
     end
 
     def run
-      while eliminate do; end
+      iters = 1
+      while eliminate do
+        iters += 1
+        puts ("iter:"+iters.to_s)
+      end
       return @cfg
     end
 
@@ -59,6 +63,7 @@ module Lossifier
             else
               @cfg.replace! nonterm1, nonterm2
             end
+            puts (nonterm1)+":"+(nonterm2)
 
             return true
           end
@@ -79,8 +84,10 @@ str = File.read(ARGV[0])
 
 puts "LOSSLESS-----------------------------------------------\n\n"
 cfg = Sequitur.new(str).run
+puts cfg.to_s
 puts cfg.expand + "\n"
 
 puts "LOSSY--------------------------------------------------\n\n"
 cfg = Lossifier::Similarity.new(cfg).run
+puts cfg.to_s
 puts cfg.expand
