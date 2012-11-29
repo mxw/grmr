@@ -1,15 +1,9 @@
-#!/usr/local/bin/ruby
-
 #
 # lossify.rb - CFG lossifier algorithms.
 #
 
 require 'rubygems'
 require 'levenshtein'
-
-require_relative 'list.rb'
-require_relative 'cfg.rb'
-require_relative 'sequitur.rb'
 
 module Lossifier
 
@@ -74,20 +68,3 @@ module Lossifier
     end
   end
 end
-
-if ARGV[0].nil?
-  puts "Usage: ./lossify input-file"
-  exit
-end
-
-str = File.read(ARGV[0])
-
-puts "LOSSLESS-----------------------------------------------\n\n"
-cfg = Sequitur.new(str).run
-puts cfg.to_s
-puts cfg.expand + "\n"
-
-puts "LOSSY--------------------------------------------------\n\n"
-cfg = Lossifier::Similarity.new(cfg).run
-puts cfg.to_s
-puts cfg.expand
