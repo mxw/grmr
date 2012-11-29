@@ -1,4 +1,6 @@
 require "cfg"
+require 'rubygems'
+require 'levenshtein'
 
 # Lossifier algorithm works as follows:
 # > Repeat while there exist similar RHS's above thresh:
@@ -21,18 +23,19 @@ class Lossifier
     # replace bestold with bestnew
     bestold=""
     bestnew=""
-    bestSimilarity = -1
+    bestDifference = 10
     for key1 in keyset
+      rhs1 = @gramm.expandVar(key1).to_s
       for key2 in keyset
         if (key1==key2) then next end
         #rhs1 : GSymbol array
-        rhs1 = @gramm.expandVar(key1)
-        rhs2 = @gramm.expandVar(key2)
+        rhs2 = @gramm.expandVar(key2).to_s
         if (rhs1.size > rhs2.size) then next end
         ## rhs1 <= rhs2 now, no need to double count
-        lcsLen = lcs(rhs1,rhs2).size
-        curSimilarity = Float(lcsLen)/Float(rhs2.size)
-        if curSimilarity > bestSimilarity 
+        ## lcsLen = lcs(rhs1,rhs2).size
+        lDis = Levenshtein.distance(rhs1,rhs2);
+        curDifference = Float(lDis)/Float(rhs2.size)
+        if curDifference < bestDifference 
           varcount = @gramm.countVars()
           # replace with the more common variable, or in the case of ties
           # replace with the shorter variable
@@ -43,12 +46,11 @@ class Lossifier
             bestold = key1
             bestnew = key2
           end
-          bestSimilarity = curSimilarity
+          bestDifference = curDifference
         end
       end
     end
-    if (bestSimilarity > @thresh)
-      puts "replaced "+bestold+" with "+bestnew
+    if (bestDifference < @thresh)
       @gramm.replaceVar(bestold,bestnew)
       return true
     else
