@@ -5,6 +5,8 @@
 require_relative 'list.rb'
 
 class CFG
+  include Enumerable
+
   attr_reader :rules
 
   def initialize(start='*', rules={})
