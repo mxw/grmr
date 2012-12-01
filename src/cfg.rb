@@ -29,7 +29,7 @@ class CFG
   end
 
   def nonterm?(str)
-    str[0].chr == '~'
+    str[0..1] == '~[' && str[-1].chr == ']'
   end
   private :nonterm?
 
@@ -47,13 +47,13 @@ class CFG
   #
   # Expand a rule out to a string of nonterminals.
   #
-  def expand(symbol='*')
+  def expand(symbol='~[*]')
     # Use the cached value if possible.
     return @cache[symbol] if @cache.key? symbol
 
     rhs = @rules[symbol].copy
     loop do
-      nonterm = rhs.find { |node| nonterm? node.value[0] }
+      nonterm = rhs.find { |node| nonterm? node.value }
       break if nonterm.nil?
       nonterm.value = expand nonterm.value
     end

@@ -9,12 +9,12 @@ class Sequitur
   def initialize(input)
     @input = input
     @index = {}
-    @grammar = Rule.new('*')
+    @grammar = Rule.new('~[*]')
   end
 
   def gen_nonterm
     @nonterm = @nonterm.succ
-    '~' + @nonterm
+    '~[' + @nonterm + ']'
   end
 
   def run
