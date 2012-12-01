@@ -168,12 +168,13 @@ class List
   end
 
   class GuardNode < Node
+    attr_reader :list
+
     def initialize(list)
       @value = nil
       @list = list
     end
 
     def is_guard?; true; end
-    def list; @list; end
   end
 end
