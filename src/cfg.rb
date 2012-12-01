@@ -100,7 +100,7 @@ class CFG
   def inline!(nonterm)
     rhs = @rules[nonterm]
     @rules.delete nonterm
-    subst_list! nonterm, rhs.copy
+    subst_list! nonterm, rhs
   end
 
   def inline(nonterm)
@@ -129,10 +129,9 @@ class CFG
   end
 
   #
-  # Substitute all instances of a nonterminal for a sequence of symbols.  The
-  # list is spliced destructively.
+  # Substitute all instances of a nonterminal for a sequence of symbols.
   #
   def subst_list!(nonterm, list)
-    each_nonterm(nonterm) { |node| node.replace_with_before list }
+    each_nonterm(nonterm) { |node| node.replace_with_before list.copy }
   end
 end
