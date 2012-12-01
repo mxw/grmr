@@ -11,6 +11,7 @@ require_relative 'cfg.rb'
 require_relative 'list.rb'
 require_relative 'lossify.rb'
 require_relative 'sequitur.rb'
+require_relative 'graphplot.rb'
 
 USAGE = "Usage: ./main.rb [options] input-file"
 ALGORITHMS = {
@@ -23,6 +24,7 @@ options = OpenStruct.new
 options.algorithms = ALGORITHMS.values
 options.expand = true
 options.print_grammar = false
+options.plot_grammar = false
 options.verbose = false
 
 OptionParser.new do |opts|
@@ -34,6 +36,10 @@ OptionParser.new do |opts|
 
   opts.on("-g", "--[no-]print-grammar", "Print grammar") do |g|
     options.print_grammar = g
+  end
+
+  opts.on("-p", "--[no-]plot-grammar", "Plot grammar") do |p|
+    options.plot_grammar = p
   end
 
   opts.on("-l", "--lossifiers [ALGO1, ALGO2, ...]", Array,
@@ -62,7 +68,9 @@ if ARGV[0].nil?
   exit
 end
 
-str = File.read(ARGV[0])
+fname = ARGV[0]
+ftitle = fname[0..-5]
+str = File.read(fname)
 cfg = Sequitur.new(str).run
 
 def puts_cfg(cfg, options)
@@ -73,8 +81,11 @@ end
 
 puts "Sequitur-----------------------------------------------\n\n"
 puts_cfg cfg, options
+outputCFG(cfg,ftitle+"-orig.png") if options.plot_grammar
 
 options.algorithms.each do |algo|
   puts algo.name + '-' * (55 - algo.name.size) + "\n\n"
-  puts_cfg algo.new(cfg, options.verbose).run, options
+  newcfg = algo.new(cfg, options.verbose).run
+  puts_cfg(newcfg, options)
+  outputCFG(newcfg,ftitle+"-"+algo.name+".png") if options.plot_grammar
 end

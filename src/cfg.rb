@@ -33,7 +33,6 @@ class CFG
   def nonterm?(str)
     str[0..1] == '~[' && str[-1].chr == ']'
   end
-  private :nonterm?
 
   #
   # Deep copy.
