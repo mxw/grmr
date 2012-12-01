@@ -34,7 +34,7 @@ class CFG
   private :nonterm?
 
   #
-  # Shallow copy.
+  # Deep copy.
   #
   def copy
     rules_copy = @rules.inject({}) do |rules_copy, (lhs, rhs)|
