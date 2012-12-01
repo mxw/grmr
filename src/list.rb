@@ -26,10 +26,14 @@ class List
   end
 
   #
-  # Shallow copy.
+  # Copy a list.  By default, the new list nodes are assigned the values of
+  # the existing node values, but an optional block may be passed which deeply
+  # copies the values if desired.
   #
-  def copy
-    inject(self.class.new) { |list, node| list << node.value }
+  def copy(&cp)
+    inject(self.class.new) do |list, node|
+      list << (cp ? cp.call(node.value) : node.value)
+    end
   end
 
   def empty?
@@ -135,6 +139,22 @@ class List
       list.tail.next = self
 
       return
+    end
+
+    #
+    # Replace self in the list with `list' by splicing before; destroys `list'.
+    #
+    def replace_with_before(list)
+      splice_before list
+      remove
+    end
+
+    #
+    # Replace self in the list with `list' by splicing after; destroys `list'.
+    #
+    def replace_with_after(list)
+      splice_after list
+      remove
     end
 
     #
