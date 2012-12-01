@@ -5,7 +5,7 @@
 require_relative 'list.rb'
 
 class CFG
-  attr_accessor :rules
+  attr_reader :rules
 
   def initialize(start='*', rules={})
     @start = start
