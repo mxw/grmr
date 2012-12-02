@@ -9,7 +9,7 @@ class CFG
 
   attr_reader :rules
 
-  def initialize(start='*', rules={})
+  def initialize(start='~[*]', rules={})
     @start = start
     @rules = rules
     @cache = {}
@@ -48,7 +48,7 @@ class CFG
   #
   # Expand a rule out to a string of nonterminals.
   #
-  def expand(symbol='~[*]')
+  def expand(symbol=@start)
     # Use the cached value if possible.
     return @cache[symbol] if @cache.key? symbol
 
@@ -59,8 +59,15 @@ class CFG
       nonterm.value = expand nonterm.value
     end
 
-    rhs = rhs.inject('') { |str, node| str + node.to_s }
-    @cache[symbol] = rhs
+    @cache[symbol] = rhs.join('')
+  end
+
+  #
+  # Expand all rules, returning a hash of expansions.
+  #
+  def expand_all
+    expand
+    @cache
   end
 
   #
@@ -101,6 +108,7 @@ class CFG
   def inline!(nonterm)
     rhs = @rules[nonterm]
     @rules.delete nonterm
+    @cache.delete nonterm
     subst_list! nonterm, rhs
   end
 

@@ -70,6 +70,10 @@ class List
     inject('') { |acc, node| acc + node.to_s + "\n" }
   end
 
+  def join(sep=$,)
+    map(&:to_s).join sep
+  end
+
   private
 
   class Node

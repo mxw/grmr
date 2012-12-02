@@ -179,7 +179,7 @@ class Sequitur
     end
 
     def to_s
-      string = inject(@token + ' => ') { |str, node| str + node.to_s }
+      @token + ' => ' + join('')
     end
 
     Node.class_eval do
