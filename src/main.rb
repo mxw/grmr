@@ -10,6 +10,7 @@ require 'ostruct'
 require_relative 'cfg.rb'
 require_relative 'list.rb'
 require_relative 'lossify.rb'
+require_relative 'reduce.rb'
 require_relative 'sequitur.rb'
 require_relative 'graphplot.rb'
 

@@ -43,7 +43,32 @@ class CFG
       rules_copy[lhs] = rhs.copy
       rules_copy
     end
-    CFG.new @start, rules_copy
+    CFG.new @nonterm, @start, rules_copy
+  end
+
+  #
+  # Add a string as a new rule.
+  #
+  def add_rule(str)
+    nonterm = '~[' + @nonterm.succ! + ']'
+
+    # XXX: Dirty hack.
+    @rules[nonterm] = str.split('~').inject(List.new) do |list, s|
+      list << s[0].chr == '[' && s[-1].chr == ']' ? '~' + seq : seq
+    end
+
+    nonterm
+  end
+
+  #
+  # Iterate over all RHS nonterminal nodes.  If a symbol is provided as
+  # argument, iterates only over matching nonterminals.
+  #
+  def each_nonterm(nonterm=nil)
+    @rules.each do |_, rhs|
+      nodes = rhs.select { |node| nonterm.nil? || node.value == nonterm }
+      nodes.each { |node| yield node }
+    end
   end
 
   #
@@ -69,17 +94,6 @@ class CFG
   def expand_all
     expand
     @cache
-  end
-
-  #
-  # Iterate over all RHS nonterminal symbols.  If a symbol is provided as
-  # argument, iterates only over matching nonterminals.
-  #
-  def each_nonterm(nonterm=nil)
-    @rules.each do |_, rhs|
-      nodes = rhs.select { |node| nonterm.nil? || node.value == nonterm }
-      nodes.each { |node| yield node }
-    end
   end
 
   #
@@ -115,6 +129,48 @@ class CFG
 
   def inline(nonterm)
     copy.inline! nonterm
+  end
+
+  #
+  # Factor out symbol-for-symbol occurrences of the RHS of nonterm from the
+  # target rule.
+  #
+  def factor!(target, nonterm)
+    rhs = @rules[target]
+    seq = @rules[nonterm].join
+
+    # Repeatedly factor out the first occurrence of seq until we're done.
+    until (i = rhs.join.index seq).nil?
+      pos = 0
+      rhs = rhs.inject(List.new) do |list, node|
+        val = node.value
+
+        rel = i - pos
+        if rel >= 0 and rel < val.size
+          # The start of seq is in this node.
+          prefix = val[0...rel]
+          list << prefix if prefix.size > 0
+          list << nonterm
+        end
+
+        rel = i + size - pos
+        if rel >= 0 and rel < val.size
+          # The end of seq is in this node.
+          suffix = val[rel..-1]
+          list << suffix if suffix.size > 0
+        end
+
+        # Increment position pointer.
+        pos += val.size
+      end
+    end
+
+    # Replace the rule with our refactored rule.
+    @rules[target] = rhs
+  end
+
+  def factor(target, nonterm)
+    copy.factor! target, nonterm
   end
 
   #
