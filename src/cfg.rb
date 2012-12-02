@@ -165,7 +165,7 @@ class CFG
           list << suffix if suffix.size > 0
         end
 
-        if pos + val.size <= i and pos >= i + seq.size
+        if pos + val.size <= i or pos >= i + seq.size
           list << val
         end
 
