@@ -13,8 +13,7 @@ class Sequitur
   end
 
   def gen_nonterm
-    @nonterm = @nonterm.succ
-    '~[' + @nonterm + ']'
+    '~[' + @nonterm.succ! + ']'
   end
 
   def run
@@ -151,7 +150,7 @@ class Sequitur
     rules = [rule]
     nonterminals = { rule.token => true }
 
-    rules.inject(CFG.new) do |cfg, rule|
+    rules.inject(CFG.new(@nonterm)) do |cfg, rule|
       cfg[rule.token] = rule.inject(List.new) do |list, node|
         symbol = node.value
 

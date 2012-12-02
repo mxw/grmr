@@ -9,7 +9,8 @@ class CFG
 
   attr_reader :rules
 
-  def initialize(start='~[*]', rules={})
+  def initialize(nonterm, start='~[*]', rules={})
+    @nonterm = nonterm
     @start = start
     @rules = rules
     @cache = {}
