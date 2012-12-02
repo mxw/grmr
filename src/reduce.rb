@@ -22,7 +22,7 @@ class Reducer
                    unify_pairwise,
                    apply_rules,
                    eliminate_duplicates]).any?
-      puts ">   [#{i}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
+      puts ">   [#{i += 1}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
     end
     @cfg
   end
@@ -107,7 +107,7 @@ class Reducer
     match_reduce(
       ->(rhs1, rhs2) {
         s = lcs(rhs1, rhs2)
-        nsymbs(s) >= 2 && s
+        nsymbs(s) >= 2 && nsymbs(rhs1) > 2 && nsymbs(rhs2) > 2 && s
       },
       ->(lhs1, lhs2, seq) {
         nonterm = @cfg.add_rule(seq)

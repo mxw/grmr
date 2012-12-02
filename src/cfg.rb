@@ -149,7 +149,6 @@ class CFG
       pos = 0
       rhs = rhs.inject(List.new) do |list, node|
         val = node.value
-        found = false
 
         rel = i - pos
         if rel >= 0 and rel < val.size
@@ -157,8 +156,6 @@ class CFG
           prefix = val[0...rel]
           list << prefix if prefix.size > 0
           list << nonterm
-
-          found = true
         end
 
         rel = i + seq.size - pos
@@ -166,14 +163,16 @@ class CFG
           # The end of seq is in this node.
           suffix = val[rel..-1]
           list << suffix if suffix.size > 0
+        end
 
-          found = true
+        if pos + val.size <= i and pos >= i + seq.size
+          list << val
         end
 
         # Increment position pointer.
         pos += val.size
 
-        found ? list : list << node.value
+        list
       end
     end
 
