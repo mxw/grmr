@@ -47,15 +47,20 @@ class CFG
   end
 
   #
+  # Returns @rules with RHS's stringified.
+  #
+  def rules_s
+    Hash[rules.map { |lhs, rhs| [lhs, rhs.join('')] }]
+  end
+
+  #
   # Add a string as a new rule.
   #
   def add_rule(str)
     nonterm = '~[' + @nonterm.succ! + ']'
 
-    # XXX: Dirty hack.
-    @rules[nonterm] = str.split('~').inject(List.new) do |list, s|
-      list << s[0].chr == '[' && s[-1].chr == ']' ? '~' + seq : seq
-    end
+    rhs = str.split(/(~\[\w*\])/).select { |s| !s.empty? }
+    @rules[nonterm] = rhs.inject(List.new) { |list, s| list << s }
 
     nonterm
   end
@@ -137,13 +142,14 @@ class CFG
   #
   def factor!(target, nonterm)
     rhs = @rules[target]
-    seq = @rules[nonterm].join
+    seq = @rules[nonterm].join('')
 
     # Repeatedly factor out the first occurrence of seq until we're done.
-    until (i = rhs.join.index seq).nil?
+    until (i = rhs.join('').index seq).nil?
       pos = 0
       rhs = rhs.inject(List.new) do |list, node|
         val = node.value
+        found = false
 
         rel = i - pos
         if rel >= 0 and rel < val.size
@@ -151,17 +157,23 @@ class CFG
           prefix = val[0...rel]
           list << prefix if prefix.size > 0
           list << nonterm
+
+          found = true
         end
 
-        rel = i + size - pos
+        rel = i + seq.size - pos
         if rel >= 0 and rel < val.size
           # The end of seq is in this node.
           suffix = val[rel..-1]
           list << suffix if suffix.size > 0
+
+          found = true
         end
 
         # Increment position pointer.
         pos += val.size
+
+        found ? list : list << node.value
       end
     end
 

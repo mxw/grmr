@@ -8,27 +8,36 @@ require_relative 'util.rb'
 class Reducer
   attr_reader :cfg
 
-  def initialize(cfg)
+  def initialize(cfg, verbose=false)
     @cfg = cfg
+    @verbose = verbose
   end
 
   def run
-    while [
-      eliminate_singletons,
-      unify_internal,
-      unify_pairwise,
-      apply_rules,
-      eliminate_duplicates
-    ].any?; end
+    i = 0
+    puts "> Reduction:" if @verbose
+
+    while (res = [ eliminate_singletons,
+                   unify_internal,
+                   unify_pairwise,
+                   apply_rules,
+                   eliminate_duplicates]).any?
+      puts ">   [#{i}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
+    end
+    @cfg
   end
 
   private
+
+  def nsymbs(s)
+    s.gsub(/~\[\w*\]/, '~').size
+  end
 
   #
   # R1: Eliminate any rules which are used only once in the CFG.
   #
   def eliminate_singletons
-    @cfg.count.inject(false) do |found, (nonterm, count)|
+    @cfg.counts.inject(false) do |found, (nonterm, count)|
       next found if count != 1
       @cfg.inline! nonterm
       true
@@ -42,9 +51,9 @@ class Reducer
   # by making a new rule for them.
   #
   def unify_internal
-    @cfg.rules.each do |(lhs, rhs)|
-      seq = rhs.join[/(.*)(.*)\1/, 1]
-      next if seq.nil?
+    @cfg.rules_s.each do |(lhs, rhs)|
+      seq = rhs[/((?>~\[.*\]|.)*)((?>~\[.*\]|.)*)\1/, 1]
+      next if seq.nil? or nsymbs(seq) < 2
 
       nonterm = @cfg.add_rule(seq)
       @cfg.factor! lhs, nonterm
@@ -55,12 +64,12 @@ class Reducer
   # Loop through pairs of stringified rules, yielding the shorter rule first.
   #
   def each_rule_pair
-    rules = Hash[@cfg.rules.map { |lhs, rhs| [lhs, rhs.join('')] }]
-
-    rules.each_index { |rule1, i| rules.each_index { |rule2, j|
-      next unless j < i
-      yield [rule1, rule2].sort_by { |(_, rhs)| rhs.size }
-    } }
+    @cfg.rules_s.each_with_index do |rule1, i|
+      @cfg.rules_s.each_with_index do |rule2, j|
+        next unless j < i
+        yield [rule1, rule2].sort_by { |(_, rhs)| rhs.size }
+      end
+    end
   end
 
   #
@@ -77,8 +86,8 @@ class Reducer
 
     begin
       each_rule_pair do |(lhs1, rhs1), (lhs2, rhs2)|
-        if (res = match(rhs1, rhs2))
-          reduce(lhs1, lhs2, res)
+        if (res = match.call(rhs1, rhs2))
+          reduce.call(lhs1, lhs2, res)
           found = true
           raise Retry
         end
@@ -98,7 +107,7 @@ class Reducer
     match_reduce(
       ->(rhs1, rhs2) {
         s = lcs(rhs1, rhs2)
-        s.size >= 2 && s
+        nsymbs(s) >= 2 && s
       },
       ->(lhs1, lhs2, seq) {
         nonterm = @cfg.add_rule(seq)
@@ -114,7 +123,7 @@ class Reducer
   #
   def apply_rules
     match_reduce(
-      ->(rhs1, rhs2) { rhs1.size >= 2 and rhs2.include? rhs1 },
+      ->(rhs1, rhs2) { nsymbs(rhs1) >= 2 and rhs2.include? rhs1 },
       ->(lhs1, lhs2, _) { @cfg.factor! lhs2, lhs1 }
     )
   end

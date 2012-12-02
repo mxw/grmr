@@ -24,8 +24,9 @@ ALGORITHMS = {
 options = OpenStruct.new
 options.algorithms = ALGORITHMS.values
 options.expand = true
-options.print_grammar = false
-options.plot_grammar = false
+options.print = false
+options.plot = false
+options.reduce = false
 options.verbose = false
 
 OptionParser.new do |opts|
@@ -36,11 +37,11 @@ OptionParser.new do |opts|
   end
 
   opts.on("-g", "--[no-]print-grammar", "Print grammar") do |g|
-    options.print_grammar = g
+    options.print = g
   end
 
   opts.on("-p", "--[no-]plot-grammar", "Plot grammar") do |p|
-    options.plot_grammar = p
+    options.plot = p
   end
 
   opts.on("-l", "--lossifiers [ALGO1, ALGO2, ...]", Array,
@@ -52,6 +53,10 @@ OptionParser.new do |opts|
 
     raise OptionParser::InvalidArgument unless (algos - ALGORITHMS.keys).empty?
     options.algorithms = algos.uniq.map { |algo| ALGORITHMS[algo] }
+  end
+
+  opts.on("-r", "--[no-]reduce", "Apply grammar reductions") do |r|
+    options.reduce = r
   end
 
   opts.on("-v", "--verbose", "Run verbosely") do |v|
@@ -69,24 +74,27 @@ if ARGV[0].nil?
   exit
 end
 
-fname = ARGV[0]
-ftitle = fname[0..-5]
-str = File.read(fname)
-cfg = Sequitur.new(str).run
-
 def puts_cfg(cfg, options)
-  puts cfg if options.print_grammar
+  puts cfg if options.print
   puts cfg.expand if options.expand
   puts "\n"
 end
 
+str = File.read(ARGV[0])
+fprefix = ARGV[0].rpartition('.').first
+
+cfg = Sequitur.new(str).run
+cfg = Reducer.new(cfg).run if options.reduce
+
 puts "Sequitur-----------------------------------------------\n\n"
 puts_cfg cfg, options
-outputCFG(cfg,ftitle+"-orig.png") if options.plot_grammar
+outputCFG(cfg, fprefix + "-orig.png") if options.plot
 
 options.algorithms.each do |algo|
   puts algo.name + '-' * (55 - algo.name.size) + "\n\n"
-  newcfg = algo.new(cfg, options.verbose).run
-  puts_cfg(newcfg, options)
-  outputCFG(newcfg,ftitle+"-"+algo.name+".png") if options.plot_grammar
+
+  lossy_cfg = algo.new(cfg, options.verbose).run
+  puts_cfg(lossy_cfg, options)
+
+  outputCFG(lossy_cfg, fprefix + "-" + algo.name + ".png") if options.plot
 end

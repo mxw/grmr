@@ -31,7 +31,7 @@ module Lossifier
       1.upto(Float::INFINITY) do |i|
         find, repl = eliminate
         break if find.nil? or repl.nil?
-        puts ">   [#{i.to_s}]".ljust(10) + find + ':' + repl if @verbose
+        puts ">   [#{i}]".ljust(10) + find + ':' + repl if @verbose
       end
       puts "\n" if @verbose
 
