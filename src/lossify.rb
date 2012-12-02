@@ -2,7 +2,6 @@
 # lossify.rb - CFG lossifier algorithms.
 #
 
-require 'rubygems'
 require 'levenshtein'
 
 module Lossifier

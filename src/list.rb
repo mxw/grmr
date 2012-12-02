@@ -21,8 +21,8 @@ class List
     end
   end
 
-  def each_value
-    each { |node| yield node.value }
+  def values
+    map(&:value)
   end
 
   #

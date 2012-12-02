@@ -1,27 +1,26 @@
-require 'rubygems'
+#
+# graphplot.rb - Visualization for grammars.
+#
+
 require 'graphviz'
 
 require_relative 'cfg.rb'
 
-def plotCFG(gr)
-# Create a new graph
-  g = GraphViz.new( :G, :type => :digraph, :ordering => :out )
-  nodes = {}
-  gr.rules.each do |curKey,_|
-    nodes[curKey] = g.add_nodes(curKey)
-  end
-  gr.rules.each do |curKey,curRHS|
-    gn1 = nodes[curKey]
-    curRHS.each_value do |sym|
-      if gr.nonterm? sym then
-        g.add_edges(gn1,nodes[sym])
-      end
-    end
-  end
-  return g
-end
+def plot_cfg(cfg, fname)
+  GraphViz.new(:G, :type => :digraph, :ordering => :out) do |g|
+    cfg.rules.each { |lhs, _| g.add_nodes(lhs) }
 
-def outputCFG(gr,fname)
-  g = plotCFG(gr)
-  g.output(:png => fname)
+    cfg.rules.each do |lhs, rhs|
+      lhs_node = g.get_node(lhs)
+
+      rhs.values.select { |sym|
+        cfg.nonterm? sym
+      }.inject(Hash.new(0)) { |counts, sym|
+        counts[sym] += 1
+        counts
+      }.each { |sym, count|
+        g.add_edges(lhs_node, g.get_node(sym), :weight => count)
+      }
+    end
+  end.output(:png => fname + '.png')
 end

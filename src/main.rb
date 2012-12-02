@@ -74,9 +74,10 @@ if ARGV[0].nil?
   exit
 end
 
-def puts_cfg(cfg, options)
+def output_cfg(cfg, options, plotname)
   puts cfg if options.print
   puts cfg.expand if options.expand
+  plot_cfg cfg, plotname if options.plot
   puts "\n"
 end
 
@@ -87,14 +88,11 @@ cfg = Sequitur.new(str).run
 cfg = Reducer.new(cfg).run if options.reduce
 
 puts "Sequitur-----------------------------------------------\n\n"
-puts_cfg cfg, options
-outputCFG(cfg, fprefix + "-orig.png") if options.plot
+output_cfg cfg, options, fprefix + '-orig'
 
 options.algorithms.each do |algo|
   puts algo.name + '-' * (55 - algo.name.size) + "\n\n"
 
   lossy_cfg = algo.new(cfg, options.verbose).run
-  puts_cfg(lossy_cfg, options)
-
-  outputCFG(lossy_cfg, fprefix + "-" + algo.name + ".png") if options.plot
+  output_cfg lossy_cfg, options, fprefix + '-' + algo.name
 end
