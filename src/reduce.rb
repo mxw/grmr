@@ -44,8 +44,6 @@ class Reducer
     end
   end
 
-  class Retry < StandardError; end
-
   #
   # R2: Unify pairs of substrings (of length at least 2) within a single rule
   # by making a new rule for them.
@@ -71,6 +69,8 @@ class Reducer
       end
     end
   end
+
+  class Retry < StandardError; end
 
   #
   # General method for finding substring matches between pairs of RHS
