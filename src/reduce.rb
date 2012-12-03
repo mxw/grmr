@@ -3,7 +3,6 @@
 #
 
 require_relative 'cfg.rb'
-require_relative 'util.rb'
 
 class Reducer
   attr_reader :cfg
@@ -22,55 +21,76 @@ class Reducer
                    unify_pairwise,
                    apply_rules,
                    eliminate_duplicates]).any?
-      puts ">   [#{i += 1}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
+      if @verbose
+        puts ">   [#{i += 1}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
+      end
     end
     @cfg
   end
 
   private
 
-  def nsymbs(s)
-    s.gsub(/~\[\w*\]/, '~').size
-  end
+  class Retry < StandardError; end
 
   #
-  # R1: Eliminate any rules which are used only once in the CFG.
+  # Convert a string of symbols into a list.
   #
-  def eliminate_singletons
-    @cfg.counts.inject(false) do |found, (nonterm, count)|
-      next found if count != 1
-      @cfg.inline! nonterm
-      true
+  def listify(str)
+    str.split(/(~\[\w*\])/).inject(List.new) do |list, s|
+      if @cfg.nonterm s then
+        list << s
+      else
+        # This also handles the s.empty? case.
+        s.split('').each { |c| list << c }
+      end
+      list
     end
   end
 
   #
-  # R2: Unify pairs of substrings (of length at least 2) within a single rule
-  # by making a new rule for them.
+  # Compute a longest common substring given two lists.
   #
-  def unify_internal
-    @cfg.rules_s.each do |(lhs, rhs)|
-      seq = rhs[/((?>~\[.*\]|.)*)((?>~\[.*\]|.)*)\1/, 1]
-      next if seq.nil? or nsymbs(seq) < 2
+  def lcs(l1, l2)
+    k = z = 0
+    m = Array.new(l1.length + 1){ Array.new(l2.length + 1) { 0 } }
 
-      nonterm = @cfg.add_rule(seq)
-      @cfg.factor! lhs, nonterm
+    l1.values.each_with_index do |symb1, i|
+      l2.values.each_with_index do |symb2, j|
+        if symb1 == symb2
+          m[i + 1][j + 1] = m[i][j] + 1
+          if m[i + 1][j + 1] > z
+            z = m[i + 1][j + 1]
+            k = i - z + 1
+          end
+        end
+      end
+    end
+
+    l1.values.each_with_index.inject(List.new) do |l, (symb, i)|
+      if i >= k and i < k + z then l << symb else l end
     end
   end
 
   #
-  # Loop through pairs of stringified rules, yielding the shorter rule first.
+  # Loop through pairs of rules, yielding the shorter rule first.  We yield the
+  # rule as well as a stringified version to avoid unnecessary operations.
   #
   def each_rule_pair
-    @cfg.rules_s.each_with_index do |rule1, i|
-      @cfg.rules_s.each_with_index do |rule2, j|
+    rules = @cfg.rules.dup
+    rules_s = @cfg.rules_s
+    sizes = Hash[rules.map { |lhs, rhs| [lhs, rhs.size] }]
+
+    rules.each_with_index do |(lhs1, rhs1), i|
+      rules.each_with_index do |(lhs2, rhs2), j|
         next unless j < i
-        yield [rule1, rule2].sort_by { |(_, rhs)| rhs.size }
+
+        rule1 = [lhs1, [rhs1, rules_s[lhs1]]]
+        rule2 = [lhs2, [rhs2, rules_s[lhs2]]]
+
+        yield [rule1, rule2].sort_by { |lhs, _| sizes[lhs] }
       end
     end
   end
-
-  class Retry < StandardError; end
 
   #
   # General method for finding substring matches between pairs of RHS
@@ -100,14 +120,44 @@ class Reducer
   end
 
   #
+  # R1: Eliminate any rules which are used only once in the CFG.
+  #
+  def eliminate_singletons
+    @cfg.counts.inject(false) do |found, (nonterm, count)|
+      next found if count != 1
+      @cfg.inline! nonterm
+      true
+    end
+  end
+
+  #
+  # R2: Unify pairs of substrings (of length at least 2) within a single rule
+  # by making a new rule for them.
+  #
+  def unify_internal
+    @cfg.rules_s.inject(false) do |found, (lhs, rhs)|
+      # XXX: Assumes the ~[.*] format of nonterminals.
+      seq = rhs[/.*((?>~\[\w*\]|.)*)(?>~\[\w*\]|.)*\1.*/, 1]
+      next found if seq.nil?
+
+      seq = listify(seq)
+      next found if seq.size < 2
+
+      nonterm = @cfg.add_rule(seq)
+      @cfg.factor! lhs, nonterm
+      true
+    end
+  end
+
+  #
   # R3: Unify pairs of substrings (of length at least 2) between two different
   # rules by making a new rule for them.
   #
   def unify_pairwise
     match_reduce(
-      ->(rhs1, rhs2) {
-        s = lcs(rhs1, rhs2)
-        nsymbs(s) >= 2 && nsymbs(rhs1) > 2 && nsymbs(rhs2) > 2 && s
+      ->((rhs1, a), (rhs2, b)) {
+        seq = lcs(rhs1, rhs2)
+        seq.size >= 2 && rhs1.size > 2 && rhs2.size > 2 && seq
       },
       ->(lhs1, lhs2, seq) {
         nonterm = @cfg.add_rule(seq)
@@ -123,7 +173,9 @@ class Reducer
   #
   def apply_rules
     match_reduce(
-      ->(rhs1, rhs2) { nsymbs(rhs1) >= 2 and rhs2.include? rhs1 },
+      ->((rhs1, rhs1_s), (_, rhs2_s)) {
+        rhs1.size >= 2 and rhs2_s.include? rhs1_s
+      },
       ->(lhs1, lhs2, _) { @cfg.factor! lhs2, lhs1 }
     )
   end
@@ -134,7 +186,7 @@ class Reducer
   #
   def eliminate_duplicates
     match_reduce(
-      ->(rhs1, rhs2) { rhs1 == rhs2 },
+      ->((_, rhs1_s), (_, rhs2_s)) { rhs1_s == rhs2_s },
       ->(lhs1, lhs2, _) { @cfg.replace! lhs2, lhs1 }
     )
   end

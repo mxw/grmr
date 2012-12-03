@@ -25,6 +25,9 @@ class List
     map(&:value)
   end
 
+  def size; inject(0) { |count, _| count + 1 }; end
+  def length; size; end
+
   #
   # Copy a list.  By default, the new list nodes are assigned the values of
   # the existing node values, but an optional block may be passed which deeply
