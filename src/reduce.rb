@@ -47,7 +47,7 @@ class Reducer
   end
 
   #
-  # Compute a longest common substring given two lists.
+  # Compute a longest common substring given two symbol lists.
   #
   def lcs(l1, l2)
     k = z = 0
@@ -67,6 +67,42 @@ class Reducer
 
     l1.values.each_with_index.inject(List.new) do |l, (symb, i)|
       if i >= k and i < k + z then l << symb else l end
+    end
+  end
+
+  #
+  # Find the longest disjoint substring pair given a symbol list.
+  #
+  def ldsp(l)
+    left_size = l.size / 2
+
+    left, right =
+      l.values.each_with_index.inject([List.new, List.new]) do |(l, r), (v, i)|
+        if i < left_size then [l << v, r] else [l, r << v] end
+      end
+
+    i = size = 0
+    right_s = right.join('')
+
+    catch :done do
+      (1..left_size).reverse_each do |len|
+        left.each_cons(len).each_with_index do |subseq, k|
+          if right_s.include? subseq.join('')
+            i, size = k, len
+            throw :done
+          end
+        end
+      end
+    end
+
+    l.values.each_with_index.inject(List.new) do |list, (symb, k)|
+      break list if k >= i + size
+
+      if k >= i and k < i + size
+        list << symb
+      else
+        list
+      end
     end
   end
 
@@ -134,12 +170,8 @@ class Reducer
   # by making a new rule for them.
   #
   def unify_internal
-    @cfg.rules_s.inject(false) do |found, (lhs, rhs)|
-      # XXX: Assumes the ~[.*] format of nonterminals.
-      seq = rhs[/.*((?>~\[\w*\]|.)*)(?>~\[\w*\]|.)*\1.*/, 1]
-      next found if seq.nil?
-
-      seq = listify(seq)
+    @cfg.rules.dup.inject(false) do |found, (lhs, rhs)|
+      seq = ldsp(rhs)
       next found if seq.size < 2
 
       nonterm = @cfg.add_rule(seq)
@@ -154,7 +186,7 @@ class Reducer
   #
   def unify_pairwise
     match_reduce(
-      ->((rhs1, a), (rhs2, b)) {
+      ->((rhs1, _), (rhs2, _)) {
         seq = lcs(rhs1, rhs2)
         seq.size >= 2 && rhs1.size > 2 && rhs2.size > 2 && seq
       },
