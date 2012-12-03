@@ -1,5 +1,5 @@
 #
-# reduce.rb - Yang and Kieffer's grammar reduction algorithm
+# reduce.rb - Yang and Kieffer's grammar reduction algorithm.
 #
 
 require_relative 'cfg.rb'
