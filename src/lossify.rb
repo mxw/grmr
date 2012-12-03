@@ -82,7 +82,7 @@ module Lossifier
   #
   class Cluster
 
-    def initialize(cfg, verbose=false, epsilon=0.5)
+    def initialize(cfg, verbose=false, epsilon=0.4)
       @cfg = cfg.copy
       @verbose = verbose
       @epsilon = epsilon
