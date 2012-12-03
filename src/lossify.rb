@@ -82,21 +82,32 @@ module Lossifier
   #
   class Cluster
 
-    def initialize(cfg, verbose=false, epsilon=0.4)
+    def initialize(cfg, verbose=false, epsilon=0.5)
       @cfg = cfg.copy
       @verbose = verbose
       @epsilon = epsilon
     end
 
     def run
-      clusters.each do |cluster|
-        counts = @cfg.counts
-        repl_sym = cluster.max_by { |nonterm| counts[nonterm] }
+      verb_loop('Clustering', @verbose) do
+        cs = clusters
+        sizes = cs.map(&:size)
 
-        cluster.each do |find_sym|
-          next if find_sym == repl_sym
-          @cfg.replace! find_sym, repl_sym
+        break if sizes.count(1) == cs.size
+
+        cs.each do |cluster|
+          counts = @cfg.counts
+          repl_sym = cluster.max_by { |nonterm| counts[nonterm] }
+
+          cluster.each do |find_sym|
+            next if find_sym == repl_sym
+            @cfg.replace! find_sym, repl_sym
+          end
         end
+
+        sizes.uniq.sort.reverse.inject([]) do |a, i|
+          a << (i.to_s + ':' + sizes.count(i).to_s)
+        end.join(', ')
       end
 
       @cfg
