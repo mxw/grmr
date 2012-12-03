@@ -81,21 +81,28 @@ def output_cfg(cfg, options, plotname)
   puts "\n"
 end
 
+def reduce_cfg(cfg, options, plotname)
+  cfg = Reducer.new(cfg, options.verbose).run
+  output_cfg cfg, options, plotname + '-red'
+  cfg
+end
+
+def process_cfg(title, options, fprefix)
+  puts title + '-' * (79 - title.size) + "\n\n"
+  cfg = yield
+  output_cfg cfg, options, fprefix + '-' + title
+  reduce_cfg cfg, options, fprefix + '-' + title
+end
+
 str = File.read(ARGV[0])
 fprefix = ARGV[0].rpartition('.').first
 
-puts "Sequitur-----------------------------------------------\n\n"
-
-cfg = Sequitur.new(str).run
-cfg = Reducer.new(cfg, options.verbose).run if options.reduce
-
-output_cfg cfg, options, fprefix + '-orig'
+cfg = process_cfg('Sequitur', options, fprefix) do
+  Sequitur.new(str).run
+end
 
 options.algorithms.each do |algo|
-  puts algo.name + '-' * (55 - algo.name.size) + "\n\n"
-
-  lossy_cfg = algo.new(cfg, options.verbose).run
-  lossy_cfg = Reducer.new(lossy_cfg, options.verbose).run if options.reduce
-
-  output_cfg lossy_cfg, options, fprefix + '-' + algo.name
+  process_cfg(algo.name, options, fprefix) do
+    algo.new(cfg, options.verbose).run
+  end
 end
