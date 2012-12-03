@@ -27,7 +27,7 @@ module Lossifier
     def run
       return @cfg if @cfg.rules.size < 2
 
-      Verb.loop('Elimination', @verbose) do
+      verb_loop('Elimination', @verbose) do
         find, repl = eliminate
         break if find.nil? or repl.nil?
         find + ':' + repl

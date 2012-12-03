@@ -14,7 +14,7 @@ class Reducer
   end
 
   def run
-    Verb.loop('Reduction', @verbose) do
+    verb_loop('Reduction', @verbose) do
       res = [ eliminate_singletons,
               unify_internal,
               unify_pairwise,
