@@ -84,10 +84,11 @@ end
 str = File.read(ARGV[0])
 fprefix = ARGV[0].rpartition('.').first
 
+puts "Sequitur-----------------------------------------------\n\n"
+
 cfg = Sequitur.new(str).run
 cfg = Reducer.new(cfg, options.verbose).run if options.reduce
 
-puts "Sequitur-----------------------------------------------\n\n"
 output_cfg cfg, options, fprefix + '-orig'
 
 options.algorithms.each do |algo|

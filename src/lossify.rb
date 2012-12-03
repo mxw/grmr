@@ -4,6 +4,8 @@
 
 require 'levenshtein'
 
+require_relative 'verb.rb'
+
 module Lossifier
 
   #
@@ -25,14 +27,11 @@ module Lossifier
     def run
       return @cfg if @cfg.rules.size < 2
 
-      puts "> Elimination:" if @verbose
-
-      1.upto(Float::INFINITY) do |i|
+      Verb.loop('Elimination', @verbose) do
         find, repl = eliminate
         break if find.nil? or repl.nil?
-        puts ">   [#{i}]".ljust(10) + find + ':' + repl if @verbose
+        find + ':' + repl
       end
-      puts "\n" if @verbose
 
       @cfg
     end

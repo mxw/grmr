@@ -3,6 +3,7 @@
 #
 
 require_relative 'cfg.rb'
+require_relative 'verb.rb'
 
 class Reducer
   attr_reader :cfg
@@ -13,18 +14,16 @@ class Reducer
   end
 
   def run
-    i = 0
-    puts "> Reduction:" if @verbose
-
-    while (res = [ eliminate_singletons,
-                   unify_internal,
-                   unify_pairwise,
-                   apply_rules,
-                   eliminate_duplicates]).any?
-      if @verbose
-        puts ">   [#{i += 1}]".ljust(10) + res.map { |e| e ? 1 : 0 }.join(', ')
-      end
+    Verb.loop('Reduction', @verbose) do
+      res = [ eliminate_singletons,
+              unify_internal,
+              unify_pairwise,
+              apply_rules,
+              eliminate_duplicates]
+      break unless res.any?
+      res.map { |e| e ? 1 : 0 }.join(', ')
     end
+
     @cfg
   end
 
