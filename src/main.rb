@@ -91,7 +91,7 @@ def process_cfg(title, options, fprefix)
   puts title + '-' * (79 - title.size) + "\n\n"
   cfg = yield
   output_cfg cfg, options, fprefix + '-' + title
-  reduce_cfg cfg, options, fprefix + '-' + title
+  reduce_cfg cfg, options, fprefix + '-' + title if options.reduce
 end
 
 str = File.read(ARGV[0])
