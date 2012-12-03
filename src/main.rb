@@ -95,5 +95,7 @@ options.algorithms.each do |algo|
   puts algo.name + '-' * (55 - algo.name.size) + "\n\n"
 
   lossy_cfg = algo.new(cfg, options.verbose).run
+  lossy_cfg = Reducer.new(lossy_cfg, options.verbose).run if options.reduce
+
   output_cfg lossy_cfg, options, fprefix + '-' + algo.name
 end

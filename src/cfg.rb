@@ -141,9 +141,6 @@ class CFG
     rhs = @rules[target]
     seq = @rules[nonterm].join('')
 
-    puts '0: ' + seq + "\n\n"
-    puts '1: ' + rhs.join + "\n\n"
-
     # Repeatedly factor out the first occurrence of seq until we're done.
     until (i = rhs.join('').index seq).nil?
       pos = 0
@@ -178,7 +175,6 @@ class CFG
 
     # Replace the rule with our refactored rule.
     @rules[target] = rhs
-    puts '2: ' + rhs.join + "\n\n"
   end
 
   def factor(target, nonterm)
