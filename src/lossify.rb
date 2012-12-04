@@ -18,7 +18,7 @@ module Lossifier
   #
   class Similarity
 
-    def initialize(cfg, verbose=false, threshold=0.4)
+    def initialize(cfg, verbose=false, threshold=0.3)
       @cfg = cfg.copy
       @verbose = verbose
       @threshold = threshold
@@ -76,7 +76,7 @@ module Lossifier
   #
   class Cluster
 
-    def initialize(cfg, verbose=false, epsilon=0.4)
+    def initialize(cfg, verbose=false, epsilon=0.3)
       @cfg = cfg.copy
       @verbose = verbose
       @epsilon = epsilon
