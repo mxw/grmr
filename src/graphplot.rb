@@ -19,7 +19,6 @@ def plot_cfg(cfg, fname)
         counts[sym] += 1
         counts
       }.each { |sym, count|
-        puts count.to_s
         g.add_edges(lhs_node, g.get_node(sym), :label => count.to_s)
       }
     end

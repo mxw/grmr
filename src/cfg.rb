@@ -31,6 +31,13 @@ class CFG
     end
   end
 
+  #
+  # Number of symbols in the grammar.
+  #
+  def size
+    @rules.inject(0) { |acc, (lhs, rhs)| acc + rhs.size + 1 }
+  end
+
   def nonterm?(str)
     str[0..1] == '~[' && str[-1].chr == ']'
   end
@@ -179,14 +186,6 @@ class CFG
       rhs.each { |node| counts[node.value] += 1 if nonterm? node.value }
       counts
     end
-  end
-
-  def gsize
-    cur_size = @rules.inject(0) do |acc, (lhs,rhs)|
-      acc += (1+rhs.size)
-      acc
-    end
-    return cur_size
   end
 
   private
