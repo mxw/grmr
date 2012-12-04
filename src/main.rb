@@ -13,6 +13,7 @@ require_relative 'lossify.rb'
 require_relative 'reduce.rb'
 require_relative 'sequitur.rb'
 require_relative 'graphplot.rb'
+require_relative 'fidelity.rb'
 
 USAGE = "Usage: ./main.rb [options] input-file"
 ALGORITHMS = {
@@ -23,7 +24,7 @@ ALGORITHMS = {
 # Default option values.
 options = OpenStruct.new
 options.algorithms = ALGORITHMS.values
-options.expand = true
+options.expand = false
 options.print = false
 options.plot = false
 options.reduce = false
@@ -82,6 +83,7 @@ end
 def output_cfg(cfg, options, plotname)
   puts cfg if options.print
   puts cfg.expand if options.expand
+  puts "Size: %d " % [cfg.size] if options.analysis
   plot_cfg cfg, plotname if options.plot
   puts "\n"
 end
@@ -92,8 +94,8 @@ def reduce_cfg(cfg, options, plotname)
   cfg
 end
 
-#process_cfg purely does printing
-def process_cfg(title, options, fprefix, cfg)
+#process_cfg prints out data on the CFG structure
+def process_cfg(title, options, fprefix, cfg, origstr=nil)
   puts title + '-' * (79 - title.size) + "\n\n"
   output_cfg cfg, options, fprefix + '-' + title
 end
@@ -101,14 +103,24 @@ end
 str = File.read(ARGV[0])
 fprefix = ARGV[0].rpartition('.').first
 
+#output format:
+#Sequitur Grammar Properties
+#Original String Properties
+#Foreach Algorithm:
+#  Grammar Properties
+#  (Reduced Grammar Properties)
+#  Final String Properties
+
 icfg = Sequitur.new(str).run
 process_cfg('Sequitur', options, fprefix, icfg)
+fanalyze(str)
 
 options.algorithms.each do |algo|
   lcfg = algo.new(icfg, options.verbose).run
-  process_cfg(algo.name, options, fprefix, lcfg)
+  process_cfg(algo.name, options, fprefix, lcfg, str)
   if options.reduce
     rlcfg = Reducer.new(lcfg, options.verbose).run
-    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg)
+    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg, str)
   end
+  fanalyze(lcfg.expand,str)
 end
