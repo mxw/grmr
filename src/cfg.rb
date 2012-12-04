@@ -139,42 +139,32 @@ class CFG
   #
   def factor!(target, nonterm)
     rhs = @rules[target]
-    seq = @rules[nonterm].join('')
-
-    # Repeatedly factor out the first occurrence of seq until we're done.
-    until (i = rhs.join('').index seq).nil?
-      pos = 0
-      rhs = rhs.inject(List.new) do |list, node|
-        val = node.value
-
-        rel = i - pos
-        if rel >= 0 and rel < val.size
-          # The start of seq is in this node.
-          prefix = val[0...rel]
-          list << prefix if prefix.size > 0
-          list << nonterm
-        end
-
-        rel = i + seq.size - pos
-        if rel >= 0 and rel < val.size
-          # The end of seq is in this node.
-          suffix = val[rel..-1]
-          list << suffix if suffix.size > 0
-        end
-
-        if pos + val.size <= i or pos >= i + seq.size
-          list << val
-        end
-
-        # Increment position pointer.
-        pos += val.size
-
-        list
-      end
+    seq = @rules[nonterm]
+    seq_a = seq.to_a
+  # counter to make sure not to replace overlapping occurrences
+    offsetwait = 0
+  # pad the RHS to allow each_cons to get to last symbol
+    new_rhs = List.new
+    rhs_pad = rhs.copy
+    for x in (2..seq_a.size)
+      rhs_pad << " "
     end
 
+  # for each candidate sequence in rhs, check to see if we replace
+    rhs_pad.each_cons(seq_a.size) do |rhsseq|
+      if offsetwait == 0 then
+        if rhsseq == seq_a then
+          new_rhs << nonterm
+          offsetwait = seq_a.size-1
+        else
+          new_rhs << rhsseq[0].value
+        end
+      else
+        offsetwait -= 1
+      end
+    end
     # Replace the rule with our refactored rule.
-    @rules[target] = rhs
+    @rules[target] = new_rhs
   end
 
   def factor(target, nonterm)

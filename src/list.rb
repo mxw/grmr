@@ -86,6 +86,10 @@ class List
       @value = value
     end
 
+    def ==(node)
+      @value == node.value
+    end
+
     def <=>(node)
       @value <=> node.value
     end

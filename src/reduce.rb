@@ -107,7 +107,8 @@ class Reducer
   end
 
   #
-  # Loop through pairs of rules, yielding the shorter rule first.  We yield the
+  # Loop through pairs of (lhs,rhs-pair) pairs, yielding the shorter rule first.  
+  # We yield the
   # rule as well as a stringified version to avoid unnecessary operations.
   #
   def each_rule_pair
@@ -131,7 +132,7 @@ class Reducer
   # General method for finding substring matches between pairs of RHS
   # expansions and then reducing.
   #
-  # @param match    Function which takes two RHS's, returning truthy data on
+  # @param match    Function which takes two RHS-pair's, returning truthy data on
   #                 match or falsey on no-match.
   # @param reduce   Function which takes two LHS's and reduces @cfg.
   # @return   True if any matches were made, else false.
@@ -140,8 +141,8 @@ class Reducer
     found = false
 
     begin
-      each_rule_pair do |(lhs1, rhs1), (lhs2, rhs2)|
-        if (res = match.call(rhs1, rhs2))
+      each_rule_pair do |(lhs1, rhsp1), (lhs2, rhsp2)|
+        if (res = match.call(rhsp1, rhsp2))
           reduce.call(lhs1, lhs2, res)
           found = true
           raise Retry
