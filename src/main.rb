@@ -28,9 +28,14 @@ options.print = false
 options.plot = false
 options.reduce = false
 options.verbose = false
+options.analysis = true
 
 OptionParser.new do |opts|
   opts.banner = USAGE
+
+  opts.on("-a", "--[no-]analysis", "Perform final analysis") do |a|
+    options.analysis = a
+  end
 
   opts.on("-e", "--[no-]expand", "Print expansion") do |e|
     options.expand = e
@@ -44,9 +49,9 @@ OptionParser.new do |opts|
     options.plot = p
   end
 
-  opts.on("-l", "--lossifiers [ALGO1, ALGO2, ...]", Array,
+  opts.on("-l", "--lossifiers algo1,algo2,algon", Array,
           "The lossifier algorithms to use") do |algos|
-    if algos = [ 'none' ]
+    if algos == [ 'none' ]
       options.algorithms = []
       next
     end
@@ -87,29 +92,23 @@ def reduce_cfg(cfg, options, plotname)
   cfg
 end
 
-def process_cfg(title, options, fprefix)
+#process_cfg purely does printing
+def process_cfg(title, options, fprefix, cfg)
   puts title + '-' * (79 - title.size) + "\n\n"
-
-  cfg = yield
   output_cfg cfg, options, fprefix + '-' + title
-
-  if options.reduce
-    puts '-' * 70 + "(Reduced)\n\n"
-    reduce_cfg cfg, options, fprefix + '-' + title
-  else
-    cfg
-  end
 end
 
 str = File.read(ARGV[0])
 fprefix = ARGV[0].rpartition('.').first
 
-cfg = process_cfg('Sequitur', options, fprefix) do
-  Sequitur.new(str).run
-end
+icfg = Sequitur.new(str).run
+process_cfg('Sequitur', options, fprefix, icfg)
 
 options.algorithms.each do |algo|
-  process_cfg(algo.name, options, fprefix) do
-    algo.new(cfg, options.verbose).run
+  lcfg = algo.new(icfg, options.verbose).run
+  process_cfg(algo.name, options, fprefix, lcfg)
+  if options.reduce
+    rlcfg = Reducer.new(lcfg, options.verbose).run
+    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg)
   end
 end

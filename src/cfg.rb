@@ -181,6 +181,14 @@ class CFG
     end
   end
 
+  def gsize
+    cur_size = @rules.inject(0) do |acc, (lhs,rhs)|
+      acc += (1+rhs.size)
+      acc
+    end
+    return cur_size
+  end
+
   private
 
   #
