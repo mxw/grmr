@@ -144,6 +144,10 @@ class CFG
     # Counter to make sure not to replace overlapping occurrences.
     offsetwait = 0
 
+    # Pad rhs with empty strings so that we append any trailing characters when
+    # we loop over subsequences.
+    (seq.size - 1).times { rhs << '' }
+
     # Check each subsequence in the target rule against nonterm's RHS,
     # replacing any non-overlapping instances.
     @rules[target] = rhs.each_cons(seq.size).inject(List.new) do |l, subseq|
