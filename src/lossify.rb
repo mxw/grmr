@@ -54,15 +54,9 @@ module Lossifier
           if dist < @threshold
             counts = @cfg.counts
 
-            # Replace the less common variable, or, in the case of a tie,
-            # the variable with the longer rule.
-            if counts[nonterm1] >= counts[nonterm2]
-              @cfg.replace! nonterm2, nonterm1
-              ret = [nonterm2, nonterm1]
-            else
-              @cfg.replace! nonterm1, nonterm2
-              ret = [nonterm1, nonterm2]
-            end
+            # replace longer rule with shorter rule
+            @cfg.replace! nonterm2, nonterm1
+            ret = [nonterm2, nonterm1]
 
             return ret
           end
