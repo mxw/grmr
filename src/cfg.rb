@@ -35,7 +35,7 @@ class CFG
   # Number of symbols in the grammar.
   #
   def size
-    @rules.inject(0) { |acc, (lhs, rhs)| acc + rhs.size + 1 }
+    @rules.inject(0) { |acc, (lhs, rhs)| acc + rhs.size }
   end
 
   def nonterm?(str)

@@ -29,7 +29,7 @@ options.print = false
 options.plot = false
 options.reduce = false
 options.verbose = false
-options.analysis = true
+options.analysis = false
 
 OptionParser.new do |opts|
   opts.banner = USAGE
@@ -96,8 +96,9 @@ def reduce_cfg(cfg, options, plotname)
 end
 
 #process_cfg prints out data on the CFG structure
-def process_cfg(title, options, fprefix, cfg)
+def process_cfg(title, options, fprefix, time, cfg)
   puts title + '-' * (79 - title.size) + "\n\n"
+  puts "Time: %f" % [time]
   output_cfg cfg, options, fprefix + '-' + title
 end
 
@@ -112,16 +113,22 @@ fprefix = ARGV[0].rpartition('.').first
 #  (Reduced Grammar Properties)
 #  Final String Properties
 
+t1 = Time.now
 icfg = Sequitur.new(str).run
-process_cfg('Sequitur', options, fprefix, icfg)
-fanalyze(str)
+t2 = Time.now
+process_cfg('Sequitur', options, fprefix, t2-t1, icfg)
+fanalyze(str) if options.analysis
 
 options.algorithms.each do |algo|
+  t1 = Time.now
   lcfg = algo.new(icfg, options.verbose).run
-  process_cfg(algo.name, options, fprefix, lcfg)
+  t2 = Time.now
+  process_cfg(algo.name, options, fprefix, t2-t1, lcfg)
   if options.reduce
+    t1 = Time.now
     rlcfg = Reducer.new(lcfg, options.verbose).run
-    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg)
+    t2 = Time.now
+    process_cfg(algo.name+" Reduced", options, fprefix, t2-t1, rlcfg)
   end
-  fanalyze(lcfg.expand,str)
+  fanalyze(lcfg.expand,str) if options.analysis
 end
