@@ -83,7 +83,8 @@ end
 def output_cfg(cfg, options, plotname)
   puts cfg if options.print
   puts cfg.expand if options.expand
-  puts "Size: %d " % [cfg.size] if options.analysis
+  puts "Rules: %d" % [cfg.rules.size] if options.analysis
+  puts "Size: %d" % [cfg.size] if options.analysis
   plot_cfg cfg, plotname if options.plot
   puts "\n"
 end
@@ -95,7 +96,7 @@ def reduce_cfg(cfg, options, plotname)
 end
 
 #process_cfg prints out data on the CFG structure
-def process_cfg(title, options, fprefix, cfg, origstr=nil)
+def process_cfg(title, options, fprefix, cfg)
   puts title + '-' * (79 - title.size) + "\n\n"
   output_cfg cfg, options, fprefix + '-' + title
 end
@@ -117,10 +118,10 @@ fanalyze(str)
 
 options.algorithms.each do |algo|
   lcfg = algo.new(icfg, options.verbose).run
-  process_cfg(algo.name, options, fprefix, lcfg, str)
+  process_cfg(algo.name, options, fprefix, lcfg)
   if options.reduce
     rlcfg = Reducer.new(lcfg, options.verbose).run
-    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg, str)
+    process_cfg(algo.name+" Reduced", options, fprefix, rlcfg)
   end
   fanalyze(lcfg.expand,str)
 end
