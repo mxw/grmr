@@ -139,32 +139,26 @@ class CFG
   #
   def factor!(target, nonterm)
     rhs = @rules[target]
-    seq = @rules[nonterm]
-    seq_a = seq.to_a
-  # counter to make sure not to replace overlapping occurrences
-    offsetwait = 0
-  # pad the RHS to allow each_cons to get to last symbol
-    new_rhs = List.new
-    rhs_pad = rhs.copy
-    for x in (2..seq_a.size)
-      rhs_pad << " "
-    end
+    seq = @rules[nonterm].to_a
 
-  # for each candidate sequence in rhs, check to see if we replace
-    rhs_pad.each_cons(seq_a.size) do |rhsseq|
-      if offsetwait == 0 then
-        if rhsseq == seq_a then
-          new_rhs << nonterm
-          offsetwait = seq_a.size-1
-        else
-          new_rhs << rhsseq[0].value
-        end
-      else
+    # Counter to make sure not to replace overlapping occurrences.
+    offsetwait = 0
+
+    # Check each subsequence in the target rule against nonterm's RHS,
+    # replacing any non-overlapping instances.
+    @rules[target] = rhs.each_cons(seq.size).inject(List.new) do |l, subseq|
+      if offsetwait > 0 then
         offsetwait -= 1
+        next l
+      end
+
+      if subseq == seq then
+        offsetwait = seq.size - 1
+        l << nonterm
+      else
+        l << subseq.first.value
       end
     end
-    # Replace the rule with our refactored rule.
-    @rules[target] = new_rhs
   end
 
   def factor(target, nonterm)

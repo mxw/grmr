@@ -94,7 +94,7 @@ def process_cfg(title, options, fprefix)
   output_cfg cfg, options, fprefix + '-' + title
 
   if options.reduce
-    puts "Reduced Version"
+    puts '-' * 70 + "(Reduced)\n\n"
     reduce_cfg cfg, options, fprefix + '-' + title
   else
     cfg
