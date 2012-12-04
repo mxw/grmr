@@ -18,7 +18,7 @@ module Lossifier
   #
   class Similarity
 
-    def initialize(cfg, verbose=false, threshold=0.5)
+    def initialize(cfg, verbose=false, threshold=0.4)
       @cfg = cfg.copy
       @verbose = verbose
       @threshold = threshold
@@ -92,12 +92,16 @@ module Lossifier
       verb_loop('Clustering', @verbose) do
         cs = clusters
         sizes = cs.map(&:size)
+        sym_expand_len = @cfg.rules.inject(Hash.new(0)) do |lens, (lhs,_)|
+          lens[lhs] = @cfg.expand(lhs).size
+          lens
+        end
 
         break if sizes.count(1) == cs.size
 
         cs.each do |cluster|
           counts = @cfg.counts
-          repl_sym = cluster.max_by { |nonterm| counts[nonterm] }
+          repl_sym = cluster.min_by { |nonterm| sym_expand_len[nonterm] }
 
           cluster.each do |find_sym|
             next if find_sym == repl_sym

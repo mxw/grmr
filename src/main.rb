@@ -128,7 +128,7 @@ options.algorithms.each do |algo|
     t1 = Time.now
     rlcfg = Reducer.new(lcfg, options.verbose).run
     t2 = Time.now
-    process_cfg(algo.name+" Reduced", options, fprefix, t2-t1, rlcfg)
+    process_cfg(algo.name+"-Reduced", options, fprefix, t2-t1, rlcfg)
   end
   fanalyze(lcfg.expand,str) if options.analysis
 end
