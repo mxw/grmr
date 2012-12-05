@@ -1,0 +1,7 @@
+digraph G{
+  rankdir = LR;
+  abcd [shape=box];
+  S -> A;
+  S -> A;
+  A -> abcd;
+}
