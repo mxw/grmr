@@ -30,9 +30,14 @@ options.plot = false
 options.reduce = false
 options.verbose = false
 options.analysis = false
+options.thresh = 0.4
 
 OptionParser.new do |opts|
   opts.banner = USAGE
+
+  opts.on("--t N", Float, "Threshold level") do |t|
+    options.thresh = t
+  end
 
   opts.on("-a", "--[no-]analysis", "Perform final analysis") do |a|
     options.analysis = a
@@ -121,7 +126,7 @@ fanalyze(str) if options.analysis
 
 options.algorithms.each do |algo|
   t1 = Time.now
-  lcfg = algo.new(icfg, options.verbose).run
+  lcfg = algo.new(icfg, options.verbose, options.thresh).run
   t2 = Time.now
   process_cfg(algo.name, options, fprefix, t2-t1, lcfg)
   if options.reduce

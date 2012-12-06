@@ -271,7 +271,7 @@ and sentence level structure but with little obvious large-scale repetition.
 One set of test data was constructed by repeating the same letter `a' n-times
 but then adding some
 texture to the data by changing 1/30 of the characters uniformly
-to `a'. Call these test-cases \emph{rep-n}
+to `*'. Call these test-cases \emph{rep-n}
 Another set of test data was constructed from the first n characters of the
 book of Genesis from the KJV. Call these test-cases \emph{gen-n}
 
@@ -294,6 +294,7 @@ rep-100   & 0.006 & 18/34    & 0.713 & 0.002 & 20/34    & 0.535\\
 rep-400   & 0.028 & 45/76    & 0.269 & 0.009 & 41/76    & 0.743\\
 rep-1600  & 0.355 & 103/194  & 0.873 & 0.042 & 103/194  & 0.804\\
 rep-6400  & 3.978 & 258/448  & 0.706 & 0.203 & 256/448  & 0.869\\
+rep-12800
 rep-25600 & 135.0 & 900/1482 & 0.829 & 2.906 & 898/1482 & 0.725\\
 \end{tabular}
 \caption{$\epsilon = .4$}
@@ -307,6 +308,7 @@ rep-100   & 0.002 & 30/34    & 0.040 & 0.002 & 30/34    & 0.040\\
 rep-400   & 0.019 & 60/76    & 0.035 & 0.009 & 60/76    & 0.035\\
 rep-1600  & 0.350 & 123/194  & 0.355 & 0.055 & 123/194  & 0.206\\
 rep-6400  & 3.942 & 280/448  & 0.387 & 0.295 & 274/448  & 0.543\\
+rep-12800  
 rep-25600 & 124.5 & 922/1482 & 0.565 & 2.597 & 926/1482 & 0.437\\
 \end{tabular}
 \caption{$\epsilon = .2$}
@@ -314,7 +316,8 @@ rep-25600 & 124.5 & 922/1482 & 0.565 & 2.597 & 926/1482 & 0.437\\
 
 TODO: Fill in results for $\epsilon = .1$
 
-TODO: Runtime graphs and regression
+TODO: Runtime graphs and regression. The exponents are about 1.8 and 1.3
+respectively, note that the rulesize of sequitur grows at about sqrt(n)
 
 Qualitatively the output strings generally are strings of a's with interspersed
 `*' as expected, but the length of the final output varies widely.
@@ -323,6 +326,9 @@ Things to mention: Compression ratios and fidelity comparable for similarity
 and cluster. Cluster has much better growth rate. Smaller epsilon provide
 much better value/cost ratio as the input files get bigger for highly
 repetitive files.
+
+TODO: Analogous for genesis
+> Growth rate for similarity is far worse for genesis
 
 Thus, we see that similarity provides no consistent advantage over cluster
 and has much less scalable performance, with an estimated running time of 
@@ -334,7 +340,7 @@ see how much reducer helps (it shouldn't help too much)
 notice how slow it is
 
 \subsection{Larger Tests}
-Final compression ratios on benchmark data
+Final compression ratios on various benchmark data
 ASCII ART =p
 Our Code
 
