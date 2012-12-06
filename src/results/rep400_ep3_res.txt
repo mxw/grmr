@@ -1,0 +1,53 @@
+Sequitur-----------------------------------------------------------------------
+
+Time: 0.026749
+aaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaa*aaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaa*aaaaaaaaaaaaaaa*aa*aaaaaaaa*aaaaaaaaaaaaaaaaaaaaaa*aaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 21
+Size: 76
+
+Final String Statistics
+Total Length:      401
+Avg Word Length:   400.000000
+Entropy:           72
+1-grams:
+number: 3.0; min: 1; max: 386; median: 14.0; mean: 133.66666666666666; stddev: 178.50552434650928;
+2-grams:
+number: 4.0; min: 1; max: 371; median: 14.0; mean: 100.0; stddev: 156.55190832436378;
+3-grams:
+number: 5.0; min: 1; max: 356; median: 14.0; mean: 79.8; stddev: 138.19175083918722;
+Lossifier::Similarity----------------------------------------------------------
+
+Time: 0.027113
+aaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 7
+Size: 48
+
+Final String Statistics
+Total Length:      269
+Distance:          0.329177
+Avg Word Length:   268.000000
+Entropy:           53
+1-grams:
+number: 3.0; min: 1; max: 264; median: 4.0; mean: 89.66666666666667; stddev: 123.27836612948582;
+2-grams:
+number: 4.0; min: 1; max: 259; median: 4.0; mean: 67.0; stddev: 110.85801730141127;
+3-grams:
+number: 5.0; min: 1; max: 254; median: 4.0; mean: 53.4; stddev: 100.30672958480902;
+Lossifier::Cluster-------------------------------------------------------------
+
+Time: 0.009375
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 6
+Size: 45
+
+Final String Statistics
+Total Length:      242
+Distance:          0.396509
+Avg Word Length:   241.000000
+Entropy:           48
+1-grams:
+number: 3.0; min: 1; max: 240; median: 1.0; mean: 80.66666666666667; stddev: 112.66568046905657;
+2-grams:
+number: 4.0; min: 1; max: 238; median: 1.0; mean: 60.25; stddev: 102.62401034845598;
+3-grams:
+number: 5.0; min: 1; max: 236; median: 1.0; mean: 48.0; stddev: 94.0;

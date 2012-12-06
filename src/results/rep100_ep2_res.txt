@@ -1,0 +1,53 @@
+Sequitur-----------------------------------------------------------------------
+
+Time: 0.005235
+aaaaaaaaaaaaaaaaa**aaaaaaaaaaaaaaaa*aa*aaa*aaaaaaa*aaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 10
+Size: 34
+
+Final String Statistics
+Total Length:      101
+Avg Word Length:   100.000000
+Entropy:           54
+1-grams:
+number: 3.0; min: 1; max: 93; median: 7.0; mean: 33.666666666666664; stddev: 42.02644669993196;
+2-grams:
+number: 5.0; min: 1; max: 86; median: 6.0; mean: 20.0; stddev: 33.075670817082454;
+3-grams:
+number: 7.0; min: 1; max: 79; median: 5.0; mean: 14.142857142857142; stddev: 26.567588048106238;
+Lossifier::Similarity----------------------------------------------------------
+
+Time: 0.001712
+aaaaaaaaaaaaaaaa**aaaaaaaaaaaaaaa*aa*aaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 8
+Size: 30
+
+Final String Statistics
+Total Length:      99
+Distance:          0.039604
+Avg Word Length:   98.000000
+Entropy:           53
+1-grams:
+number: 3.0; min: 1; max: 93; median: 5.0; mean: 33.0; stddev: 42.45782220824175;
+2-grams:
+number: 5.0; min: 1; max: 88; median: 4.0; mean: 19.6; stddev: 34.226305672683985;
+3-grams:
+number: 7.0; min: 1; max: 83; median: 3.0; mean: 13.857142857142858; stddev: 28.25611727158043;
+Lossifier::Cluster-------------------------------------------------------------
+
+Time: 0.002023
+aaaaaaaaaaaaaaaa**aaaaaaaaaaaaaaa*aa*aaaaaaaaaaaaaaaaaa*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Rules: 8
+Size: 30
+
+Final String Statistics
+Total Length:      99
+Distance:          0.039604
+Avg Word Length:   98.000000
+Entropy:           53
+1-grams:
+number: 3.0; min: 1; max: 93; median: 5.0; mean: 33.0; stddev: 42.45782220824175;
+2-grams:
+number: 5.0; min: 1; max: 88; median: 4.0; mean: 19.6; stddev: 34.226305672683985;
+3-grams:
+number: 7.0; min: 1; max: 83; median: 3.0; mean: 13.857142857142858; stddev: 28.25611727158043;

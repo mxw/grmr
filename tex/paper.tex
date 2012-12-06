@@ -182,7 +182,8 @@ An alternative algorithm would be to try to replace similar variables in
 parallel. This would avoid many of the repeat pair-comparisons done in
 \emph{Similarity}. In other words, the algorithm below makes puts 
 similar variables
-into equivalence class clusters, and then replaces them with a representative
+into equivalence class clusters, and then replaces each variable
+in a cluster them with a representative
 all at once each iteration.
 
 \begin{algorithm}
@@ -219,16 +220,131 @@ Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Na
 
 \section{Results}
 \subsection{Illustrative Examples}
-Qualitative, show off diagrams and detailed metrics for small examples
+It is useful to look at how the algorithm functions on a small piece of
+data with both plenty of hierarchical structure, and also some messiness
+that most lossless compression schemes would not deal well with. Take
+the string below, similar to what one might come across in a math
+puzzle book.
+
+\begin{verbatim}
+123,124,123 + 321,323,321 = ???
+124,123,123 + 321,3231,321 = ????
+--
+124,123,123 + 321,3231,321 = ????
+123,124,123 + 321,323,321 = ????
+\end{verbatim}
+
+Disregarding its meaning, it consists of four very similar equations of the
+form $a + b = ?$, and on a smaller scale each term consists of
+3 repetitions of approximately the same string of either $123$ or $321$.
+
+Sequitur yields a relatively complicated inferred grammar with 13 rules and
+a size of 51. Both the Similarity and Clustering Algorithms with $\epsilon = .4$
+, yield the following grammar after reduction. It has 5 rules and is almost
+half the size, at 30.
+
+\begin{verbatim}
+~[*] => ~[BC]--~[BC]?
+
+~[AZ] => ~[A]3~[A]~[A] + ~[C]~[C]3~[C]1 = ???
+~[A] => 12
+~[BC] => ~[AZ]~[AZ]
+~[C] => 32
+-----------------------
+1231212 + 32323321 = ???1231212 + 32323321 = ???--(cont.)
+1231212 + 32323321 = ???1231212 + 32323321 = ????
+\end{verbatim}
+
+
+The lossifier algorithm reduced the string to a pair of
+pairs of the same equations, where each equation consists of the
+sum of triples of "12" or "32". Smaller discrepencies
+in the numbers involved were dropped, while the filler
+commas and linebreaks also ended
+up being lost. Note that the structure described is easily
+observable from the grammar generated.
+
 \subsection{Similarity vs Clustering}
-Fixed compression ratio + fidelity comparison for different ratios
-Show the runtime difference
+For most of our benchmark tests, we focused on two extreme kinds of data:
+one with large amounts of repetition at all levels, and one with a word
+and sentence level structure but with little obvious large-scale repetition.
+One set of test data was constructed by repeating the same letter `a' n-times
+but then adding some
+texture to the data by changing 1/30 of the characters uniformly
+to `a'. Call these test-cases \emph{rep-n}
+Another set of test data was constructed from the first n characters of the
+book of Genesis from the KJV. Call these test-cases \emph{gen-n}
+
+For our first suite of tests, we compare the effectiveness of the
+\emph{Similarity} and \emph{Cluster} algorithms. We might expect
+Similarity to achieve better quality at the same compression ratio
+since it updates the state of the grammar between each variable
+replacement, on the other hand since it must update the grammar
+it has the potential to run much more slowly than Cluster.
+
+We don't report the running times for just \Sequitur since its linear
+running time is negligible compared to our algorithms for all but the
+smallest input data.
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+rep-100   & 0.006 & 18/34    & 0.713 & 0.002 & 20/34    & 0.535\\
+rep-400   & 0.028 & 45/76    & 0.269 & 0.009 & 41/76    & 0.743\\
+rep-1600  & 0.355 & 103/194  & 0.873 & 0.042 & 103/194  & 0.804\\
+rep-6400  & 3.978 & 258/448  & 0.706 & 0.203 & 256/448  & 0.869\\
+rep-25600 & 135.0 & 900/1482 & 0.829 & 2.906 & 898/1482 & 0.725\\
+\end{tabular}
+\caption{$\epsilon = .4$}
+\end{table}
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+rep-100   & 0.002 & 30/34    & 0.040 & 0.002 & 30/34    & 0.040\\
+rep-400   & 0.019 & 60/76    & 0.035 & 0.009 & 60/76    & 0.035\\
+rep-1600  & 0.350 & 123/194  & 0.355 & 0.055 & 123/194  & 0.206\\
+rep-6400  & 3.942 & 280/448  & 0.387 & 0.295 & 274/448  & 0.543\\
+rep-25600 & 124.5 & 922/1482 & 0.565 & 2.597 & 926/1482 & 0.437\\
+\end{tabular}
+\caption{$\epsilon = .2$}
+\end{table}
+
+TODO: Fill in results for $\epsilon = .1$
+
+TODO: Runtime graphs and regression
+
+Qualitatively the output strings generally are strings of a's with interspersed
+`*' as expected, but the length of the final output varies widely.
+
+Things to mention: Compression ratios and fidelity comparable for similarity
+and cluster. Cluster has much better growth rate. Smaller epsilon provide
+much better value/cost ratio as the input files get bigger for highly
+repetitive files.
+
+Thus, we see that similarity provides no consistent advantage over cluster
+and has much less scalable performance, with an estimated running time of 
+BLAH. For the rest of the paper we will only test Cluster.
+
 \subsection{Grammar Reduction Impact}
+benchmark two extreme test cases again, with and without reducer
+see how much reducer helps (it shouldn't help too much)
+notice how slow it is
+
 \subsection{Larger Tests}
+Final compression ratios on benchmark data
+ASCII ART =p
+Our Code
 
 \section{Conclusions}
 \subsection{Ratios and Fidelity}
 \subsection{Future Work}
+> Better ways to set epsilon to maximize value / cost for different size and types
+> Better ways to quantify preservation of hierarchies
+> How to find near `self-similarities' that aren't captured by a rule
+> Iterating lossify and reduce in a cycle
 
 \nocite{*}
 
