@@ -45,14 +45,13 @@ end
 # Perform some statistical analysis on a string.  If a second string is
 # supplied as an argument, we compare `s' against it.
 #
-def fanalyze(s, s2=nil)
-  puts "Final String Statistics"
-  puts ("Total Length:      %d" % [s.size])
-  puts ("Distance:          %f" %
-        [Levenshtein.distance(s, s2).to_f / s2.size.to_f]) if s2 != nil
-  puts ("Avg Word Length:   %f" % [avgwordlen(s)])
-  puts ("Entropy:           %d" % [entropy(s)])
-  (1..3).map do |i|
-    puts ("%d-grams:\n%s" % [i, ngrams(s, i).indent(4)])
+def fanalyze(s1, s2=nil)
+  res =  "Total Length:      %d\n" % [s1.size]
+  res += "Distance:          %f\n" %
+         [Levenshtein.distance(s1, s2).to_f / s2.size.to_f] if s2 != nil
+  res += "Avg Word Length:   %f\n" % [avgwordlen(s1)]
+  res += "Entropy:           %d\n" % [entropy(s1)]
+  (1..3).inject(res) do |res, i|
+    res + "%d-grams:\n%s\n" % [i, ngrams(s1, i).indent(4)]
   end
 end

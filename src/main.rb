@@ -85,12 +85,14 @@ if ARGV[0].nil?
   exit
 end
 
+#
+# Print out a CFG based on the supplied options.
+#
 def output_cfg(title, time, cfg)
   time = '[' + time.to_s + 's]'
   puts title + '-' * (79 - (title.size + time.size)) + time + "\n\n"
 
-  puts cfg if @options.print
-  puts "\n"
+  puts cfg, "\n" if @options.print
 
   if @options.analysis
     puts ("Rules:             %d" % [cfg.rules.size])
@@ -98,12 +100,26 @@ def output_cfg(title, time, cfg)
     puts "\n"
   end
 
-  puts cfg.expand if @options.expand
-  puts "\n"
+  puts cfg.expand, "\n" if @options.expand
 
   plot_cfg cfg, @fprefix + '-' + title if @options.plot
 end
 
+#
+# Print out fidelity analysis.
+#
+def output_stats(title, s1, s2=nil)
+  return unless @options.analysis
+
+  title += '-Stats'
+  puts title + '-' * (79 - title.size) + "\n\n"
+
+  puts fanalyze(s1, s2), "\n"
+end
+
+#
+# Time a computation.
+#
 def time
   t1 = Time.now
   res = yield
@@ -116,7 +132,7 @@ str = File.read(ARGV[0])
 
 icfg, t = time { Sequitur.new(str).run }
 output_cfg 'Sequitur', t, icfg
-fanalyze str if @options.analysis
+output_stats 'Sequitur', str
 
 @options.algorithms.each do |algo|
   lcfg, t = time { algo.new(icfg, @options.verbose, @options.thresh).run }
@@ -124,8 +140,8 @@ fanalyze str if @options.analysis
 
   if @options.reduce
     rlcfg, t = time { Reducer.new(lcfg, @options.verbose).run }
-    output_cfg algo.name + "-Reduced", t, rlcfg
+    output_cfg algo.name + '-Reduced', t, rlcfg
   end
 
-  fanalyze lcfg.expand, str if @options.analysis
+  output_stats algo.name, lcfg.expand, str
 end
