@@ -1,14 +1,13 @@
-#!/usr/local/bin/ruby
-
 #
 # fidelity.rb - Analysis framework for comparing the fidelity between a string
 # and its compressed output.
 #
 
-require 'rubygems'
 require 'bzip2'
 require 'descriptive_statistics'
 require 'levenshtein'
+
+require_relative 'util.rb'
 
 module Enumerable
   def stats
@@ -23,7 +22,7 @@ module Enumerable
 
   def stats_s
     stats.inject('') do |s, (k, v)|
-      s + "%2s " % (k.to_s + ':') + v.to_s + "; "
+      s + "%2s " % (k.to_s + ':') + v.to_s + "\n"
     end.chop
   end
 end
@@ -42,16 +41,18 @@ def ngrams(s, n)
   nmap.values.stats_s
 end
 
-# Print outputs that depend on the final string
-# s is processed string, s2 is optional original string
-def fanalyze(s,s2=nil)
+#
+# Perform some statistical analysis on a string.  If a second string is
+# supplied as an argument, we compare `s' against it.
+#
+def fanalyze(s, s2=nil)
   puts "Final String Statistics"
   puts ("Total Length:      %d" % [s.size])
-  puts ("Distance:          %f" % 
-          [Levenshtein.distance(s,s2).to_f/s2.size.to_f]) if s2!=nil
+  puts ("Distance:          %f" %
+        [Levenshtein.distance(s, s2).to_f / s2.size.to_f]) if s2 != nil
   puts ("Avg Word Length:   %f" % [avgwordlen(s)])
   puts ("Entropy:           %d" % [entropy(s)])
   (1..3).map do |i|
-    puts ("%d-grams:\n%s" % [i, ngrams(s, i)])
+    puts ("%d-grams:\n%s" % [i, ngrams(s, i).indent(4)])
   end
 end

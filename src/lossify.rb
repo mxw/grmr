@@ -54,11 +54,9 @@ module Lossifier
           if dist < @threshold
             counts = @cfg.counts
 
-            # replace longer rule with shorter rule
+            # Replace the longer rule with the shorter rule.
             @cfg.replace! nonterm2, nonterm1
-            ret = [nonterm2, nonterm1]
-
-            return ret
+            return [nonterm2, nonterm1]
           end
         end
       end
@@ -86,16 +84,19 @@ module Lossifier
       verb_loop('Clustering', @verbose) do
         cs = clusters
         sizes = cs.map(&:size)
-        sym_expand_len = @cfg.rules.inject(Hash.new(0)) do |lens, (lhs,_)|
-          lens[lhs] = @cfg.expand(lhs).size
-          lens
-        end
 
         break if sizes.count(1) == cs.size
 
+        rule_expand_lengths = Hash[
+          @cfg.rules.map { |lhs, _| [lhs, @cfg.expand(lhs).size] }
+        ]
+
+        # Replace each cluster with the nonterminal in the cluster with the
+        # shortest rule.  This ensures that we avoid creating cycles as a
+        # result of replacement.
         cs.each do |cluster|
           counts = @cfg.counts
-          repl_sym = cluster.min_by { |nonterm| sym_expand_len[nonterm] }
+          repl_sym = cluster.min_by { |nonterm| rule_expand_lengths[nonterm] }
 
           cluster.each do |find_sym|
             next if find_sym == repl_sym

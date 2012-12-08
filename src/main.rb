@@ -22,56 +22,56 @@ ALGORITHMS = {
 }
 
 # Default option values.
-options = OpenStruct.new
-options.algorithms = ALGORITHMS.values
-options.expand = false
-options.print = false
-options.plot = false
-options.reduce = false
-options.verbose = false
-options.analysis = false
-options.thresh = 0.4
+@options = OpenStruct.new
+@options.algorithms = ALGORITHMS.values
+@options.analysis = false
+@options.expand = false
+@options.print = false
+@options.plot = false
+@options.reduce = false
+@options.verbose = false
+@options.thresh = 0.4
 
 OptionParser.new do |opts|
   opts.banner = USAGE
 
-  opts.on("--t N", Float, "Threshold level") do |t|
-    options.thresh = t
-  end
-
   opts.on("-a", "--[no-]analysis", "Perform final analysis") do |a|
-    options.analysis = a
+    @options.analysis = a
   end
 
   opts.on("-e", "--[no-]expand", "Print expansion") do |e|
-    options.expand = e
+    @options.expand = e
   end
 
   opts.on("-g", "--[no-]print-grammar", "Print grammar") do |g|
-    options.print = g
+    @options.print = g
   end
 
   opts.on("-p", "--[no-]plot-grammar", "Plot grammar") do |p|
-    options.plot = p
+    @options.plot = p
+  end
+
+  opts.on("-r", "--[no-]reduce", "Apply grammar reductions") do |r|
+    @options.reduce = r
+  end
+
+  opts.on("-t", "--threshold N", Float, "Similarity threshold level") do |t|
+    @options.thresh = t
   end
 
   opts.on("-l", "--lossifiers algo1,algo2,algon", Array,
           "The lossifier algorithms to use") do |algos|
     if algos == [ 'none' ]
-      options.algorithms = []
+      @options.algorithms = []
       next
     end
 
     raise OptionParser::InvalidArgument unless (algos - ALGORITHMS.keys).empty?
-    options.algorithms = algos.uniq.map { |algo| ALGORITHMS[algo] }
-  end
-
-  opts.on("-r", "--[no-]reduce", "Apply grammar reductions") do |r|
-    options.reduce = r
+    @options.algorithms = algos.uniq.map { |algo| ALGORITHMS[algo] }
   end
 
   opts.on("-v", "--verbose", "Run verbosely") do |v|
-    options.verbose = v
+    @options.verbose = v
   end
 
   opts.on_tail("-h", "--help", "Show this message") do
@@ -85,55 +85,47 @@ if ARGV[0].nil?
   exit
 end
 
-def output_cfg(cfg, options, plotname)
-  puts cfg if options.print
-  puts cfg.expand if options.expand
-  puts "Rules: %d" % [cfg.rules.size] if options.analysis
-  puts "Size: %d" % [cfg.size] if options.analysis
-  plot_cfg cfg, plotname if options.plot
+def output_cfg(title, time, cfg)
+  time = '[' + time.to_s + 's]'
+  puts title + '-' * (79 - (title.size + time.size)) + time + "\n\n"
+
+  puts cfg if @options.print
   puts "\n"
+
+  if @options.analysis
+    puts ("Rules:             %d" % [cfg.rules.size])
+    puts ("Size:              %d" % [cfg.size])
+    puts "\n"
+  end
+
+  puts cfg.expand if @options.expand
+  puts "\n"
+
+  plot_cfg cfg, @fprefix + '-' + title if @options.plot
 end
 
-def reduce_cfg(cfg, options, plotname)
-  cfg = Reducer.new(cfg, options.verbose).run
-  output_cfg cfg, options, plotname + '-red'
-  cfg
-end
-
-#process_cfg prints out data on the CFG structure
-def process_cfg(title, options, fprefix, time, cfg)
-  puts title + '-' * (79 - title.size) + "\n\n"
-  puts "Time: %f" % [time]
-  output_cfg cfg, options, fprefix + '-' + title
+def time
+  t1 = Time.now
+  res = yield
+  t2 = Time.now
+  [res, t2 - t1]
 end
 
 str = File.read(ARGV[0])
-fprefix = ARGV[0].rpartition('.').first
+@fprefix = ARGV[0].rpartition('.').first
 
-#output format:
-#Sequitur Grammar Properties
-#Original String Properties
-#Foreach Algorithm:
-#  Grammar Properties
-#  (Reduced Grammar Properties)
-#  Final String Properties
+icfg, t = time { Sequitur.new(str).run }
+output_cfg 'Sequitur', t, icfg
+fanalyze str if @options.analysis
 
-t1 = Time.now
-icfg = Sequitur.new(str).run
-t2 = Time.now
-process_cfg('Sequitur', options, fprefix, t2-t1, icfg)
-fanalyze(str) if options.analysis
+@options.algorithms.each do |algo|
+  lcfg, t = time { algo.new(icfg, @options.verbose, @options.thresh).run }
+  output_cfg algo.name, t, lcfg
 
-options.algorithms.each do |algo|
-  t1 = Time.now
-  lcfg = algo.new(icfg, options.verbose, options.thresh).run
-  t2 = Time.now
-  process_cfg(algo.name, options, fprefix, t2-t1, lcfg)
-  if options.reduce
-    t1 = Time.now
-    rlcfg = Reducer.new(lcfg, options.verbose).run
-    t2 = Time.now
-    process_cfg(algo.name+"-Reduced", options, fprefix, t2-t1, rlcfg)
+  if @options.reduce
+    rlcfg, t = time { Reducer.new(lcfg, @options.verbose).run }
+    output_cfg algo.name + "-Reduced", t, rlcfg
   end
-  fanalyze(lcfg.expand,str) if options.analysis
+
+  fanalyze lcfg.expand, str if @options.analysis
 end
