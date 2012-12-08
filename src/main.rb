@@ -4,6 +4,8 @@
 # main.rb - Main executable for running experiments.
 #
 
+require 'rubygems'
+
 require 'optparse'
 require 'ostruct'
 
