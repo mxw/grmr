@@ -155,7 +155,7 @@ $$lsim(s1,s2) = \frac{levenshtein(s1,s2)}{max(len(s1),len(s2))}$$
 The first algorithm takes the idea of variable similarity and uses it
 to simplify the grammar sequentially as much as possible.
 
-\begin{algorithm}
+\begin{algorithm}[h]
 \caption{Similarity Lossifier Algorithm}
 \label{sim_alg}
 \begin{algorithmic}[1]
@@ -164,7 +164,7 @@ to simplify the grammar sequentially as much as possible.
     \For{$var_1 \rightarrow rhs_1,\ var_2 \rightarrow rhs_2 \in g$}
       \State $str_{i} \gets expand(rhs_i)$
       \If{$lsim(str_{1},str_{2})<\epsilon$}
-        \State replace the longer var with the shorter throughout $g$
+        \State replace the longer var with the smaller throughout $g$
         \State break
       \EndIf
     \EndFor
@@ -180,13 +180,13 @@ variable replacement can have an effect on large parts of the grammar,
 we will have to go through comparing all pairs again after the change.
 An alternative algorithm would be to try to replace similar variables in
 parallel. This would avoid many of the repeat pair-comparisons done in
-\emph{Similarity}. In other words, the algorithm below makes puts 
+\emph{Similarity}. In other words, the algorithm below puts 
 similar variables
 into equivalence class clusters, and then replaces each variable
 in a cluster them with a representative
 all at once each iteration.
 
-\begin{algorithm}
+\begin{algorithm}[h]
 \caption{Cluster Lossifier Algorithm}
 \label{cluster_alg}
 \begin{algorithmic}[1]
@@ -194,12 +194,33 @@ all at once each iteration.
   \While{there are similar variables to replace}
     \State $clusters \gets ()$
     \For{$var_1 \rightarrow rhs_1 \in g$}
-      \State blah
+      \For{$c \in clusters$}
+        \State $(var_2 \rightarrow rhs_2) \gets $ first variable in $c$
+        \State $str_{i} \gets expand(rhs_i)$
+        \If{$lsim(str_{1},str_{2})<\epsilon$}
+          \State add $var_1$ to $c$
+          \State break
+        \EndIf
+      \EndFor
+      \If{$var_1$ hasn't been added to a cluster}
+        \State Add $var_1$ to a new cluster in $clusters$
+      \EndIf
+    \EndFor
+    \For{Cluster $c \in clusters$}
+      \State replace all $var \in c$ with the smallest.
     \EndFor
   \EndWhile
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
+Both of the algorithms depend on the concept of the "smallest / smaller"
+variable. We can define the size of a variable to be the length of
+the expansion of its rhs. In this way, if we think of our CFG's as a DAG, then
+variables higher up on the DAG will always have larger expansions than
+those lower down, and thus will have a larger size. By always replacing
+with the smallest variable, we avoid creating cyclic references in our CFG.
+We will prove this fact in the next section.
 
 \subsection{Mathematical Analysis}
 Runtime Analysis
@@ -220,7 +241,7 @@ Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Na
 
 \section{Results}
 \subsection{Illustrative Examples}
-It is useful to look at how the algorithm functions on a small piece of
+It is useful to look at how the algorithms function on a small piece of
 data with both plenty of hierarchical structure, and also some messiness
 that most lossless compression schemes would not deal well with. Take
 the string below, similar to what one might come across in a math
@@ -235,9 +256,11 @@ puzzle book.
 \end{verbatim}
 
 Disregarding its meaning, it consists of four very similar equations of the
-form $a + b = ?$, and on a smaller scale each term consists of
-3 repetitions of approximately the same string of either $123$ or $321$.
+form $a + b = ?$, and on a smaller scale each summand consists of
+3 repetitions of approximately the same string of either $123,$ or $321,$.
 
+When comparing grammars, we chose to define the \emph{size} of a grammar
+as the sum of the lengths of the rhs's of the production rules.
 Sequitur yields a relatively complicated inferred grammar with 13 rules and
 a size of 51. Both the Similarity and Clustering Algorithms with $\epsilon = .4$
 , yield the following grammar after reduction. It has 5 rules and is almost
@@ -271,7 +294,7 @@ and sentence level structure but with little obvious large-scale repetition.
 One set of test data was constructed by repeating the same letter `a' n-times
 but then adding some
 texture to the data by changing 1/30 of the characters uniformly
-to `*'. Call these test-cases \emph{rep-n}
+at random to `*'. Call these test-cases \emph{rep-n}
 Another set of test data was constructed from the first n characters of the
 book of Genesis from the KJV. Call these test-cases \emph{gen-n}
 
@@ -286,7 +309,17 @@ We don't report the running times for just \Sequitur since its linear
 running time is negligible compared to our algorithms for all but the
 smallest input data.
 
-\begin{table}[t]
+Below are the results on running Sequitur and Cluster, without
+the grammar reductions, on the rep-n datasets. Time is the wall clock
+running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
+Ratio is the relative size of the grammar produced compared with
+Sequitur, where the size of the grammar is the sum of the lengths of the
+rhs's of the rules. Levdistance is the levenshtein distance between
+the output of the lossified grammar and the original input string, it
+is a kind of measure of the fidelity of our algorithms but doesn't
+take into account how well patterns were preserved.
+
+\begin{table}[h]
 \begin{tabular}{l|l|l|l|l|l|l}
 Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
 \hline
@@ -294,13 +327,13 @@ rep-100   & 0.006 & 18/34    & 0.713 & 0.002 & 20/34    & 0.535\\
 rep-400   & 0.028 & 45/76    & 0.269 & 0.009 & 41/76    & 0.743\\
 rep-1600  & 0.355 & 103/194  & 0.873 & 0.042 & 103/194  & 0.804\\
 rep-6400  & 3.978 & 258/448  & 0.706 & 0.203 & 256/448  & 0.869\\
-rep-12800
+rep-12800 & & & & & & \\
 rep-25600 & 135.0 & 900/1482 & 0.829 & 2.906 & 898/1482 & 0.725\\
 \end{tabular}
-\caption{$\epsilon = .4$}
+\caption{rep-n: $\epsilon = .4$}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[h]
 \begin{tabular}{l|l|l|l|l|l|l}
 Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
 \hline
@@ -308,13 +341,25 @@ rep-100   & 0.002 & 30/34    & 0.040 & 0.002 & 30/34    & 0.040\\
 rep-400   & 0.019 & 60/76    & 0.035 & 0.009 & 60/76    & 0.035\\
 rep-1600  & 0.350 & 123/194  & 0.355 & 0.055 & 123/194  & 0.206\\
 rep-6400  & 3.942 & 280/448  & 0.387 & 0.295 & 274/448  & 0.543\\
-rep-12800  
+rep-12800 & & & & & & \\
 rep-25600 & 124.5 & 922/1482 & 0.565 & 2.597 & 926/1482 & 0.437\\
 \end{tabular}
-\caption{$\epsilon = .2$}
+\caption{rep-n: $\epsilon = .2$}
 \end{table}
 
-TODO: Fill in results for $\epsilon = .1$
+\begin{table}[h]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+rep-100   & & /34    & & & /34    & \\
+rep-400   & & /76    & & & /76    & \\
+rep-1600  & & /194  & & & /194  & \\
+rep-6400  & & /448  & & & /448  & \\
+rep-12800 & & & & & & \\
+rep-25600 & & /1482 & & & /1482 & \\
+\end{tabular}
+\caption{$rep-n: \epsilon = .1$}
+\end{table}
 
 TODO: Runtime graphs and regression. The exponents are about 1.8 and 1.3
 respectively, note that the rulesize of sequitur grows at about sqrt(n)
@@ -327,17 +372,91 @@ and cluster. Cluster has much better growth rate. Smaller epsilon provide
 much better value/cost ratio as the input files get bigger for highly
 repetitive files.
 
-TODO: Analogous for genesis
-> Growth rate for similarity is far worse for genesis
+Repeating the above tests on the \emph{gen-n} datasets yields the following:
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+gen-100   & & /& & & /& \\
+gen-400   & & /& & & /& \\
+gen-1600  & & /& & & /& \\
+gen-6400  & & /& & & /& \\
+gen-12800 & & /& & & /& \\
+gen-25600 & & /& & & /& \\
+\end{tabular}
+\caption{$gen-n: \epsilon = .4$}
+\end{table}
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+gen-100   & & /& & & /& \\
+gen-400   & & /& & & /& \\
+gen-1600  & & /& & & /& \\
+gen-6400  & & /& & & /& \\
+gen-12800 & & /& & & /& \\
+gen-25600 & & /& & & /& \\
+\end{tabular}
+\caption{$gen-n: \epsilon = .2$}
+\end{table}
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+gen-100   & & /& & & /& \\
+gen-400   & & /& & & /& \\
+gen-1600  & & /& & & /& \\
+gen-6400  & & /& & & /& \\
+gen-12800 & & /& & & /& \\
+gen-25600 & & /& & & /& \\
+\end{tabular}
+\caption{$gen-n: \epsilon = .1$}
+\end{table}
 
 Thus, we see that similarity provides no consistent advantage over cluster
 and has much less scalable performance, with an estimated running time of 
 BLAH. For the rest of the paper we will only test Cluster.
 
 \subsection{Grammar Reduction Impact}
-benchmark two extreme test cases again, with and without reducer
-see how much reducer helps (it shouldn't help too much)
-notice how slow it is
+Although the grammars generated by Sequitur are irreducible,
+our lossifiers produce grammars which could potentially be
+compressed further (losslessly) using Reduction Rules without
+changing the output string. To test the cost and
+effectiveness of applying reduction rules, we looked at the
+rep-n and gen-n test cases again, this time focusing on the
+clustering algorithm for $\epsilon = .2$.
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & C-T & C-R \\
+\hline
+rep-100   & & /& & /\\
+rep-400   & & /& & /\\
+rep-1600  & & /& & /\\
+rep-6400  & & /& & /\\
+rep-12800 & & /& & /\\
+rep-25600 & & /& & /\\
+\end{tabular}
+\caption{$rep-n: \epsilon = .2$}
+\end{table}
+
+\begin{table}[t]
+\begin{tabular}{l|l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & C-T & C-R \\
+\hline
+gen-100   & & /& & /\\
+gen-400   & & /& & /\\
+gen-1600  & & /& & /\\
+gen-6400  & & /& & /\\
+gen-12800 & & /& & /\\
+gen-25600 & & /& & /\\
+\end{tabular}
+\caption{$gen-n: \epsilon = .2$}
+\end{table}
+
 
 \subsection{Larger Tests}
 Final compression ratios on various benchmark data
@@ -345,12 +464,15 @@ ASCII ART =p
 Our Code
 
 \section{Conclusions}
+\subsection{Algorithm Tradeoffs}
+Runtimes for each algorithm
+Considerations in choosing epsilon
 \subsection{Ratios and Fidelity}
 \subsection{Future Work}
-> Better ways to set epsilon to maximize value / cost for different size and types
-> Better ways to quantify preservation of hierarchies
-> How to find near `self-similarities' that aren't captured by a rule
-> Iterating lossify and reduce in a cycle
+* Better ways to set epsilon to maximize value / cost for different size and types
+* Better ways to quantify preservation of hierarchies
+* How to find near `self-similarities' that aren't captured by a rule
+* Iterating lossify and reduce in a cycle
 
 \nocite{*}
 
