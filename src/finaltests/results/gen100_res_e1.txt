@@ -1,0 +1,110 @@
+Sequitur------------------------------------------------------------[0.003796s]
+
+Rules:             14
+Size:              89
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, an
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      100
+Avg Word Length:   4.157895
+Entropy:           116
+1-grams:
+    number: 29.0
+    min: 1
+    max: 17
+    median: 2.0
+    mean: 3.4482758620689653
+    stddev: 3.78368737223316
+2-grams:
+    number: 66.0
+    min: 1
+    max: 7
+    median: 1.0
+    mean: 1.5
+    stddev: 1.118033988749895
+3-grams:
+    number: 80.0
+    min: 1
+    max: 4
+    median: 1.0
+    mean: 1.225
+    stddev: 0.6514407110397682
+
+Lossifier::Similarity-----------------------------------------------[0.004632s]
+
+Rules:             14
+Size:              89
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, an
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      100
+Distance:          0.000000
+Avg Word Length:   4.157895
+Entropy:           116
+1-grams:
+    number: 29.0
+    min: 1
+    max: 17
+    median: 2.0
+    mean: 3.4482758620689653
+    stddev: 3.78368737223316
+2-grams:
+    number: 66.0
+    min: 1
+    max: 7
+    median: 1.0
+    mean: 1.5
+    stddev: 1.118033988749895
+3-grams:
+    number: 80.0
+    min: 1
+    max: 4
+    median: 1.0
+    mean: 1.225
+    stddev: 0.6514407110397682
+
+Lossifier::Cluster--------------------------------------------------[0.001835s]
+
+Rules:             14
+Size:              89
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, an
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      100
+Distance:          0.000000
+Avg Word Length:   4.157895
+Entropy:           116
+1-grams:
+    number: 29.0
+    min: 1
+    max: 17
+    median: 2.0
+    mean: 3.4482758620689653
+    stddev: 3.78368737223316
+2-grams:
+    number: 66.0
+    min: 1
+    max: 7
+    median: 1.0
+    mean: 1.5
+    stddev: 1.118033988749895
+3-grams:
+    number: 80.0
+    min: 1
+    max: 4
+    median: 1.0
+    mean: 1.225
+    stddev: 0.6514407110397682
+

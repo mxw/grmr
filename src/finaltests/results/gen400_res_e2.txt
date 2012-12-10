@@ -1,0 +1,137 @@
+Sequitur------------------------------------------------------------[0.022118s]
+
+Rules:             47
+Size:              258
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light D
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      400
+Avg Word Length:   3.948718
+Entropy:           249
+1-grams:
+    number: 39.0
+    min: 1
+    max: 70
+    median: 6.0
+    mean: 10.256410256410257
+    stddev: 13.219484354577546
+2-grams:
+    number: 153.0
+    min: 1
+    max: 20
+    median: 1.0
+    mean: 2.607843137254902
+    stddev: 3.2423571150736357
+3-grams:
+    number: 222.0
+    min: 1
+    max: 15
+    median: 1.0
+    mean: 1.7927927927927927
+    stddev: 1.9434209510811555
+
+Lossifier::Similarity-----------------------------------------------[0.084986s]
+
+Rules:             41
+Size:              245
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+water.
+
+1:3 And God id, Let there belight and there was light.
+
+1:4 And God w thelight, that it was good and God divided thelight
+from the darknes.
+
+1:5 And God called the light D
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      389
+Distance:          0.027500
+Avg Word Length:   4.000000
+Entropy:           249
+1-grams:
+    number: 39.0
+    min: 1
+    max: 67
+    median: 5.0
+    mean: 9.974358974358974
+    stddev: 12.857178339180662
+2-grams:
+    number: 147.0
+    min: 1
+    max: 21
+    median: 1.0
+    mean: 2.639455782312925
+    stddev: 3.2637893302513414
+3-grams:
+    number: 219.0
+    min: 1
+    max: 15
+    median: 1.0
+    mean: 1.7671232876712328
+    stddev: 1.907834469705269
+
+Lossifier::Cluster---------------------------------------------------[0.05261s]
+
+Rules:             41
+Size:              245
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+water.
+
+1:3 And God id, Let there belight and there was light.
+
+1:4 And God w thelight, that it was good and God divided thelight
+from the darknes.
+
+1:5 And God called the light D
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      389
+Distance:          0.027500
+Avg Word Length:   4.000000
+Entropy:           249
+1-grams:
+    number: 39.0
+    min: 1
+    max: 67
+    median: 5.0
+    mean: 9.974358974358974
+    stddev: 12.857178339180662
+2-grams:
+    number: 147.0
+    min: 1
+    max: 21
+    median: 1.0
+    mean: 2.639455782312925
+    stddev: 3.2637893302513414
+3-grams:
+    number: 219.0
+    min: 1
+    max: 15
+    median: 1.0
+    mean: 1.7671232876712328
+    stddev: 1.907834469705269
+

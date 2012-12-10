@@ -1,0 +1,220 @@
+Sequitur------------------------------------------------------------[0.121373s]
+
+Rules:             155
+Size:              697
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
+
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lig
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      1600
+Avg Word Length:   4.142857
+Entropy:           609
+1-grams:
+    number: 48.0
+    min: 1
+    max: 273
+    median: 13.5
+    mean: 33.333333333333336
+    stddev: 50.78850482365296
+2-grams:
+    number: 263.0
+    min: 1
+    max: 69
+    median: 3.0
+    mean: 6.079847908745247
+    stddev: 10.040852521997476
+3-grams:
+    number: 492.0
+    min: 1
+    max: 53
+    median: 2.0
+    mean: 3.247967479674797
+    stddev: 5.081399999031954
+
+Lossifier::Similarity-----------------------------------------------[4.863473s]
+
+Rules:             82
+Size:              539
+
+1:1 In e begining God createe heaven ane eath
+
+1:2e eath as ithout frm, an void; an darkness as upon
+e face ofe deep.e Spirt ofGod moved upone face ofte
+wate
+
+1:3id, Lt ght an e was ght
+
+1:God w ght, that was good an God dividght
+from darknes
+
+1:5God calld e ght Day an darkness e calld Nght
+n e veing and moring wee e frt 
+
+1:6id, Lt  a frmament ine midt ofe wates, an t t divide e watese wates
+
+1:7God madefrmamen an divide wateswhich were
+underfrmamen e wates which were abovefrmamen: an was so
+
+1:8God calld e frmamen Heaven.e veing and te
+moring wee secon
+
+1:9id, Lt e watesundere heaven bewatered togee 
+unto one place an t e dry land appeawas so
+
+1:0God calld e dry land Earth; an e wateing togee  of
+e watescalld e Seas an God w that was good
+
+1:1 n God id, Lt eathing frth grass, e yielding
+seed an e frt yieldingfrt te his kindwhoseseed is
+in itself, uponeathwas so
+
+1:2n eathrought frth grass, and yieldingseed ate
+his kindand e yieldingfrit, whoseseedwas in itself, te
+his kind an God w that itwas good
+
+1:3e veing and moring wee thir
+
+1:1God id, Lt e e belig
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      1109
+Distance:          0.311250
+Avg Word Length:   4.171569
+Entropy:           544
+1-grams:
+    number: 46.0
+    min: 1
+    max: 182
+    median: 12.0
+    mean: 24.108695652173914
+    stddev: 34.60788315629181
+2-grams:
+    number: 242.0
+    min: 1
+    max: 46
+    median: 2.0
+    mean: 4.578512396694215
+    stddev: 6.1499876585452995
+3-grams:
+    number: 470.0
+    min: 1
+    max: 19
+    median: 1.0
+    mean: 2.3553191489361702
+    stddev: 2.420507113267382
+
+Lossifier::Cluster--------------------------------------------------[0.723975s]
+
+Rules:             77
+Size:              529
+
+1:1 In e begining God createe e aven ane arth
+
+1:2and arth as ithout frm,and void;and darkness as upon
+e face ofe deep.and Spirt ofGod moved upone face ofe 
+ ate
+
+1:3and calld e ghtand e  as ght
+
+1:and w ght, that  as goodand God dividght
+from darknes
+
+1:5and calld e ght Dayand darkness e calld Nght
+n e veing and moring wee e frt 
+
+1:6and calld e  a frmament ine midt ofe  ates,and t t divide e  atese  ates
+
+1:7and madefrmamenand divide  ateswhich aee 
+underfrmamen e  ates ahich aee  abovefrmamen:and  as so
+
+1:8and calld e frmamen Heaven.e veing and e 
+moring wee e secon
+
+1:9and calld e e  atesundere e aven begae e d togee 
+unto one placeand t e dry land appea as so
+
+1:0and calld e dry land Earth;and e gae ing togee  of
+e  atescalld e Seasand that  as good
+
+1:1 n God id, Lt arthing frth grass, e yielding
+seedand e frt yieldingfrt te his kindwhoseseed is
+in itself, uponarth as so
+
+1:2and arthrought frth grass, and yieldingseed ate
+his kindand e yieldingfrit, whoseseed as in itself, te
+his kindand that it as good
+
+1:3e veing and moring wee e thir
+
+1:1and id, Lt e e belig
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      1122
+Distance:          0.331875
+Avg Word Length:   4.233831
+Entropy:           540
+1-grams:
+    number: 46.0
+    min: 1
+    max: 195
+    median: 8.0
+    mean: 24.391304347826086
+    stddev: 37.20593586399982
+2-grams:
+    number: 242.0
+    min: 1
+    max: 56
+    median: 2.0
+    mean: 4.632231404958677
+    stddev: 7.19856178101199
+3-grams:
+    number: 465.0
+    min: 1
+    max: 32
+    median: 1.0
+    mean: 2.4086021505376345
+    stddev: 3.1185761816661626
+

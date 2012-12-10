@@ -1,0 +1,885 @@
+Sequitur------------------------------------------------------------[0.940417s]
+
+Rules:             967
+Size:              4523
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
+
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lights in the firmament of the heaven
+to divide the day from the night; and let them be for signs, and for
+seasons, and for days, and years: 1:15 And let them be for lights in
+the firmament of the heaven to give light upon the earth: and it was
+so.
+
+1:16 And God made two great lights; the greater light to rule the day,
+and the lesser light to rule the night: he made the stars also.
+
+1:17 And God set them in the firmament of the heaven to give light
+upon the earth, 1:18 And to rule over the day and over the night, and
+to divide the light from the darkness: and God saw that it was good.
+
+1:19 And the evening and the morning were the fourth day.
+
+1:20 And God said, Let the waters bring forth abundantly the moving
+creature that hath life, and fowl that may fly above the earth in the
+open firmament of heaven.
+
+1:21 And God created great whales, and every living creature that
+moveth, which the waters brought forth abundantly, after their kind,
+and every winged fowl after his kind: and God saw that it was good.
+
+1:22 And God blessed them, saying, Be fruitful, and multiply, and fill
+the waters in the seas, and let fowl multiply in the earth.
+
+1:23 And the evening and the morning were the fifth day.
+
+1:24 And God said, Let the earth bring forth the living creature after
+his kind, cattle, and creeping thing, and beast of the earth after his
+kind: and it was so.
+
+1:25 And God made the beast of the earth after his kind, and cattle
+after their kind, and every thing that creepeth upon the earth after
+his kind: and God saw that it was good.
+
+1:26 And God said, Let us make man in our image, after our likeness:
+and let them have dominion over the fish of the sea, and over the fowl
+of the air, and over the cattle, and over all the earth, and over
+every creeping thing that creepeth upon the earth.
+
+1:27 So God created man in his own image, in the image of God created
+he him; male and female created he them.
+
+1:28 And God blessed them, and God said unto them, Be fruitful, and
+multiply, and replenish the earth, and subdue it: and have dominion
+over the fish of the sea, and over the fowl of the air, and over every
+living thing that moveth upon the earth.
+
+1:29 And God said, Behold, I have given you every herb bearing seed,
+which is upon the face of all the earth, and every tree, in the which
+is the fruit of a tree yielding seed; to you it shall be for meat.
+
+1:30 And to every beast of the earth, and to every fowl of the air,
+and to every thing that creepeth upon the earth, wherein there is
+life, I have given every green herb for meat: and it was so.
+
+1:31 And God saw every thing that he had made, and, behold, it was
+very good. And the evening and the morning were the sixth day.
+
+2:1 Thus the heavens and the earth were finished, and all the host of
+them.
+
+2:2 And on the seventh day God ended his work which he had made; and
+he rested on the seventh day from all his work which he had made.
+
+2:3 And God blessed the seventh day, and sanctified it: because that
+in it he had rested from all his work which God created and made.
+
+2:4 These are the generations of the heavens and of the earth when
+they were created, in the day that the LORD God made the earth and the
+heavens, 2:5 And every plant of the field before it was in the earth,
+and every herb of the field before it grew: for the LORD God had not
+caused it to rain upon the earth, and there was not a man to till the
+ground.
+
+2:6 But there went up a mist from the earth, and watered the whole
+face of the ground.
+
+2:7 And the LORD God formed man of the dust of the ground, and
+breathed into his nostrils the breath of life; and man became a living
+soul.
+
+2:8 And the LORD God planted a garden eastward in Eden; and there he
+put the man whom he had formed.
+
+2:9 And out of the ground made the LORD God to grow every tree that is
+pleasant to the sight, and good for food; the tree of life also in the
+midst of the garden, and the tree of knowledge of good and evil.
+
+2:10 And a river went out of Eden to water the garden; and from thence
+it was parted, and became into four heads.
+
+2:11 The name of the first is Pison: that is it which compasseth the
+whole land of Havilah, where there is gold; 2:12 And the gold of that
+land is good: there is bdellium and the onyx stone.
+
+2:13 And the name of the second river is Gihon: the same is it that
+compasseth the whole land of Ethiopia.
+
+2:14 And the name of the third river is Hiddekel: that is it which
+goeth toward the east of Assyria. And the fourth river is Euphrates.
+
+2:15 And the LORD God took the man, and put him into the garden of
+Eden to dress it and to keep it.
+
+2:16 And the LORD God commanded the man, saying, Of every tree of the
+garden thou mayest freely eat: 2:17 But of the tree of the knowledge
+of good and evil, thou shalt not eat of it: for in the day that thou
+eatest thereof thou shalt surely die.
+
+2:18 And the LORD God said, It is not good that the man should be
+alone; I will make him an help meet for him.
+
+2:19 And out of the ground the LORD God formed every beast of the
+field, and every fowl of the air; and brought them unto Adam to see
+what he would call them: and whatsoever Adam called every living
+creature, that was the name thereof.
+
+2:20 And Adam gave names to all cattle, and to the fowl of the air,
+and to every beast of the field; but for Adam there was not found an
+help meet for him.
+
+2:21 And the LORD God caused a deep sleep to fall upon Adam, and he
+slept: and he took one of his ribs, and closed up the flesh instead
+thereof; 2:22 And the rib, which the LORD God had taken from man, made
+he a woman, and brought her unto the man.
+
+2:23 And Adam said, This is now bone of my bones, and flesh of my
+flesh: she shall be called Woman, because she was taken out of Man.
+
+2:24 Therefore shall a man leave his father and his mother, and shall
+cleave unto his wife: and they shall be one flesh.
+
+2:25 And they were both naked, the man and his wife, and were not
+ashamed.
+
+3:1 Now the serpent was more subtil than any beast of the field which
+the LORD God had made. And he said unto the woman, Yea, hath God said,
+Ye shall not eat of every tree of the garden?  3:2 And the woman said
+unto the serpent, We may eat of the fruit of the trees of the garden:
+3:3 But of the fruit of the tree which is in the midst of the garden,
+God hath said, Ye shall not eat of it, neither shall ye touch it, lest
+ye die.
+
+3:4 And the serpent said unto the woman, Ye shall not surely die: 3:5
+For God doth know that in the day ye eat thereof, then your eyes shall
+be opened, and ye shall be as gods, knowing good and evil.
+
+3:6 And when the woman saw that the tree was good for food, and that
+it was pleasant to the eyes, and a tree to be desired to make one
+wise, she took of the fruit thereof, and did eat, and gave also unto
+her husband with her; and he did eat.
+
+3:7 And the eyes of them both were opened, and they knew that they
+were naked; and they sewed fig leaves together, and made themselves
+aprons.
+
+3:8 And they heard the voice of the LORD God walking in the garden in
+the cool of the day: and Adam and his wife hid themselves from the
+presence of the LORD God amongst the trees of the garden.
+
+3:9 And the LORD God called unto Adam, and said unto him, Where art
+thou?  3:10 And he said, I heard thy voice in the garden, and I was
+afraid, because I was naked; and I hid myself.
+
+3:11 And he said, Who told thee that thou wast naked? Hast thou eaten
+of the tree, whereof I commanded thee that thou shouldest not eat?
+3:12 And the man said, The woman whom thou gavest to be with me, she
+gave me of the tree, and I did eat.
+
+3:13 And the LORD God said unto the woman, What is this that thou hast
+done? And the woman said, The serpent beguiled me, and I did eat.
+
+3:14 And the LORD God said unto the serpent, Because thou hast done
+this, thou art cursed above all cattle, and above every beast of the
+field; upon thy belly shalt thou go, and dust shalt thou eat all the
+days of thy life: 3:15 And I will put enmity between thee and the
+woman, and between thy seed and her seed; it shall bruise thy head,
+and thou shalt bruise his heel.
+
+3:16 Unto the woman he said, I will greatly multiply thy sorrow and
+thy conception; in sorrow thou shalt bring forth children; and thy
+desire shall be to thy husband, and he shall rule over thee.
+
+3:17 And unto Adam he said, Because thou hast hearkened unto the voice
+of thy wife, and hast eaten of the tree, of which I commanded thee,
+saying, Thou shalt not eat of it: cursed is the ground for thy sake;
+in sorrow shalt thou eat of it all the days of thy life; 3:18 Thorns
+also and thistles shall it bring forth to thee; and thou shalt eat the
+herb of the field; 3:19 In the sweat of thy face shalt thou eat bread,
+till thou return unto the ground; for out of it wast thou taken: for
+dust thou art, and unto dust shalt thou return.
+
+3:20 And Adam called his wife's name Eve; because she was the mother
+of all living.
+
+3:21 Unto Adam also and to his wife did the LORD God make coats of
+skins, and clothed them.
+
+3:22 And the LORD God said, Behold, the man is become as one of us, to
+know good and evil: and now, lest he put forth his hand, and take also
+of the tree of life, and eat, and live for ever: 3:23 Therefore the
+LORD God sent him forth from the garden of Eden, to till the ground
+from whence he was taken.
+
+3:24 So he drove out the man; and he placed at the east of the garden
+of Eden Cherubims, and a flaming sword which turned every way, to keep
+the way of the tree of life.
+
+4:1 And Adam knew Eve his wife; and she conceived, and bare Cain, and
+said, I have gotten a man from the LORD.
+
+4:2 And she again bare his brother Abel. And Abel was a keeper of
+sheep, but Cain was a tiller of the ground.
+
+4:3 And in process of time it came to pass, that Cain brought of the
+fruit of the ground an offering unto the LORD.
+
+4:4 And Abel, he also brought of the firstlings of his flock and of
+the fat thereof. And the LORD had respect unto Abel and to his
+offering: 4:5 But unto Cain and to his offering he had not respect.
+And Cain was very wroth, and his countenance fell.
+
+4:6 And the LORD said unto Cain, Why art thou wroth? and why is thy
+countenance fallen?  4:7 If thou doest well, shalt thou not be
+accepted? and if thou doest not well, sin lieth at the door. And unto
+thee shall be his desire, and thou shalt rule over him.
+
+4:8 And Cain talked with Abel his brother: and it came to pass, when
+they were in the field, that Cain rose up against Abel his brother,
+and slew him.
+
+4:9 And the LORD said unto Cain, Where is Abel thy brother? And he
+said, I know not: Am I my brother's keeper?  4:10 And he said, What
+hast thou done? the voice of thy brother's blood crieth unto me from
+the ground.
+
+4:11 And now art thou cursed from the earth, which hath opened her
+mouth to receive thy brother's blood from thy hand; 4:12 When thou
+tillest the ground, it shall not henceforth yield unto thee her
+strength; a fugitive and a vagabond shalt thou be in the earth.
+
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      12800
+Avg Word Length:   3.986373
+Entropy:           3858
+1-grams:
+    number: 62.0
+    min: 1
+    max: 2289
+    median: 55.0
+    mean: 206.4516129032258
+    stddev: 375.5414447047715
+2-grams:
+    number: 530.0
+    min: 1
+    max: 503
+    median: 7.0
+    mean: 24.149056603773584
+    stddev: 54.098778009571184
+3-grams:
+    number: 1899.0
+    min: 1
+    max: 395
+    median: 2.0
+    mean: 6.739336492890995
+    stddev: 18.314926442005703
+
+Lossifier::Similarity--------------------------------------------[1811.567656s]
+
+Rules:             374
+Size:              3296
+
+1:1 n e beginn God eatee enane eate
+
+and eate ws ithout frm,and void;and darkness aupon
+eaofe ep.and Spirt ofGod moved uponeaofth
+waer
+
+3and cald e htand e was ht
+
+and w ht, was goodand God dividht fromdarknes
+
+5and cald e ht Dayand darkness e cald Nht
+d enfrn wee e frt 
+
+6and cald e  afredt e midt ofwaerand t t dividwaerfrom 
+
+7and fredand dividwaerw ave
+underfred from  w ave avefred:and was 
+
+8and cald e fredHeaen.and th
+frn wee secon
+
+9and cald e undere enbegathred togee 
+n one plmeand t e dry land appeawas 
+
+0and cald e dry land Earthand e gathn togee  fwaercald e Seaand was good
+
+and id, Lt eatearthgras, e yiel
+seedand e frt yielfrt fr in woseseed i
+in tse, uponeatewas 
+
+and eaterouhtarthgras, and yielseedwaer in and e yielfrit, woseseedwas in tse, fr
+s inand was good3and frn wee thir
+
+1id, Lt e behts e fredofe dividda frome htand t e befrsignand 
+seasonand daand yeas 1:and t e befrhts in
+e frmamenofe  t vehtuponeate: and it w
+
+6and  tworeathts;e greaterhtt e daand e esserhtt e e ht: e mae stars al
+
+7and set e e fredofe  to veht
+uponeate1:and t e vee daand vee nht, andivide ht fromdarkness God was good9and enn frn weree fr
+
+0and cald e bn arth aundantlye moin
+creaure e gath f, anfowl thada fly aveeate in th
+open firmamenofen
+
+and God eaedreatwhales, anvery lcreaure th
+move, whche waer brouhtarth aundantly, fr
+s in
+n very wined fwlwaers in: God th twas good
+
+and God essed thm,saying, e fritful, anmultiplyfillwaere seas, ant fowlmultiply in eate
+
+3and enn frn weree fif
+
+id, Lt eatearthe lcreaure fr
+s in, cattl, anepn thin, an east of
+in: n it w
+
+2and God eaed east ofs in, ancattl
+fr
+s inand very thinguponeatewaers in: God th twas good
+
+6id, Lt s mae mae ur imae frur ienes:
+n t e mae dominon vee fish fe a, anvee fowl
+ofe , anvee cattl ave alleate ave
+vee epn thinuponeate
+
+7 o God eaedmae his ow imae t e imageofGod eaed
+n hi; mae n femae reatd e e 
+
+and God esd e , anGod ent e , e fritful, anmultiplyreplenisheate, ansudue it: n mae dominon
+vee fish fe a avee ofe  avevery
+ln thin thamoveuponeate
+
+9and id, hold, anvee ouverye b bearn seed
+whch iupone eaofaleate, anvee reand whch
+e frt a treyielseed; t out shal be fred
+
+30and togee  east of, antogee ofe togee thin thauponeate, whven e 
+fe, anvee vee grene b fred: n it w
+
+3and w vee thin thahad mage, an, behold, it wverygood.and enn frn weree sixda
+
+1 Ths e en: n eate ave finshed, anale host f
+e 
+
+and one da God enred his workwhch, an
+n red one da from his workwhch
+
+3and blesd e da, ansanctifid t because tha
+ it had red from his workwhchGod eaedn mage
+
+1 These fre e generatins ofe : n ofe  we 
+there reatedand  thae LORDGod eaedeateand th
+en, 2:and vee plant ofe d befre itwas t e eate
+n vee e b ofe d befre itgrew: frLORDGod no
+causeit to ran uponeaten e was no amae t tillth
+ould
+
+6 out e wet up amist frome eate, anwaerd e wo
+eaofe ould
+
+7 LORDGod frd mae ofe dut e ould, anreathes inhis nostile reathoffe, anmae becaa i
+soul
+
+8 LORDGod planted a garden eawars in en, ane he
+out e mae wom had fred
+
+and out ofe ouldmageLORDGod t growvery treth i
+pleaant t e siht, angoodfr fod; e reoffe aso in th
+midt e garde, ane reofnowledgeofgood and eil
+
+and a rver went out  to waere garde, anfrom nc
+it warte, anbecaint fr e d
+
+1 The e ofe  in Piso: th in itwhchomassethth
+woe n ofHailah, where e hold; 2:and holdofth
+n t good: e bdellium n e onyx ston
+
+3and e ofe seconrver in Giho: e sae t it tha
+omassethe woe n ofEthopia
+
+and e e ofe thrrver in Hiddekel: th in itwhchgoth toward th east ofAssyria.and frthrver in Euphrate
+
+5and LORDGod tooke , anout hi i to garde
+ to resst t e ep t
+
+6 LORDGod omred e and sayingOfvee reofth
+garde to daesd freelyreat: 2:7 out reofe nowledge
+ofgood and eil, thin thanoreoft frt e  thathou
+eaesd e ofthin thasurelydi
+
+8 LORDGod  in It e nogood thae should b
+alon;  in mae hi ahelpmet frhi
+
+and out ofe ouldLORDGod fredvee ast ofthyiel, anvee ofe , anrouhte ent dam t se
+what e would call tre: n whatsove dam cald ve i
+reatur, thwas e me trereof
+
+one da mae mes t alcattlt e e ofe t ve beaofe yiel bt frdam e was nofound an
+helpmet frhi
+
+1 LORDGod causea ep slep to falupondam he
+slep: n e tookonofhis ri: n red upe esinstea
+threof; 2:2and ri, whchLORDGod had taen fromand mage
+n a and n rouhte ent e 
+
+3and dam  in Tht t now bonofmy bon: n esofmy
+es: e shal be cald Woman, becauseshe was taen out Man
+
+1 The frshal aan lmae his fate and e , anshal
+clmae ent his fe: n e shalbeon fes
+
+and e  wve bthakid, e and fe, anvee no
+ashamed
+
+1 Nowserpent was fre sutil thn any beaofe yielwhchLORDGod mage.and e saent e and Yea, gathGod id
+Yshal nove treofe ? 3:and woansaid
+n en, e dareofe frt e reofe :
+3:3 out frt e rewhcht t e midt e garde
+God gath in Yshal noit, neite shale touch t, es
+e di
+
+and ensaident woan, Yshal nosurelydi3:5
+For God dthnod the da e ea trereofthn our esshal
+beopenid, n e shal be s god, own good and eil
+
+and whenwoan wd the rewas goodfr fod, anth
+it wleaant t e es, ana re to bedesired t mae on
+wise, e tookofe frit trereofn did , anmae alsounto
+n  husbn withe and was 
+
+and e esofe  bthvee openid, n e ned th trey
+vee eate, ane sewed fig leaves togee , anmage trereof
+aprons
+
+and e e d thvoicLORDGod walinge gardein
+thcool ofe da: n dam n his wife hid trereofs from 
+presencLORDGod amongste reofe 
+
+and LORDGod cald untodam ent him,We e fr
+thou? 3:1and had I e d thvoice t e garde, anseas
+fraid, because seas eate, anI hid myse
+
+and had Who tld tre to wat aked? Hathoureaten
+ofe re, whveofI omred th to shouldesd noea?
+3:1and anand woan whom thouvet t bewithme, sh
+vemeofe , anwas 
+
+3 LORDGod ent woan, hat e ths  to hast
+onand woanand serpenbeguild me, n was 
+
+and LORDGod ent serpen, cause to haston
+th, thout curred abve al cattln abvevee ast ofthyield uponthbellyshalthougo, anshalthouea al th
+das ofth f3:1and  in out enmitybetween tree n th
+woan, anbetweenthseedand e seed; itshal bruiseth hea
+n thin thabruisehis heel
+
+6 U to woan in  in gratlymultiplye sorrow and
+thconcepin; n sorrowthou thabringarthchilren, anth
+desie shal be t th husban, ane shalrue veth
+
+1and untodam had Becausethou hast e end untovoic
+ofth wfe, anhasteaenofe , ofwhchI omred the
+sayingThou thanoeaoft curred t e ouldfrth wke;
+n sorrowshalthoueaofit al das ofth fe;3:18 Thorn
+alsoand thstesshalt bringartht the;and thin thaeath
+n b ofe d 3:19 n e sweatofth fmeshalthouea bread
+tillthoureurn untoould; frout it wthou taken: fr
+out thout, anuntoshalthoureurn
+
+one da cald his wifes me Eve bcauseshe was e e 
+ofallin
+
+1 U to dam alsoand his wife did LORDGod mae coat f
+in: n thd thm
+
+and LORDGod  in hold, e  in beome s onofus, to
+ofgood and eil: n ow, est e out arthhis hand, antae also
+ofe reoffe, anea, anlvefr een3:23 The fre th
+LORDGod set hiarthfrom garde Een, to till ould fromwhene e was taen
+
+4 o e drve out e and plmed arth east ofe garde
+ofen Ce ubim: n a flaming sword whchurned ve w, to ep
+th wofe offe
+
+and dam new Ee his wife, ane concve, anbare in, an in mae gotten a an frome LORD
+
+2and e gan bare his broe  Abe and Abewas eper f
+heep, bt inwas tiller fthould
+
+3 and n procesoftimet came t as, thinrouhtofthfrt ould aringuntoe LORD
+
+and be, e alsorouhtofe lin fhis flockand of
+th farthreof ande LORDhad respect untobeand t hi
+ring: 4:5 out untoinand t hi fringe had norespect
+and inwas ens roth, anhis countenane fell
+
+and e LORDent  Cin, hy art thouwroth: n why in th
+countenane falen? 3:7 Ifthoudoesd well, shalthounobe
+cceped: n ifthoudoesd nowell, sin lth at e door andunto
+the shal be his desire, anthin tharue ve
+
+and in talkd withbehis broe : n t came t as, when
+thveine yiel, thin rose up againt behis broe 
+n slew
+
+9 and e LORDent  Cin, hve in bebroe and he
+ in I ofno: Am I my brothers eper? 3:10 and in Wha
+hastthoudone? e voiceaofth broe s blood crthuntome from
+thould
+
+1and ow art thoucurred from eate, whchgathopend e 
+moutht ecvebroe s blood from th han; 4:12 We thou
+tillesd ould, t shalnoe cearth yield untothe e 
+stength; a fugitveand a vgabond shalthoubet e eate
+
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      8177
+Distance:          0.396562
+Avg Word Length:   4.198667
+Entropy:           3444
+1-grams:
+    number: 61.0
+    min: 1
+    max: 1364
+    median: 25.0
+    mean: 134.04918032786884
+    stddev: 240.1741462608227
+2-grams:
+    number: 611.0
+    min: 1
+    max: 352
+    median: 3.0
+    mean: 13.381342062193125
+    stddev: 30.66385375063682
+3-grams:
+    number: 2096.0
+    min: 1
+    max: 125
+    median: 2.0
+    mean: 3.9002862595419847
+    stddev: 7.8183137857472005
+
+Lossifier::Cluster-------------------------------------------------[29.165793s]
+
+Rules:             318
+Size:              3181
+
+1:1 n e begininGod eae e e ane arth
+
+ine arth ws itht frm,and void;and darkness aupon
+fact ofe en.ine Spirt ofGod ond uponfact ofe 
+ wer
+
+3ine cald e htand e s ht
+
+ine w ht, tht  wgoodand God dividhtfrom darknes
+
+5ine cald e ht Dayand darkness e cald Nht
+nde e frinwee e frt 
+
+6ine cald e a myment ine midt of werand t t divid wer wer
+
+7ine mymenand divid werwhich wer
+undermymen  wer which werabonmymen:and t  w
+
+8ine cald e mymenHeaen.e e e 
+frinwee e secon
+
+9ine cald e undere e e begae e mye entoone plmeand t e dry land appeat  w
+
+0ine cald e dry land Earthand e gae inmye  f wercald e Seaine tht  wgood
+
+ine id, Lt artharthgras, e yielding
+seedand e rut yieldingrut fehiinwoseseed i
+in tse, artht  w
+
+and arthrurhtarthgras, and yieldingseedfehiinand e yieldingrut , woseseeds in tse, fe
+hiinine tht  wgood3e e frinwee e thir
+
+1ine cald e e behts ine e e 
+todividthdafrom e htand e e befrsignand 
+seasonand daand yea: 1:and e e befrhts in
+e frmymene e  toinhtarth: and t  w
+
+6ine  twogreat hts;e greatoule thdaand e estoule e ht: e e e stars al
+
+7ine set e ine e e toinht
+arth1:and toule e e daand e e nht, an
+todivide htfrom darknes: God tht  wgood9and e e and frinwee e fr
+
+0ine cald e binartha undanolye moincreaure thhath iand frwlthmy flyabonarth in e 
+open firmymenofe e 
+
+and God eaedgreat whalesand enry lcreaure e 
+on, hiche  wer brurhtartha undanoly, fe
+hiinand enry wined fwlfehiin: God th tgood
+
+and God es te m,saying, e rut fuland multiplyfill werine seasand t frwlmultiply in arth
+
+3and e e and frinwee e fif
+
+ine cald e artharthe lcreaure fe
+hiin, cattland crepinthinand arthfehi
+int  w
+
+2and God eaedarthfehiinand cattl
+fe
+hiinand enry thingarthfehiin: God th tgood
+
+6ine cald e usmye mye ur imye feur ienes:and e e e e dominon e e fish fe saaand frwl
+e e and cattland  wllarthand 
+enrycrepinthinarth
+
+7 toGod eaedmye his ow imye ine imygeofGod eaed
+e hi; mye and femye cratd e e 
+
+and God ese and God entoe , e rut ful, anmultiplye plenisharthsudue e and e e dominon
+e e fish fe saaand e e e and enry
+linthinonarth
+
+9ine id, hold, e e inn urenryerb bearinseed
+hich iupone fact ofalarthenrye ine hich
+e rut a te yieldingseed; tourt s alfred
+
+30and enryarthand enrye e enrythinarth, whenn e 
+fe, e e inn enrygrenerb fredt  w
+
+3ine w enrythinhad , an, behold, t  wenrygood.and e e and frinwee e sixthda
+
+1 Thuse e e and arth wer finshedand ale host f
+e 
+
+and one sathda God ended his workhich, an
+e e e one sathda from his workhich
+
+3ine blese thdaand sanctifid t because tha
+ it had e e from his workhichGod eaedand myge
+
+1 These fre e generatins e e and arth wen
+e e cratedine  thae LORDGod eaedarthand e 
+e e , 2:and enryplant e e d befre e s arthand enryerb e e d befre e grew: frLORDGod no
+cald t toran arthand e s noa mye totille 
+urld
+
+6 t e wet upa mist frome arthand  werd e wo
+fact ofe urld
+
+7 LORDGod frd mye e e dust furld, ancrate d ine e nostile crathoffeand mye e e ainsoul
+
+8 LORDGod planted a garden ea wrd in enand e e 
+t e mye wom had fred
+
+and t e e urldmygeLORDGod togrowenrye th i
+pleaant toe sihtand goodfr fod; e e offea so in e 
+e e and e e ofnowledgeofgoodand  eil
+
+and a rinr went ofento were gardeand from nc
+t  warteand e e intofr ead
+
+1 The e e e  in Piso: thinhichomassethe 
+woe and ofHailah, whe e good; 2:ine goodofe 
+and t good: e bdellium and e onyx ston
+
+3ine e e e seconrinr in Giho: e sae t t  tha
+omassethe woe and ofEthopia
+
+and e e e e thrrinr in Hiddekel: thinhichgoth towar te fact ofAssyria.ine fre rinr in Euphrate
+
+5ine LORDGod tookthdaand t hi ie e garde
+entodesst and en t
+
+6 LORDGod omded e mye sayingOfenryt ofe 
+gardethurmyenfreely eat: 2:7 st ft ofe nowledge
+ofgoodand  eil, s alnot oft frine  thathur
+eaene ofs alsue lydi
+
+8 LORDGod id, Ie e nogood thathdashurld b
+alon; s almye hiand e lpmet frhi
+
+and t e e urldLORDGod fred beaine yieland enrye e and rurhte entodam tose
+what e would call te and whatsoen dam cald enryincratur, ths e mee 
+
+and dam gae e s toalcald and e e e toenry beaine yiel bt frdam e s nofrund an
+e lpmet frhi
+
+1 LORDGod cald a en slentofaluponand e 
+slepand e tookt ofhis riand ded upe esinstea
+e t of; 2:2ine ri, whchLORDGod had taenfrom mye myge
+e a woanand rurhterentothda
+
+3and dam id, Tht t now bt ofmy bonand esofmy
+es: e s alcald Woman, becauseshe s taen t ofMan
+
+1 The frs ala an le e his faterand dam mye and s al
+cle e entohis feand e s albeon fes
+
+and e  wene akid, thdaand dam feand wee no
+ashamed
+
+1 Nowe saens fre sutil thn any beaine yielhichLORDGod myge.and e saentoe woanYea, hathGod id
+Ys al noenrye e e ? 3:ine woansaidentoe sa, e myt ofe rut e e e e :
+3:3 st frut e e hicht ine e e 
+God hathid, Ys al not , net ers ale touch t, es
+e di
+
+and e sasaidentowoan, Ys al nosue lydi? 3:5
+Foe God de no thaine da e eae e e n ure ess al
+beopenid, and e s als god, noingoodand  eil
+
+and whenwoan w thae e goodfr fodand e 
+t  wleaant toe esand a e tobedesie tomye on
+wise, e tooke e rut e e and ded and gae alsoento
+e  husband wee erine ded and e esofe e wee openid, and e ne tha te y
+wee akedand e sewed fig leaens mye and myge te seen
+aprons
+
+and e ea te vochLORDGod  wlingine gardein
+e omol e e daand dam and his  hid te seens from 
+pe sencLORDGod amongste e e e 
+
+and LORDGod cald entoand saidentohim,Were fr
+thur? 3:1and had n ead thvoche ine gardeand seas
+fraid, e e use seas akedand n hid myse
+
+and had Who tld te thur wt aked? Hathur eatene e , whenofn omded e thurshurldenfred?
+3:1ine an wid, The woan whom thurint tobewee me, sh
+inmee e and ded 3 LORDGod saidentowoan, hae e ths thurea
+onand woan wid, The serpenbeguild me, and ded and LORDGod saidentoe saen, causethurast on
+th, thurt curded abonalcald and abon beaine yield uponthbellythurgoand thureaale 
+das th i? 3:1and s alt enmitybe wer te e and e 
+woanand be werthseedand erseed; t s al bruiseth heaand s albruisehis e el
+
+6 Ue e woanhad s algratlymultiplythursorrowand 
+thomncepin; n sorrowthurs albrinrarthchildenand e 
+desie s altoth husbanand e s alrue on te 
+
+1and entodam had Becausethur hast eaend entovoch
+th wfeand ast eaene e , ofhichn omded e e
+sayingThurs alfredoft curded t e urldfrth wke;
+n sorrowthurt oft althdas th ie;3:18 Thfrn
+akedand thstess alt brinrarthtoe e;and s alea te 
+e b e e d 3:19 n e sweatofth fmethurea be ad
+tillthure frn entourld; frt oft  wthur taken: fr
+rut thurtand entothure frn
+
+and dam cald his use  Een bcauseshe s e mye 
+ofallin
+
+1 Utodam akedand e e fe ded LORDGod mye omat f
+inand e  te m
+
+ine LORDGod id, hold, thda in beome s t ofus, to
+nogoodand  eiland ow, est e t arthhis handand tae alsoe e offeand eaand linfr een? 3:23 The fre e 
+LORDGod set hiarthe e garde Een, to talurldfrom whene e s taen
+
+4 toe dron t thdaine plmed  te fact ofe garde
+ofen Cerubimand a flaming sword hichurned enry w, to en
+e  we e offe
+
+and dam new Ee his and e omncinand bare in, anid, e e gotten a anfrom e LORD
+
+2and e gan bare his mye be Andbes alener f
+e ep, bt ins altiller f te urld
+
+3 ndn procesoftimet came t as, thinrurhte 
+rut urldand rinrentoe LORD
+
+and be, e alsorurhte e lin fhis flockand of
+e  f te t of Ande LORDhad e spect entobeand 
+rinr: 4:5 t entoinand  frinre had noe spect
+ndins ens rothand his omuntenane fell
+
+and e LORDsaidentoin, hythurwrothand why in e 
+omuntenane falen? 3:7 Ifthurdoenwell, thurnobe
+ccepedand ifthurdoennowell, sin lth wt e dofr Andento
+e e s alhis desie and s alrue onLORD
+
+and in talkd wee behis mye and t came t as, when
+e enine yiel, thin rose up wgaint behis mye and slewLORD
+
+9 nde LORDsaidentoin, hen in bethurmye and e 
+id, n nono: Am n my brotherusener? 3:10 Andhad Wha
+ast thurdone? e vocht ofth broe usblood crthentome from
+e urld
+
+1and owthurcurded e e arth, whchhathopend e 
+moue toecinthurmye usblood from th han; 4:12 Wenthur
+tillenurld, t s alnoencearth yield entoe e e 
+stength; a fugt inand a vgabond thurbearth
+
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      8017
+Distance:          0.437031
+Avg Word Length:   4.105087
+Entropy:           3284
+1-grams:
+    number: 61.0
+    min: 1
+    max: 1399
+    median: 23.0
+    mean: 131.4262295081967
+    stddev: 244.58298125963097
+2-grams:
+    number: 588.0
+    min: 1
+    max: 525
+    median: 3.0
+    mean: 13.63265306122449
+    stddev: 36.27213499802572
+3-grams:
+    number: 1948.0
+    min: 1
+    max: 243
+    median: 2.0
+    mean: 4.114476386036961
+    stddev: 10.567410280863946
+

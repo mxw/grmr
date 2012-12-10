@@ -1,0 +1,224 @@
+Sequitur------------------------------------------------------------[0.122833s]
+
+Rules:             155
+Size:              697
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
+
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lig
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      1600
+Avg Word Length:   4.142857
+Entropy:           609
+1-grams:
+    number: 48.0
+    min: 1
+    max: 273
+    median: 13.5
+    mean: 33.333333333333336
+    stddev: 50.78850482365296
+2-grams:
+    number: 263.0
+    min: 1
+    max: 69
+    median: 3.0
+    mean: 6.079847908745247
+    stddev: 10.040852521997476
+3-grams:
+    number: 492.0
+    min: 1
+    max: 53
+    median: 2.0
+    mean: 3.247967479674797
+    stddev: 5.081399999031954
+
+Lossifier::Similarity-----------------------------------------------[0.588432s]
+
+Rules:             149
+Size:              685
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1: And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the watersfrom the waters.
+
+1:7 And God made the firmament, and divided the waterswhich were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the watersunder the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waterscalled he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:1 And God said, Let there be lig
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      1594
+Distance:          0.003750
+Avg Word Length:   4.191919
+Entropy:           613
+1-grams:
+    number: 47.0
+    min: 1
+    max: 269
+    median: 15.0
+    mean: 33.91489361702128
+    stddev: 50.7215300239199
+2-grams:
+    number: 264.0
+    min: 1
+    max: 69
+    median: 3.0
+    mean: 6.034090909090909
+    stddev: 9.998994870284626
+3-grams:
+    number: 494.0
+    min: 1
+    max: 53
+    median: 2.0
+    mean: 3.222672064777328
+    stddev: 5.072252466783429
+
+Lossifier::Cluster--------------------------------------------------[0.541845s]
+
+Rules:             149
+Size:              685
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1: And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the watersfrom the waters.
+
+1:7 And God made the firmament, and divided the waterswhich were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the watersunder the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waterscalled he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:1 And God said, Let there be lig
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      1594
+Distance:          0.003750
+Avg Word Length:   4.191919
+Entropy:           613
+1-grams:
+    number: 47.0
+    min: 1
+    max: 269
+    median: 15.0
+    mean: 33.91489361702128
+    stddev: 50.7215300239199
+2-grams:
+    number: 264.0
+    min: 1
+    max: 69
+    median: 3.0
+    mean: 6.034090909090909
+    stddev: 9.998994870284626
+3-grams:
+    number: 494.0
+    min: 1
+    max: 53
+    median: 2.0
+    mean: 3.222672064777328
+    stddev: 5.072252466783429
+

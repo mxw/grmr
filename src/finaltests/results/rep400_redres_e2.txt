@@ -1,0 +1,108 @@
+Sequitur------------------------------------------------------------[0.029178s]
+
+Rules:             21
+Size:              76
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      401
+Avg Word Length:   400.000000
+Entropy:           72
+1-grams:
+    number: 3.0
+    min: 1
+    max: 386
+    median: 14.0
+    mean: 133.66666666666666
+    stddev: 178.50552434650928
+2-grams:
+    number: 4.0
+    min: 1
+    max: 371
+    median: 14.0
+    mean: 100.0
+    stddev: 156.55190832436378
+3-grams:
+    number: 5.0
+    min: 1
+    max: 356
+    median: 14.0
+    mean: 79.8
+    stddev: 138.19175083918722
+
+Lossifier::Similarity-----------------------------------------------[0.019247s]
+
+Rules:             13
+Size:              60
+
+Lossifier::Similarity-Reduced---------------------------------------[0.025427s]
+
+Rules:             15
+Size:              56
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      387
+Distance:          0.034913
+Avg Word Length:   386.000000
+Entropy:           59
+1-grams:
+    number: 3.0
+    min: 1
+    max: 379
+    median: 7.0
+    mean: 129.0
+    stddev: 176.79366504487655
+2-grams:
+    number: 4.0
+    min: 1
+    max: 371
+    median: 7.0
+    mean: 96.5
+    stddev: 158.50157727921825
+3-grams:
+    number: 5.0
+    min: 1
+    max: 363
+    median: 7.0
+    mean: 77.0
+    stddev: 143.0188798725539
+
+Lossifier::Cluster---------------------------------------------------[0.00716s]
+
+Rules:             13
+Size:              60
+
+Lossifier::Cluster-Reduced------------------------------------------[0.028478s]
+
+Rules:             15
+Size:              56
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      387
+Distance:          0.034913
+Avg Word Length:   386.000000
+Entropy:           59
+1-grams:
+    number: 3.0
+    min: 1
+    max: 379
+    median: 7.0
+    mean: 129.0
+    stddev: 176.79366504487655
+2-grams:
+    number: 4.0
+    min: 1
+    max: 371
+    median: 7.0
+    mean: 96.5
+    stddev: 158.50157727921825
+3-grams:
+    number: 5.0
+    min: 1
+    max: 363
+    median: 7.0
+    mean: 77.0
+    stddev: 143.0188798725539
+

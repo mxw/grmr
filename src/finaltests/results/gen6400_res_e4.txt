@@ -1,0 +1,511 @@
+Sequitur------------------------------------------------------------[0.494027s]
+
+Rules:             533
+Size:              2348
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
+
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lights in the firmament of the heaven
+to divide the day from the night; and let them be for signs, and for
+seasons, and for days, and years: 1:15 And let them be for lights in
+the firmament of the heaven to give light upon the earth: and it was
+so.
+
+1:16 And God made two great lights; the greater light to rule the day,
+and the lesser light to rule the night: he made the stars also.
+
+1:17 And God set them in the firmament of the heaven to give light
+upon the earth, 1:18 And to rule over the day and over the night, and
+to divide the light from the darkness: and God saw that it was good.
+
+1:19 And the evening and the morning were the fourth day.
+
+1:20 And God said, Let the waters bring forth abundantly the moving
+creature that hath life, and fowl that may fly above the earth in the
+open firmament of heaven.
+
+1:21 And God created great whales, and every living creature that
+moveth, which the waters brought forth abundantly, after their kind,
+and every winged fowl after his kind: and God saw that it was good.
+
+1:22 And God blessed them, saying, Be fruitful, and multiply, and fill
+the waters in the seas, and let fowl multiply in the earth.
+
+1:23 And the evening and the morning were the fifth day.
+
+1:24 And God said, Let the earth bring forth the living creature after
+his kind, cattle, and creeping thing, and beast of the earth after his
+kind: and it was so.
+
+1:25 And God made the beast of the earth after his kind, and cattle
+after their kind, and every thing that creepeth upon the earth after
+his kind: and God saw that it was good.
+
+1:26 And God said, Let us make man in our image, after our likeness:
+and let them have dominion over the fish of the sea, and over the fowl
+of the air, and over the cattle, and over all the earth, and over
+every creeping thing that creepeth upon the earth.
+
+1:27 So God created man in his own image, in the image of God created
+he him; male and female created he them.
+
+1:28 And God blessed them, and God said unto them, Be fruitful, and
+multiply, and replenish the earth, and subdue it: and have dominion
+over the fish of the sea, and over the fowl of the air, and over every
+living thing that moveth upon the earth.
+
+1:29 And God said, Behold, I have given you every herb bearing seed,
+which is upon the face of all the earth, and every tree, in the which
+is the fruit of a tree yielding seed; to you it shall be for meat.
+
+1:30 And to every beast of the earth, and to every fowl of the air,
+and to every thing that creepeth upon the earth, wherein there is
+life, I have given every green herb for meat: and it was so.
+
+1:31 And God saw every thing that he had made, and, behold, it was
+very good. And the evening and the morning were the sixth day.
+
+2:1 Thus the heavens and the earth were finished, and all the host of
+them.
+
+2:2 And on the seventh day God ended his work which he had made; and
+he rested on the seventh day from all his work which he had made.
+
+2:3 And God blessed the seventh day, and sanctified it: because that
+in it he had rested from all his work which God created and made.
+
+2:4 These are the generations of the heavens and of the earth when
+they were created, in the day that the LORD God made the earth and the
+heavens, 2:5 And every plant of the field before it was in the earth,
+and every herb of the field before it grew: for the LORD God had not
+caused it to rain upon the earth, and there was not a man to till the
+ground.
+
+2:6 But there went up a mist from the earth, and watered the whole
+face of the ground.
+
+2:7 And the LORD God formed man of the dust of the ground, and
+breathed into his nostrils the breath of life; and man became a living
+soul.
+
+2:8 And the LORD God planted a garden eastward in Eden; and there he
+put the man whom he had formed.
+
+2:9 And out of the ground made the LORD God to grow every tree that is
+pleasant to the sight, and good for food; the tree of life also in the
+midst of the garden, and the tree of knowledge of good and evil.
+
+2:10 And a river went out of Eden to water the garden; and from thence
+it was parted, and became into four heads.
+
+2:11 The name of the first is Pison: that is it which compasseth the
+whole land of Havilah, where there is gold; 2:12 And the gold of that
+land is good: there is bdellium and the onyx stone.
+
+2:13 And the name of the second river is Gihon: the same is it that
+compasseth the whole land of Ethiopia.
+
+2:14 And the name of the third river is Hiddekel: that is it which
+goeth toward the east of Assyria. And the fourth river is Euphrates.
+
+2:15 And the LORD God took the man, and put him into the garden of
+Eden to dress it and to keep it.
+
+2:16 And the LORD God commanded the man, saying, Of every tree of the
+garden thou mayest free
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      6400
+Avg Word Length:   4.042208
+Entropy:           1958
+1-grams:
+    number: 54.0
+    min: 1
+    max: 1126
+    median: 45.0
+    mean: 118.51851851851852
+    stddev: 197.94076374855376
+2-grams:
+    number: 427.0
+    min: 1
+    max: 271
+    median: 5.0
+    mean: 14.985948477751757
+    stddev: 31.44736190373688
+3-grams:
+    number: 1214.0
+    min: 1
+    max: 209
+    median: 2.0
+    mean: 5.270181219110379
+    stddev: 12.44021553551712
+
+Lossifier::Similarity---------------------------------------------[216.941759s]
+
+Rules:             242
+Size:              1740
+
+1:1 In e beginn God eatee veane eate
+
+e eate ws ithout frm,and void;and darkness aupon
+face o e deep.e Spirt o God moved uponface o th
+waer
+
+3id, Lt htand e was ht
+
+God w ht, was goodand God dividht
+from darknes
+
+5God mageht Dayand darkness e cald Nht
+n vemorn wee e frt 
+
+6id, Lt  afrmeat e midt o waerand t t dividwaerfrom waer
+
+7God magefrmeaand dividwaerwhich tre
+underfrmea from waer which tre avefrmea:and was 
+
+8God magefrmeaHeaen.veth
+morn wee secon
+
+9id, Lt undere vebegathred togee 
+unt one placeand t e dry land appeawas 
+
+0God magedry land Earth ae gathn togee  fwaercald e SeaGod was good
+
+God id, Lt eatearthgras, e yielding
+seedand e frt yieldingfrt frkindwoseseed i
+in tself, uponeatewas 
+
+n eateout arthgras, and yieldingseedwaerkindand e yieldingfrit, woseseedwas in tself, fr
+kindGod was good3vemorn wee thir
+
+1id, Lt e behts e frmeadividdafrom e ht at e befrsignand 
+seasonand daand yeas 1:n t e befrhts in
+e frmamen ave t vehtuponeate: and it w
+
+6God mage tworeathts;e greatet rule daand e esset rule e ht: e togee stars al
+
+7God set e e frmea to veht
+uponeate1:n t rule vee da avee nht, andivide htfrom darkness God was good9n ven morn weree fr
+
+0id, Lt bn arth aundantlye moin
+creaure e hath if, anfowl thada fly aveeate in th
+open firmameno ve
+
+1 n God magereatwhales, anvery lcreaure th
+move, hiche waer bout arth aundantly, fr
+kind
+n very wined fwlwaerkind: God th twas good
+
+n God essed thm, saying, Be fritful, anmultiplyfillwaere seas, ant fowlmultiply in eate
+
+3n ven morn weree fif
+
+id, Lt eatearthe lcreaure fr
+kind, cattl, anreepn thin, anbeast  ave
+kind1 n it w
+
+2n God magebeast  avekind, ancattl
+fr
+kind avery thingreepthuponeatewaerkind: God th twas good
+
+6id, Lt s make man ou itogee frou ikenes:
+n t e have dominon vee fish fe a, anvee fowl
+ ave, anvee cattl ave alleate ave
+vee reepn thinreepthuponeate
+
+7 So God mageman his own togee e imageo God mage
+n hi; male n female reatd e e 
+
+n God esd e , anGod id unt e , Be fritful, anmultiplyreplenisheate, ansubdue it1 n have dominon
+vee fish fe a avee  ave avevery
+l in thin thamoveuponeate
+
+9God id, Behold, I have ven ouveryherb bearn seed
+hich iupone face o aleate, anvee ree hich
+e frito a treyieldingseed; t out shal be frmea
+
+30n togee beast  ave, antogee  ave
+n togee thin thareepthuponeate, whren e 
+life, I have ven vee greenherb frmea1 n it w
+
+3God w vee thin thaGod mage, an, behold, it wverygood.n ven morn weree sixda
+
+1 Ths e ve1 n eate tre finshed, anale host f
+e 
+
+n one da God ended his workhich, an
+n esd one da from his workhich
+
+3God blesd e seda, ansanctifid it: because tha
+n t had esd from his workhichGod magen mage
+
+4 These are e generations  ave1 n  ave when
+thy were reatede da thae LORD God mageeate ath
+ve, 2:n vee plant t e eld befre itwas e eate
+n vee herb t e eld befre itgrew: frLORD God had nt
+caused it to ran uponeaten e was nt aman t tillth
+ground
+
+6 Bt e went up amist frome eate, anwaerd e wo
+face o e ground
+
+7 LORD God frd man t e dut e ground, anreathed int his nostrile reathlife, anman becae a iin
+soul
+
+8 LORD God planted a garden eatward in Eden, ane he
+out e man wom had fred
+
+9and out t e ground mageLORD God t growvery tree th i
+pleaant t e siht, angood fr fod; e relife also in th
+midt e garde, ane reo knowledgeo good and eil
+
+0and a rver went out o Eden to waere garde, anfrom thnc
+it wparted, anbecae int fr e d
+
+1 The e t e rst in Pison th in ithichompassethth
+woe n o Hailah, where e hold; 2:12and holdo th
+n t good: e bdellium n e onyx stone
+
+3and e t e seconrver in Gihon e sae t it tha
+ompassethe woe n o Ethopia
+
+4 and e e t e thrrver in Hiddekel: th in ithich
+goth toward th east o Assyria.and frth rver in Euphrate
+
+5and LORD God tooke an, anout hi into e garde f
+Eden to dresst n t keep t
+
+6 and LORD God omanded e an, saying, Of everyreo th
+garde thou daest free
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      3945
+Distance:          0.405938
+Avg Word Length:   4.115804
+Entropy:           1750
+1-grams:
+    number: 54.0
+    min: 1
+    max: 660
+    median: 19.0
+    mean: 73.05555555555556
+    stddev: 121.61435963378585
+2-grams:
+    number: 471.0
+    min: 1
+    max: 169
+    median: 3.0
+    mean: 8.373673036093418
+    stddev: 16.317720789809982
+3-grams:
+    number: 1301.0
+    min: 1
+    max: 60
+    median: 1.0
+    mean: 3.0307455803228285
+    stddev: 4.5900981366986375
+
+Lossifier::Cluster--------------------------------------------------[9.126727s]
+
+Rules:             218
+Size:              1694
+
+1:1 In hebeginn God eaheeaenanhearth
+
+inhearth ws itht frm,and void;and darkness aupon
+facreo hedeep.inheSpirt o God ond uponfacreo he
+ wer
+
+3inhecald hehtand he ws ht
+
+inhew ht, tht  wgoodand God dividht
+from darknes
+
+5inhecald heht Dayand darkness hecald Nht
+ndheenn morn werehefrt 
+
+6inhecald hea mament inhemidt o  werand t t divid wer wer
+
+7inhemamenand divid werwhich wer
+undermamen  wer which wera onmamen:and t  w
+
+8inhecald hemamenHeaen.heenn he
+morn werehesecon
+
+9inhecald heunderheeaenbegahered togehe
+untoonreplaceand t hedry iand appeat  w
+
+0inhecald hedry iand Earthand hegahen togehe f wercald heSeainhetht  wgood
+
+inheid, Lt artharthgras, heyielding
+seedand hefrt yieldingfrt fekindwoseseed i
+in tself, artht  w
+
+and arthrouht arthgras, and yieldingseedfekindand heyieldingfrt , woseseed ws in tself, fe
+kindinhetht  wgood3heenn morn werehethir
+
+1inhecald hehebehts inhefrwlrehe
+todividthdafrom hehtand rehebefrsignand 
+seasonand daand yea: 1:and rehebefrhts in
+hefrmamenrehe toinhtarth: and t  w
+
+6inhe tworet hts;hegreatorulrethdaand heestorulreheht: herehestars al
+
+7inheset heinhefrwlrehetoinht
+arth1:and torulrerehedaand rehenht, an
+todividhehtfrom darknes: God tht  wgood9and heenn and morn werehefr
+
+0inhecald hebn artha undantlyhemoincreaourethhath ifand frwlthma flya onarth in he
+open firmameno eaen
+
+and God eaedret whalesand enry icreaourehe
+on, hichhe wer brouht artha undantly, fe
+kindand enry wined fwlfekind: God th t ws good
+
+and God es trem, saying, Brefrt fuland multiplyfill werinheseasand t frwlmultiply in arth
+
+3and heenn and morn werehefif
+
+inhecald heartharthhelcreaourefe
+kind, cattland crepn thinand arthfehi
+kindt  w
+
+2and God eaedarthfehikindand cattl
+fe
+kindand enry thingarthfekind: God th t ws good
+
+6inhecald hes makreman ou imagefeou ikenes:and reheeaendominon rehefish fheseaa onfrwl
+rehea oncattla on wllartha on
+enrycrepn thinarth
+
+7 So God eaedman his own mageinheimageo God eaed
+hehi; mageand femagecratd hehe
+
+and God esheand God id untohe, Brefrt ful, anmultiplyreplenisharthsubduret and eaendominon
+rehefish fheseaa onhefrwlrehea onenry
+ln thinonarth
+
+9inheid, Behold, I eaeninn ouenryherb bearn seed
+hich iuponhefacreo alarthenryreinhehich
+hefrt o a treyieldingseed; toout shal brefrmea
+
+30and enryarthand enryfrwlreheand enrythinarth, whenn he
+life, I eaeninn enrygreenherb frmeat  w
+
+3inhew enrythinhad , an, behold, t  wenrygood.and heenn and morn werehesixthda
+
+1 Ths heeaenand arth wer finshedand alhehost f
+he
+
+and onhesethda God ended his workhich, an
+heret onhesethda from his workhich
+
+3inhebleshesethdaand sanctifid t : because tha
+n t had ret from his workhichGod eaedand mage
+
+4 Thesrearrehegenerations reheand arth when
+hey wrecratedinheda thaheLORD God eaedarthand he
+eaen, 2:and enryplant reheeld befrret  ws inhearthand enryherb reheeld befrret grew: frLORD God had nt
+caused t toran arthand he ws nta man totillhe
+ground
+
+6 Bt hewent upa mist fromhearthand  werd hewo
+facreo heground
+
+7 LORD God frd man rehedust fground, ancrathed intohis ntstrilhecrathlifeand man becarea iinsoul
+
+8 LORD God planted a garden eat wrd in Edenand hehe
+t heman wom had fred
+
+9and t reheground mageLORD God togrowenry trereth i
+pleaant tohesihtand good fr fod; hefrlife wlso in he
+midst fgardeand hefro kntwledgeo good wnd eil
+
+0and a rinr went t o Eden werhegardeand from henc
+t  wpartedand becareintofr ead
+
+1 Threrereherst in Pison thinhichompassethhe
+woreand o Hailah, whrehehold; 2:12inheholdo he
+and t good: hebdellium and heonyx stone
+
+3inherereheseconrinr in Gihon hesaret t  tha
+ompassethheworeand o Ethopia
+
+4 ndhererehethrrinr in Hiddekel: thinhich
+goth towar tre east o Assyria.inhefrth rinr in Euphrate
+
+5inheLORD God tookheanand t hi into hegarde f
+Edendresst and tokeep t
+
+6 ndLORD God omanded hean, saying, Of eenryreo he
+garde thou maest free
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      3944
+Distance:          0.430781
+Avg Word Length:   6.062030
+Entropy:           1708
+1-grams:
+    number: 54.0
+    min: 1
+    max: 469
+    median: 12.5
+    mean: 73.03703703703704
+    stddev: 114.92299562991812
+2-grams:
+    number: 461.0
+    min: 1
+    max: 170
+    median: 3.0
+    mean: 8.553145336225597
+    stddev: 17.328267874984057
+3-grams:
+    number: 1291.0
+    min: 1
+    max: 79
+    median: 1.0
+    mean: 3.053446940356313
+    stddev: 5.250599328493495
+

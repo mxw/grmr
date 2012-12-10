@@ -1,0 +1,541 @@
+Sequitur------------------------------------------------------------[0.489691s]
+
+Rules:             533
+Size:              2348
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
+
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lights in the firmament of the heaven
+to divide the day from the night; and let them be for signs, and for
+seasons, and for days, and years: 1:15 And let them be for lights in
+the firmament of the heaven to give light upon the earth: and it was
+so.
+
+1:16 And God made two great lights; the greater light to rule the day,
+and the lesser light to rule the night: he made the stars also.
+
+1:17 And God set them in the firmament of the heaven to give light
+upon the earth, 1:18 And to rule over the day and over the night, and
+to divide the light from the darkness: and God saw that it was good.
+
+1:19 And the evening and the morning were the fourth day.
+
+1:20 And God said, Let the waters bring forth abundantly the moving
+creature that hath life, and fowl that may fly above the earth in the
+open firmament of heaven.
+
+1:21 And God created great whales, and every living creature that
+moveth, which the waters brought forth abundantly, after their kind,
+and every winged fowl after his kind: and God saw that it was good.
+
+1:22 And God blessed them, saying, Be fruitful, and multiply, and fill
+the waters in the seas, and let fowl multiply in the earth.
+
+1:23 And the evening and the morning were the fifth day.
+
+1:24 And God said, Let the earth bring forth the living creature after
+his kind, cattle, and creeping thing, and beast of the earth after his
+kind: and it was so.
+
+1:25 And God made the beast of the earth after his kind, and cattle
+after their kind, and every thing that creepeth upon the earth after
+his kind: and God saw that it was good.
+
+1:26 And God said, Let us make man in our image, after our likeness:
+and let them have dominion over the fish of the sea, and over the fowl
+of the air, and over the cattle, and over all the earth, and over
+every creeping thing that creepeth upon the earth.
+
+1:27 So God created man in his own image, in the image of God created
+he him; male and female created he them.
+
+1:28 And God blessed them, and God said unto them, Be fruitful, and
+multiply, and replenish the earth, and subdue it: and have dominion
+over the fish of the sea, and over the fowl of the air, and over every
+living thing that moveth upon the earth.
+
+1:29 And God said, Behold, I have given you every herb bearing seed,
+which is upon the face of all the earth, and every tree, in the which
+is the fruit of a tree yielding seed; to you it shall be for meat.
+
+1:30 And to every beast of the earth, and to every fowl of the air,
+and to every thing that creepeth upon the earth, wherein there is
+life, I have given every green herb for meat: and it was so.
+
+1:31 And God saw every thing that he had made, and, behold, it was
+very good. And the evening and the morning were the sixth day.
+
+2:1 Thus the heavens and the earth were finished, and all the host of
+them.
+
+2:2 And on the seventh day God ended his work which he had made; and
+he rested on the seventh day from all his work which he had made.
+
+2:3 And God blessed the seventh day, and sanctified it: because that
+in it he had rested from all his work which God created and made.
+
+2:4 These are the generations of the heavens and of the earth when
+they were created, in the day that the LORD God made the earth and the
+heavens, 2:5 And every plant of the field before it was in the earth,
+and every herb of the field before it grew: for the LORD God had not
+caused it to rain upon the earth, and there was not a man to till the
+ground.
+
+2:6 But there went up a mist from the earth, and watered the whole
+face of the ground.
+
+2:7 And the LORD God formed man of the dust of the ground, and
+breathed into his nostrils the breath of life; and man became a living
+soul.
+
+2:8 And the LORD God planted a garden eastward in Eden; and there he
+put the man whom he had formed.
+
+2:9 And out of the ground made the LORD God to grow every tree that is
+pleasant to the sight, and good for food; the tree of life also in the
+midst of the garden, and the tree of knowledge of good and evil.
+
+2:10 And a river went out of Eden to water the garden; and from thence
+it was parted, and became into four heads.
+
+2:11 The name of the first is Pison: that is it which compasseth the
+whole land of Havilah, where there is gold; 2:12 And the gold of that
+land is good: there is bdellium and the onyx stone.
+
+2:13 And the name of the second river is Gihon: the same is it that
+compasseth the whole land of Ethiopia.
+
+2:14 And the name of the third river is Hiddekel: that is it which
+goeth toward the east of Assyria. And the fourth river is Euphrates.
+
+2:15 And the LORD God took the man, and put him into the garden of
+Eden to dress it and to keep it.
+
+2:16 And the LORD God commanded the man, saying, Of every tree of the
+garden thou mayest free
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      6400
+Avg Word Length:   4.042208
+Entropy:           1958
+1-grams:
+    number: 54.0
+    min: 1
+    max: 1126
+    median: 45.0
+    mean: 118.51851851851852
+    stddev: 197.94076374855376
+2-grams:
+    number: 427.0
+    min: 1
+    max: 271
+    median: 5.0
+    mean: 14.985948477751757
+    stddev: 31.44736190373688
+3-grams:
+    number: 1214.0
+    min: 1
+    max: 209
+    median: 2.0
+    mean: 5.270181219110379
+    stddev: 12.44021553551712
+
+Lossifier::Similarity-----------------------------------------------[73.82987s]
+
+Rules:             446
+Size:              2173
+
+1:1 In the beginning God create the heavean the earth.
+
+1: And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+water.
+
+1:3 And God id, Let there belight and there was light.
+
+1: And God w thelight, that it was good and God divide thelight
+from the darknes.
+
+1:5 And God called the light Day and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God id, Let there be a firmament in the midst of the water
+and let it divide the waterfrom the water.
+
+1:7 And God made the firmamen and divide the waterwhich were
+under the firmamen from the water which were above the firmamen:
+and it was .
+
+1:8 And God called the firmamenHeaven. And the evening and the
+morning were the seconday.
+
+1:9 And God id, Let there beunder the heavebe gathered together
+unto one place and let the dry land appear and it was .
+
+1:0 And God called the dry land Earth and the gathering together ofthe watercalled he Seasand God saw that it was good.
+
+1: And God id, Let the earthring forth grass, the herb yielding
+seed and the fruittree yielding fruitafterhis kind, whose seed is
+in itself, upon the earth and it was .
+
+1: And the earthrought forth grass, and herb yielding seedafter
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kindand God saw that it was good.
+
+1:3 And the evening and the morning were the thirday.
+
+1:1 And God id, Let there be lights in the firmamenof the heave
+to divide th dayfrom the night and let them be for signs, and for
+seasons, and for days, and years: 1:1 And let them be for lights in
+the firmament of the heave to givelightupon the earth: and it was
+.
+
+1:6 And God made two great lights; the greaterlightto rule th day
+and the lesserlightto rule the night: he made the stars al.
+
+1:7 And God set them in the firmamenof the heave to givelight
+upon the earth1:1 And to rule over the day and over the night, and
+to divide the lightfrom the darkness: and God saw that it was good.
+
+1:9 And the evening and the morning were the fourth day.
+
+1:0 And God id, Let there bebring forth abundantly the moving
+creature that hath lif and fowlthat may fly abovethe earth in the
+open firmament of heave.
+
+1: And God created great whales and every living creature that
+moveth, which the water brought forth abundantly, aftertheir kind,
+and every winged fowlafterhis kind: and God saw that it was good.
+
+1: And God blessed them, saying, Be fruitful and multiply and fillthe waterin the seas and let fowl multiply in the earth.
+
+1:3 And the evening and the morning were the fifth day.
+
+1: And God id, Let the earthring forth the living creature after
+his kind, cattl and creeping thing and beast the earthafterhis
+kind and it was .
+
+1:2 And God made the beast the earthafterhis kind and cattl
+aftertheir kind, and every thingcreepethupon the earthafter
+his kind: and God saw that it was good.
+
+1:6 And God id, Let us make man in our image, afterour likeness:
+and let them have dominion over the fish of the sea and over the fowl
+of the air and over the cattl and over allthe earth and over
+everycreeping thingcreepethupon the earth.
+
+1:7 So God createdman in his own image, in the image of God created
+he him; male and female created he them.
+
+1: And God blessed them and God said unto them, Be fruitful, and
+multiply and replenishthe earth and subdue it and have dominion
+over the fish of the sea and over the fowl of the air and overevery
+living thingthat movethupon the earth.
+
+1:9 And God id, Behold, I have given youeveryherb bearing seed,
+which is upon the face of allthe earth and everytree, in the which
+i the fruit of a tree yielding seed; to you it shall be for meat.
+
+1:30 And to everybeast the earth and to everyfowl of the air
+and to everythingthat creepethupon the earth, wherein there s
+life, I have given everygreenherb for meat and it was .
+
+1:3 And God w everythingthat he had made, and, behold, it was
+very good. And the evening and the morning were the sixth day.
+
+1:1 Thus the heave and the earth were finished and all the host of
+them.
+
+1: And on the seventh day God ended his workwhichhe had made; and
+he rested on the seventh day from all his workwhichhe had made.
+
+1:3 And God blessed the seventh day and sanctified it: because that
+in it he had rested from all his workwhichGod createdand made.
+
+1:4 These are the generations of the heave and the earth when
+they were created, in the day that the LORD God made the earth and the
+heaves, 2: And everyplant of the field before it was in the earth
+and everyherb of the field before it grew: for the LORD God had not
+caused it to rain upon the earthand there was not a man to tillthe
+ground.
+
+1:6 But there went up a mist from the earth and watered the whole
+face of the ground.
+
+1:7 the LORD God formed man of the dust of the ground, and
+breathed into his nostril the breath of life and man became a living
+soul.
+
+1:8 the LORD God planted a garden eastward in Eden and there he
+put the man whom he had formed.
+
+1:9 And out of the ground madethe LORD God to growevery tree that is
+pleasant to the sight and good for food; the tree of life also in the
+midst of the garde and the tree of knowledge of good and evil.
+
+1:0 And a river went out of Eden to water the garde and from thence
+it was parted and became into four head.
+
+1:1 The name of the first is Pison: that is itwhichcompasseththe
+whole land of Havilah, where there s gold; 2:12 And the gold of that
+land is good: there s bdellium and the onyx stone.
+
+1:3 And the name of the seconriver is Gihon: the same is it that
+compasseth the whole land of Ethiopia.
+
+1:4 And the name of the thirriver is Hiddekel: that is itwhich
+goeth toward the east of Assyria. And the fourth river is Euphrate.
+
+1:5 And the LORD God took the man and put him into the garde of
+Eden to dress it and to keep it.
+
+1:6 And the LORD God commanded the man, saying, Of every tree of the
+garde thou mayest free
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      6094
+Distance:          0.051250
+Avg Word Length:   4.219081
+Entropy:           1979
+1-grams:
+    number: 54.0
+    min: 1
+    max: 1028
+    median: 44.0
+    mean: 112.85185185185185
+    stddev: 187.5342346432707
+2-grams:
+    number: 430.0
+    min: 1
+    max: 269
+    median: 4.0
+    mean: 14.169767441860465
+    stddev: 30.474793510060124
+3-grams:
+    number: 1245.0
+    min: 1
+    max: 192
+    median: 2.0
+    mean: 4.893172690763052
+    stddev: 11.796357479043522
+
+Lossifier::Cluster-------------------------------------------------[14.022343s]
+
+Rules:             445
+Size:              2171
+
+1:1 In the beginning God create the heavean the earth.
+
+1: And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+water.
+
+1:3 And God id, Let there belight and there was light.
+
+1: And God w thelight, that it was good and God divide thelight
+from the darknes.
+
+1:5 And God called the light Day and the darkness he called Night.
+And the evening and the morning were the first day.
+
+1:6 And God id, Let there be a firmament in the midst of the water
+and let it divide the waterfrom the water.
+
+1:7 And God made the firmamen and divide the waterwhich were
+under the firmamen from the water which were above the firmamen:
+and it was .
+
+1:8 And God called the firmamenHeaven. And the evening and the
+morning were the seconday.
+
+1:9 And God id, Let there beunder the heavebe gathered together
+unto one place and let the dry land appear and it was .
+
+1:0 And God called the dry land Earth and the gathering together ofthe watercalled he Seasand God saw that it was good.
+
+1: And God id, Let the earthring forth grass, the herb yielding
+seed and the fruittree yielding fruitafterhis kind, whose seed is
+in itself, upon the earth and it was .
+
+1: And the earthrought forth grass, and herb yielding seedafter
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kindand God saw that it was good.
+
+1:3 And the evening and the morning were the thirday.
+
+1:1 And God id, Let there be lights in the firmamenof the heave
+to divide th dayfrom the night and let them be for signs, and for
+seasons, and for days, and years: 1:1 And let them be for lights in
+the firmament of the heave to givelightupon the earth: and it was
+.
+
+1:6 And God made two great lights; the greaterlightto rule th day
+and the lesserlightto rule the night: he made the stars al.
+
+1:7 And God set them in the firmamenof the heave to givelight
+upon the earth1:1 And to rule over the day and over the night, and
+to divide the lightfrom the darkness: and God saw that it was good.
+
+1:9 And the evening and the morning were the fourth day.
+
+1:0 And God id, Let there bebring forth abundantly the moving
+creature that hath lifs, and fowlthat may fly abovethe earth in the
+open firmament of heave.
+
+1: And God created great whales and every living creature that
+moveth, which the water brought forth abundantly, aftertheir kind,
+and every winged fowlafterhis kind: and God saw that it was good.
+
+1: And God blesse the m, saying, Be fruitful and multiply and fillthe waterin the seas and let fowl multiply in the earth.
+
+1:3 And the evening and the morning were the fifth day.
+
+1: And God id, Let the earthring forth the living creature after
+his kind, cattls, and creeping thing and beast the earthafterhis
+kind and it was .
+
+1:2 And God made the beast the earthafterhis kind and cattl
+aftertheir kind, and every thingcreepethupon the earthafter
+his kind: and God saw that it was good.
+
+1:6 And God id, Let us make man in our image, afterour likeness:
+and let them have dominion over the fish of the sea and over the fowl
+of the air and over the cattl and over allthe earth and over
+everycreeping thingcreepethupon the earth.
+
+1:7 So God createdman in his own image, in the image of God created
+he him; male and female created he them.
+
+1: And God blessed them and God said unto them, Be fruitful, and
+multiply and replenishthe earth and subdue it and have dominion
+over the fish of the sea and over the fowl of the air and overevery
+living thingthat movethupon the earth.
+
+1:9 And God id, Behold, I have given youeveryherb bearing seed,
+which is upon the face of allthe earth and everytree, in the which
+i the fruit of a tree yielding seed; to you it shall be for meat.
+
+1:30 And to everybeast the earth and to everyfowl of the air
+and to everythingthat creepethupon the earth, wherein there s
+life, I have given everygreenherb for meat and it was .
+
+1:3 And God w everythingthat he had made, and, behold, it was
+very good. And the evening and the morning were the sixth day.
+
+1:1 Thus the heave and the earth were finished and all the host of
+them.
+
+1: And on the seventh day God ended his workwhichhe had made; and
+he rested on the seventh day from all his workwhichhe had made.
+
+1:3 And God blessed the seventh day and sanctified it: because that
+in it he had rested from all his workwhichGod createdand made.
+
+1:4 These are the generations of the heave and the earth when
+they were created, in the day that the LORD God made the earth and the
+heaves, 2: And everyplant of the field before it was in the earth
+and everyherb of the field before it grew: for the LORD God had not
+caused it to rain upon the earthand there was not a man to tillthe
+ground.
+
+1:6 But there went up a mist from the earth and watered the whole
+face of the ground.
+
+1:7 the LORD God formed man of the dust of the ground, and
+breathed into his nostril the breath of life and man became a living
+soul.
+
+1:8 the LORD God planted a garden eastward in Eden and there he
+put the man whom he had formed.
+
+1:9 And out of the ground madethe LORD God to growevery tree that is
+pleasant to the sight and good for food; the tree of life also in the
+midst of the garde and the tree of knowledge of good and evil.
+
+1:0 And a river went out of Eden to water the garde and from thence
+it was parted and became into four head.
+
+1:1 The name of the first is Pison: that is itwhichcompasseththe
+whole land of Havilah, where there s gold; 2:12 And the gold of that
+land is good: there s bdellium and the onyx stone.
+
+1:3 And the name of the seconriver is Gihon: the same is it that
+compasseth the whole land of Ethiopia.
+
+1:4 And the name of the thirriver is Hiddekel: that is itwhich
+goeth towar the  east of Assyria. And the fourth river is Euphrate.
+
+1:5 And the LORD God took the man and put him into the garde of
+Eden to dress it and to keep it.
+
+1:6 And the LORD God commanded the man, saying, Of every tree of the
+garde thou mayest free
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      6098
+Distance:          0.051562
+Avg Word Length:   4.217123
+Entropy:           1985
+1-grams:
+    number: 54.0
+    min: 1
+    max: 1030
+    median: 44.0
+    mean: 112.92592592592592
+    stddev: 187.6677374995946
+2-grams:
+    number: 432.0
+    min: 1
+    max: 269
+    median: 4.0
+    mean: 14.113425925925926
+    stddev: 30.427183955276046
+3-grams:
+    number: 1251.0
+    min: 1
+    max: 192
+    median: 2.0
+    mean: 4.872901678657074
+    stddev: 11.7773370741727
+

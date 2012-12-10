@@ -1,0 +1,137 @@
+Sequitur------------------------------------------------------------[0.022008s]
+
+Rules:             47
+Size:              258
+
+1:1 In the beginning God created the heaven and the earth.
+
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
+
+1:3 And God said, Let there be light: and there was light.
+
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
+
+1:5 And God called the light D
+
+Sequitur-Stats-----------------------------------------------------------------
+
+Total Length:      400
+Avg Word Length:   3.948718
+Entropy:           249
+1-grams:
+    number: 39.0
+    min: 1
+    max: 70
+    median: 6.0
+    mean: 10.256410256410257
+    stddev: 13.219484354577546
+2-grams:
+    number: 153.0
+    min: 1
+    max: 20
+    median: 1.0
+    mean: 2.607843137254902
+    stddev: 3.2423571150736357
+3-grams:
+    number: 222.0
+    min: 1
+    max: 15
+    median: 1.0
+    mean: 1.7927927927927927
+    stddev: 1.9434209510811555
+
+Lossifier::Similarity-----------------------------------------------[0.175116s]
+
+Rules:             32
+Size:              224
+
+1:1 In the beginning God createthe heaven anthe earth.
+
+1:2 and the earth wa without form, and void; and darknes was upon
+the face of the deep. and the Spirt of God moved upon the face of te
+water.
+
+1:3 and the id, Let the belight and the was light.
+
+1:4 and the w light, that t was good and God dividd light
+from the darknes.
+
+1:5 and the calld the light D
+
+Lossifier::Similarity-Stats----------------------------------------------------
+
+Total Length:      368
+Distance:          0.115000
+Avg Word Length:   3.849315
+Entropy:           237
+1-grams:
+    number: 38.0
+    min: 1
+    max: 65
+    median: 5.0
+    mean: 9.68421052631579
+    stddev: 12.622255330957671
+2-grams:
+    number: 146.0
+    min: 1
+    max: 19
+    median: 1.0
+    mean: 2.5136986301369864
+    stddev: 3.233464364978704
+3-grams:
+    number: 217.0
+    min: 1
+    max: 15
+    median: 1.0
+    mean: 1.6866359447004609
+    stddev: 1.9822847268824606
+
+Lossifier::Cluster--------------------------------------------------[0.068736s]
+
+Rules:             30
+Size:              219
+
+1:1 In tebeginning God createteheaven anteearth.
+
+1:2 and earth wa without form, and void; and darknes was upon
+teface of tedeep. and Spirt of God moved upon teface of te
+water.
+
+1:3 and id, Let tebelight and tewas light.
+
+1:4 and w light, that t was good and God dividd light
+from tedarknes.
+
+1:5 and calld telight D
+
+Lossifier::Cluster-Stats-------------------------------------------------------
+
+Total Length:      328
+Distance:          0.192500
+Avg Word Length:   4.413793
+Entropy:           232
+1-grams:
+    number: 38.0
+    min: 1
+    max: 50
+    median: 5.0
+    mean: 8.631578947368421
+    stddev: 10.178462950428273
+2-grams:
+    number: 148.0
+    min: 1
+    max: 16
+    median: 1.0
+    mean: 2.2094594594594597
+    stddev: 2.4028512859539424
+3-grams:
+    number: 219.0
+    min: 1
+    max: 10
+    median: 1.0
+    mean: 1.4885844748858448
+    stddev: 1.297559108528117
+
