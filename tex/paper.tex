@@ -310,6 +310,8 @@ We don't report the running times for just \Sequitur since its linear
 running time is negligible compared to our algorithms for all but the
 smallest input data.
 
+\subsubsection{Rep-n results}
+
 Below are the results on running Sequitur and Cluster, without
 the grammar reductions, on the rep-n datasets. Time is the wall clock
 running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
@@ -326,7 +328,7 @@ in recreating the original texture of the input.
 The columns of the data are prefixed by S or T depending on whether
 they are measurements for sequitur or cluster respectively.
 
-\begin{table}[t]
+\begin{table}[p]
 \subfloat[$\epsilon = .4$]{
 \begin{tabular}{l|l|l|l|l||l|l|l|l}
 Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
@@ -355,13 +357,40 @@ rep-25600 & 124.5 & 922/1482 & 0.565 & 0.12 & 2.597 & 926/1482 & 0.437 & 0.007\\
 \caption{rep-n Tests}
 \end{table}
 
-Runtime Comparison, esp. w.r.t num of rules.
-Quality Comparison.
-Epsilon Comparison.
+The compression ratios achieved for both algorithms are roughly equal for the same
+value for $\epsilon$, so it is fair to compare the algorithms for the same $\epsilon$.
+
+
+From plotting the data, we see that runtime of the algorithms are roughly polynomial
+in the size of the data, so we can perform a linear regression on the log-log transform
+of the data to find the exponents $\alpha$ for the runtime $r(n)=n^\alpha$ where $n$ is the
+length of the input string. In the chart below, all of the linear regressions had
+$R^2$ values of over $0.98$.
+
+\begin{tabular}{l|l|l|l|l}
+Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Clust: $\epsilon = .2$ \\
+Exponent & $1.859$ & $2.026$ & $1.306$ & $1.305$
+\end{tabular}
+
+
+For both values of $\epsilon$, 
+The clustering algorithm is nearly linear, while the similarity algorithm is roughly
+quadratic. On this dataset, the leveshtein distances were similar for both algorithms
+but fairly high since the length of the final string could change drastically.
+The proportion of '*'s in the input was usually the right order of magnitude,
+with both algorithms making big mistakes occassionally. In most cases,
+the two algorithms maintained similarly acceptable fidelity levels in recreating
+the texture of the original rep-n input file.
+
+Setting higher values for $\epsilon$ had diminishing returns for compression
+for larger and larger file sizes, at the cost of drastically lowering the fidelity
+of the output. 
+
+\subsubsection{Gen-n results}
 
 Repeating the above tests on the \emph{gen-n} datasets yields the following:
 
-\begin{table}[t]
+\begin{table}[p]
 \subfloat[$\epsilon = .4$]{
 \begin{tabular}{l|l|l|l||l|l|l}
 Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
@@ -392,9 +421,53 @@ gen-25600 & 3939  & 7405/8060& 0.06 &224.9 & 7374/8060& 0.06\\
 \caption{gen-n}
 \end{table}
 
-Thus, we see that similarity provides no consistent advantage over cluster
-and has much less scalable performance, with an estimated running time of 
-BLAH. For the rest of the paper we will only test Cluster.
+Just as with the rep-n data, log-log regression tests yield the following
+exponents for the runtime on the gen-n data.
+
+\begin{tabular}{l|l|l|l|l}
+Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Clust: $\epsilon = .2$ \\
+Exponent & $2.629$ & $2.493$ & $1.814$ & $2.061$
+\end{tabular}
+
+
+Again, the two algorithms have almost identical compression ratios and
+their fidelity is about the same both subjectively and based on levenshtein
+distance.
+
+
+INCLUDE SAMPLE TEXT
+
+
+The runtimes are noticeably worse than for the rep-n dataset. The
+similarity algorithm runs in roughly $n^{2.5}$ time while cluster
+runs in roughly $n^2$ time. 
+
+
+Changing epsilon in this case had a large effect on both the compression
+ratio and the fidelity of the final output string.
+
+\subsubsection{Summary}
+
+Both of the algorithms were able to achieve great additional compression
+ratios on top of \Sequitur of up to about 40 percent for the highly
+structured rep-n data, and 30 percent for the more loosely structured
+gen-n data without using the grammar reducer. The fidelity between
+the original and lossified strings wasn't great as measured by
+levenshtein distance, but the texture in both the rep-n and
+gen-n datasets was preserved well. Decreasing the $\epsilon$ threshold
+improved fidelity greatly for larger very structured data at little
+cost to the compression ratio, but hurt the compression ratio
+a lot for less structured data.
+
+The differences between the two algorithms lie almost entirely in their
+runtime. Both algorithms perform much worse on the less structued
+gen-n data, we believe because simplifications are made more incrementally
+and the grammar does not get dramatically simpler after a few iterations
+of our algorithm like it does for the rep-n data.
+Unfortunately the Similarity algorithm tends to consistently incur
+an overhead of about $O(\sqrt{n})$ on top of the runtime for the
+Cluster algorithm. Because of this we dismiss the Similarity algorithm
+as unscalable and do not test it further.
 
 \subsection{Grammar Reduction Impact}
 Although the grammars generated by Sequitur are irreducible,
@@ -403,36 +476,47 @@ compressed further (losslessly) using Reduction Rules without
 changing the output string. To test the cost and
 effectiveness of applying reduction rules, we looked at the
 rep-n and gen-n test cases again, this time focusing on the
-clustering algorithm for $\epsilon = .2$.
+clustering algorithm for $\epsilon = .2$. This time we give the ratio
+on top of the simplified grammar produced by the clustering algorithm,
+and the time taken to run just the reduction rules.
 
-\begin{table}[t]
+\begin{table}[p]
 \subfloat[rep-n tests]{
-\begin{tabular}{l|l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & C-T & C-R \\
+\begin{tabular}{l|l|l}
+Dataset & Time & Ratio \\
 \hline
-rep-100   & & /& & /\\
-rep-400   & & /& & /\\
-rep-1600  & & /& & /\\
-rep-6400  & & /& & /\\
-rep-12800 & & /& & /\\
+rep-100   & 0.008 & 29/30  \\
+rep-400   & 0.028 & 56/60  \\
+rep-1600  & 0.132 & 96/123 \\
+rep-6400  & 1.145 & 153/186\\
+rep-12800 & 19.43 & 403/632\\
 \end{tabular}
 }
-
-
-
 \subfloat[gen-n tests]{
-\begin{tabular}{l|l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & C-T & C-R \\
+\begin{tabular}{l|l|l}
+Dataset & Time & Ratio \\
 \hline
-gen-100   & & /& & /\\
-gen-400   & & /& & /\\
-gen-1600  & & /& & /\\
-gen-6400  & & /& & /\\
-gen-12800 & & /& & /\\
+gen-100   & 0.016 & 89/89\\
+gen-400   & 0.126 & 245/245\\
+gen-1600  & 4.833 & 660/664\\
+gen-6400  & 308.7 & 2139/2171\\
 \end{tabular}
 }
 \caption{Reducer Tests for $\epsilon = .2$}
 \end{table}
+
+
+When plotted on a log-log scale, the runtime for our straightforward 
+implementation of the reduction
+rules appears to be superpolynomial. While modest additional gains of about 30 percent
+are possible for highly self-similar data, very few additional gains are
+possible for more diverse datasets such as gen-n. This appears to be because
+the only simplifications that are possible on diverse datasets don't lead to
+the wide-ranging repetitive substitutions which allow reduction rules to be allowed.
+The simplifications in gen-n tend to be more local.
+
+Because we were unable to get reduction rules to scale to larger datasets,
+we will not consider them further.
 
 
 \subsection{Larger Tests}
