@@ -22,26 +22,36 @@
 \subsectionfont{\normalsize}
 
 \newcommand{\Sequitur}{\textsc{Sequitur}\xspace}
+\newcommand{\Similarity}{\textsc{Similarity}\xspace}
+\newcommand{\Cluster}{\textsc{Cluster}\xspace}
 
 \lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
 
 \begin{document}
 \bibliographystyle{plain}
 
-\title{Squint: Lossy Hierarchical Compression on Symbol Streams}
+\title{%
+  \vspace{-.2in}%
+  Squint: Lossy Hierarchical Compression on Symbol Streams%
+  \vspace{-.1in}%
+}
 \author{Edward Gan \& Max Wang}
-\date{December 11, 2012}
+\date{%
+  \vspace{-.1in}%
+  December 11, 2012%
+}
+
 \maketitle
 
 \begin{abstract}
 
 Grammar-based compression schemes like \Sequitur exploit repeated structures in
 streams of symbolic data to achieve good compression ratios.  We develop a set
-of algorithms for improving upon Grammar-based compression schemes by allowing
-some loss in the compression. Although precise subsequences might be altered,
-in return we can simplify the grammars produced to obtain better ratios while
-still preserving important syntatic patterns at both the micro and macro
-levels.
+of algorithms for improving upon grammar-based compression schemes by allowing
+some lossiness in the compression.  Although precise subsequences might be
+altered, in return we can simplify the grammars produced to obtain better
+ratios while still preserving important syntatic patterns at both the micro and
+macro levels.
 
 \end{abstract}
 
@@ -49,46 +59,65 @@ levels.
 
 \section{Introduction and Goals}
 
-Many sources of data exhibit natural hierarchical structure. For instance,
-english text often can be grouped well into sections, paragraphs, sentences,
-...  all the way down to words and phonemes. Music too, consists of repeated
-motifs, phrases, themes, and so on. Finally, computer code is so hierarchical
-that its syntax can usually be put in BNF. This allows grammar-based
-compression schemes to build up Context Free Grammars (CFGs) and achieve very
-good compression ratios.
+Many sources of data exhibit natural hierarchical structure.  For instance,
+English text often can be sensibly grouped into sections, paragraphs,
+sentences, and so on, all the way down to words and phonemes.  Likewise, music
+consists of repeated motifs, phrases, themes, etc., which make up musical
+structure.  Programming languages are so hierarchical that their syntax can
+usually be represented in BNF form.  It is natural, then, to represent these
+types of data using Context-Free Grammars (CFGs), which capture these
+hierarchical structures; this form of \emph{grammar-based compression} can be
+used to achieve very good compression ratios.
 
-Taking a step back, in the image compression world there are both lossless and
-lossy compression schemes. In certain situations, such as for low-pixel count
-logos, one could use a lossless image compression scheme. In other situations
-however, such as for textures and some photographs, the exact pixel values are
-almost irrelevant compared to the overall gradients, colors, and structures in
-the image, and one could use a lossy compression scheme like jpeg.
+In the parallel world of image compression, however, two different classes of
+compression schemes exist---\emph{lossless compression} and \emph{lossy
+compression}.  In lossy compression schemes, rather than representing data
+exactly, we allow a certain amount of corruption in order to achieve better
+compression ratios.  Some situations may demand lossless encoding---say, in the
+case of a corporation's trademarked graphical signature.  Many other
+situations, however, may have less stringent requirements.  For texture
+patterns and some photographs, the exact pixel values are far less important
+than the overall gradients, colors, and structures in the image.  In such
+cases, lossy compression schemes, such as JPEG for images \cite{jpeg}, can be
+valuable and effective.
 
-We believe it is valuable to bring some of the attitudes prevalent in image/
-video compression to the world of hierarchical text compression. Better
-compression ratios for text are possible.
+We believe it is worthwhile to introduce these notions of lossy compression
+that are prevalent in image/video compression into the world of hierarchical
+text compression.  Introducing lossiness to text compression opens up the
+possibility for better compression ratios.
 
-It may seem strange to allow a string such as "mind" to be lossily corrupted
-into ``rind'', but if one is more interested in recurrent structure in the text
-than in its precise meaning, these changes aren't important. For instance, if
-one is looking at a text in a foreign language, one is more likely to pick up
-the texture, the repeated sounds, some phrases that come up and the breaks
-between larger scale sections.  A change in a single letter probably wouldn't
-be noticed. Similarly, when skimming through huge files, perhaps execution
-logs, one usually first starts looking for patterns or things that stand out.
+It may seem strange at first to allow a string such as "mind" to be lossily
+corrupted into, say, ``rind''.  If, however, one is more interested in
+recurrent structure in the text than in its precise semantic meaning, these
+corruptions are unimportant.  For instance, when looking at text in a foreign
+language, one is more likely to pick up the texture of the passage, the
+repeated sounds, common phrases, and breaks between larger-scale sections of
+text.  In this situation, a change of a single letter would probably go
+unnoticed.  Similarly, when skimming through a huge file, say, an execution
+log, an administrator usually begins by looking for patterns that stand out.
 Lorem ipsum is a perfect example of a piece of ``text'' whose value lies in its
-texture and sentence/paragraph structure, and we will come back to it again.
+texture and sentence/paragraph structure, and we will return to it in later
+sections.
 
-In this paper we develop 2 algorithms and implement a system for lossily
-compressing text while preserving its hierarchical structures. The goal was to
-preserve the feel of a text at both micro and macro levels.  Since
-grammar-based compression schemes were designed to capture these structures, we
-built our system on top of the existing \Sequitur grammar inference algorithm.
-Starting with the CFG generated by a lossless grammar inference algorithm, we
-repeatedly simplify it, throwing out details along the way to emphasize
-repetitions. Our main contribution lies in the development, implementation, and
-evaluation of 2 algorithms for ``simplifying'' CFG grammars while preserving
-their structure.
+In such situations, lossy hierarchical compression schemes may prove beneficial
+if they can provide better compression ratios.  Moreover, introducing lossiness
+to the CFGs which represent the input stream may accentuate more important
+parts of the stream's structure.  Compression of a musical passage might, for
+instance, capture important motives in favor of showing every rhythm and note.
+Similarly, compression of text in a particular language may highlight
+syntactical features.  We consider this a relevant potential use of lossy
+hierarchical compression.
+
+In this paper, we develop two algorithms and implement a broader system for
+lossily compressing text while preserving its hierarchical structures.  The
+goal was to preserve the feel of the text at both micro and macro levels.
+Since grammar-based compression schemes were designed to capture these
+structures, we built our system on top of the existing \Sequitur grammar
+inference algorithm.  Starting with the CFG generated by a lossless grammar
+inference algorithm, we repeatedly simplify it, throwing out details along the
+way to emphasize repetitions.  Our main contribution lies in the development,
+implementation, and evaluation of two algorithms for ``simplifying'' CFG
+grammars while attempting to preserve their structure.
 
 \section{Background}
 
@@ -247,7 +276,7 @@ The previous algorithm updates the grammar sequentially, since each variable
 replacement can have an effect on large parts of the grammar, we will have to
 go through comparing all pairs again after the change.  An alternative
 algorithm would be to try to replace similar variables in parallel. This would
-avoid many of the repeat pair-comparisons done in \emph{Similarity}. In other
+avoid many of the repeat pair-comparisons done in \Similarity. In other
 words, the algorithm below puts similar variables into equivalence class
 clusters, and then replaces each variable in a cluster them with the smallest
 representative all at once each iteration.
@@ -302,14 +331,14 @@ before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$.
 Replacing a variable $V_1$ with $V_2$ has the same effect as redirecting all
 in-edges to $V_1$ onto $V_2$.
 
-Suppose for the sake of contradiction that the Similarity algorithm created a
+Suppose for the sake of contradiction that the \Similarity algorithm created a
 cycle at one step by redirecting an edge originally pointing at $A$ to $B$.
 This would mean that there was a path going from $B$ to $A$. However, by
 comparing the sizes of $A$ and $B$ we know that $A$ must have been bigger than
 $B$. Thus there cannot have been a path from $B$ to $A$, and we have a
 contradiction.
 
-For the Cluster algorithm the analysis is a bit more involved, since to avoid
+For the \Cluster algorithm the analysis is a bit more involved, since to avoid
 recomputation we only calculate the sizes of the variables once before doing
 all of the replacements. First note that even as we modify the DAG, all of the
 edges we create in the DAG will respect the ordering of sizes that we
@@ -317,7 +346,7 @@ calculated before we did any replacements. This is because each time we
 redirect an edge from $X\rightarrow A$ to $X\rightarrow B$
 $size(X)>size(A)>size(B)$ and transitivity will preserve the ordering.
 
-Suppose then that we created a cycle during Cluster by redirecting an edge from
+Suppose then that we created a cycle during \Cluster by redirecting an edge from
 $X \rightarrow A$ to $X \rightarrow B$.  This means that there must have been a
 path from $B$ to $X$. However, even in its intermediate state we know that the
 DAG respects the $size$ ordering, and $size(X) > size(A) > size(B)$, so there
@@ -326,7 +355,7 @@ cannot be a path from $B$ to $X$. This is a contradiction and we are done.
 \subsection{Runtime Analysis}
 
 Given an input of length $n$, let $r$ be the number of rules generated by
-\Sequitur from the input.  In the analysis of the Similarity algorithm, let $R$
+\Sequitur from the input.  In the analysis of the \Similarity algorithm, let $R$
 be the total number of variable replacements we perform. For each replacement,
 we had to have searched though up to all pairs of variables, and for each pair
 of variables expanding them and calculating the levenshtein distance could take
@@ -343,7 +372,7 @@ could grow much slower than $r$, and the use of native code in calculating the
 levenshtein distance made the its contribution much less noticeable for the
 input sizes we tested.
 
-The inner loops of the Cluster are similar to those of the Similarity
+The inner loops of the \Cluster are similar to those of the \Similarity
 algorithm.  We iterate the entire clustering and replacement procedure $C$
 times. Going through each variable-cluster pair takes up to $O(r^2)$ time and
 calculating the levenshtein distance takes $O(n)$ time. The time taken to
@@ -404,7 +433,7 @@ of approximately the same string of either $123,$ or $321,$.
 When comparing grammars, we chose to define the \emph{size} of a grammar as the
 sum of the lengths of the rhs's of the production rules.  \Sequitur yields a
 relatively complicated inferred grammar with 13 rules and a size of 51. Both
-the Similarity and Clustering Algorithms with $\epsilon = .4$ , yield the
+the \Similarity and \Cluster algorithms with $\epsilon = .4$ , yield the
 following grammar after reduction. It has 5 rules and is almost half the size,
 at 30.
 
@@ -440,11 +469,11 @@ test data was constructed from the first n characters of the book of Genesis
 from the KJV version of the Bible.  Call these test-cases \emph{gen-n}
 
 For our first suite of tests, we compare the effectiveness of the
-\emph{Similarity} and \emph{Cluster} algorithms. We might expect Similarity to
+\Similarity and \Cluster algorithms. We might expect \Similarity to
 achieve better quality at the same compression ratio since it updates the state
 of the grammar between each variable replacement, on the other hand since it
 must update the grammar it has the potential to run much more slowly than
-Cluster.
+\Cluster.
 
 We don't report the running times for just \Sequitur since its linear running
 time is negligible compared to our algorithms for all but the smallest input
@@ -453,7 +482,7 @@ data.
 \subsubsection{Rep-n results}
 
 In table \ref{simclus_r_t} we report the results on running \Sequitur and
-Cluster, without the grammar reductions, on the rep-n datasets. Time is the
+\Cluster, without the grammar reductions, on the rep-n datasets. Time is the
 wall clock running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
 Ratio is the relative size of the grammar produced compared with \Sequitur,
 where the size of the grammar is the sum of the lengths of the rhs's of the
@@ -465,7 +494,7 @@ string produced that was `*'. The closer to 1/30~0.033, the more accurate the
 lossifier was in recreating the original texture of the input.
 
 The columns of the data are prefixed by S or T depending on whether they are
-measurements for Similarity or Cluster respectively.
+measurements for \Similarity or \Cluster respectively.
 
 The compression ratios achieved for both algorithms are roughly equal for the
 same value for $\epsilon$, so it is fair to compare the algorithms for the same
@@ -491,7 +520,7 @@ mistakes occassionally. In most cases, the two algorithms maintained similarly
 acceptable fidelity levels in recreating the texture of the original rep-n
 input file.
 
-The actual compression ratio was respectable, with both Similarity and Cluster
+The actual compression ratio was respectable, with both \Similarity and \Cluster
 coming in at nearly half the size of the \Sequitur CFG.  Setting higher values
 for $\epsilon$ had diminishing returns for compression for larger and larger
 file sizes, at the cost of drastically lowering the fidelity of the output.
@@ -538,9 +567,9 @@ The differences between the two algorithms lie almost entirely in their
 runtime. Both algorithms perform much worse on the less structued gen-n data,
 we believe because simplifications are made more incrementally and the grammar
 does not get dramatically simpler after a few iterations of our algorithm like
-it does for the rep-n data.  Unfortunately the Similarity algorithm tends to
+it does for the rep-n data.  Unfortunately the \Similarity algorithm tends to
 consistently incur an overhead of about $O(\sqrt{n})$ on top of the runtime for
-the Cluster algorithm. Because of this we dismiss the Similarity algorithm as
+the \Cluster algorithm. Because of this we dismiss the \Similarity algorithm as
 unscalable and do not test it further.
 
 \subsection{Grammar Reduction Impact}
@@ -569,7 +598,7 @@ will not consider them further.
 
 Though we were ultimately not able to come up with a good way to quantify how
 much of the structure of a text was preserved, we have included the final
-output strings we obtain after running the Clustering Algorithm with $\epsilon
+output strings we obtain after running the \Cluster algorithm with $\epsilon
 = .4$ in the Appendices. We believe these tests serve as a good (subjective)
 summary of the strengths and weaknesses of our algorithm in compressing data
 while preserving its character.
@@ -577,7 +606,7 @@ while preserving its character.
 The first piece of text is from the gen-n dataset again, the first 256000
 characters of the book of Genesis. As listed in table \ref{simclus_g_t}, the
 compressed grammar was size 5540 compared with \Sequitur's size of 8060.
-Without knowledge of English spelling, the Cluster algorithm produces output
+Without knowledge of English spelling, the \Cluster algorithm produces output
 that is hard to read. However, key words are clearly recognizable, especially
 important words such as `God', and the overall structure in the book of Genesis
 is retained.
