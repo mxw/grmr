@@ -21,6 +21,9 @@
 \usepackage{natbib}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{hyperref}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
 
 \pagestyle{fancy}
 \fancyhead[RO]{Edward Gan \& Max Wang}
@@ -47,6 +50,8 @@ subsequences might be altered, in return we can simplify
 the grammars produced to obtain better ratios while still preserving
 important syntatic patterns at both the micro and macro level.
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction and Goals}
 Many sources of data exhibit natural hierarchical structure. For instance,
@@ -363,35 +368,6 @@ in recreating the original texture of the input.
 The columns of the data are prefixed by S or T depending on whether
 they are measurements for sequitur or cluster respectively.
 
-\begin{table}[p]
-\subfloat[$\epsilon = .4$]{
-\begin{tabular}{l|l|l|l|l||l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
-\hline
-rep-100   & 0.006 & 18/34    & 0.713 & 0.07 & 0.002 & 20/34    & 0.535 & 0.04\\
-rep-400   & 0.028 & 45/76    & 0.269 & 0.01 & 0.009 & 41/76    & 0.743 & 0.04\\
-rep-1600  & 0.355 & 103/194  & 0.873 & 0.03 & 0.042 & 103/194  & 0.804 & 0.02\\
-rep-6400  & 3.978 & 258/448  & 0.706 & 0.005& 0.203 & 256/448  & 0.869 & 0.50\\
-rep-12800 & 44.63 & 604/1064 & 0.791 & 0.01 & 1.136 & 600/1064 & 0.856 & 0.01\\
-rep-25600 & 135.0 & 900/1482 & 0.829 & 0.005& 2.906 & 898/1482 & 0.725 & 0.25\\
-\end{tabular}
-}
-
-\subfloat[$\epsilon = .2$]{
-\begin{tabular}{l|l|l|l|l||l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
-\hline
-rep-100   & 0.002 & 30/34    & 0.040 & 0.05 & 0.002 & 30/34    & 0.040 & 0.05\\
-rep-400   & 0.019 & 60/76    & 0.035 & 0.02 & 0.009 & 60/76    & 0.035 & 0.02\\
-rep-1600  & 0.350 & 123/194  & 0.355 & 0.03 & 0.055 & 123/194  & 0.206 & 0.01\\
-rep-6400  & 3.942 & 280/448  & 0.387 & 0.08 & 0.295 & 274/448  & 0.543 & 0.09\\
-rep-12800 & 42.21 & 638/1064 & 0.491 & 0.03 & 1.105 & 632/1064 & 0.457 & 0.01\\
-rep-25600 & 124.5 & 922/1482 & 0.565 & 0.12 & 2.597 & 926/1482 & 0.437 & 0.007\\
-\end{tabular}
-}
-\caption{rep-n Tests}
-\end{table}
-
 The compression ratios achieved for both algorithms are roughly equal for the same
 value for $\epsilon$, so it is fair to compare the algorithms for the same $\epsilon$.
 
@@ -425,36 +401,6 @@ of the output.
 
 Repeating the above tests on the \emph{gen-n} datasets yields the following:
 
-\begin{table}[p]
-\subfloat[$\epsilon = .4$]{
-\begin{tabular}{l|l|l|l||l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
-\hline
-gen-100   & 0.006 & 87/89    & 0.04 &0.006 & 87/89    & 0.04\\
-gen-400   & 0.175 & 224/258  & 0.12 &0.069 & 219/258  & 0.19\\
-gen-1600  & 4.863 & 539/697  & 0.31 &0.732 & 529/697  & 0.33\\
-gen-6400  & 216.9 & 1740/2348& 0.41 &9.127 & 1694/2348& 0.43\\
-gen-12800 & 1812  & 3296/4523& 0.40 &29.17 & 3181/4523& 0.44\\
-gen-25600 & 12989 & 5823/8060& 0.43 &176.7 & 5540/8060& 0.50\\
-\end{tabular}
-}
-
-
-
-\subfloat[$\epsilon = .2$]{
-\begin{tabular}{l|l|l|l||l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
-\hline
-gen-100   & 0.004 & 89/89    & 0.00 &0.002 & 89/89    & 0.00 \\
-gen-400   & 0.085 & 245/258  & 0.03 &0.053 & 245/258  & 0.03 \\
-gen-1600  & 1.292 & 664/697  & 0.03 &0.874 & 664/697  & 0.03 \\
-gen-6400  & 73.83 & 2173/2348& 0.05 &14.02 & 2171/2348& 0.05\\
-gen-12800 & 549.2 & 4197/4253& 0.05 &45.64 & 4186/4253& 0.05\\
-gen-25600 & 3939  & 7405/8060& 0.06 &224.9 & 7374/8060& 0.06\\
-\end{tabular}
-}
-\caption{gen-n}
-\end{table}
 
 Just as with the rep-n data, log-log regression tests yield the following
 exponents for the runtime on the gen-n data.
@@ -515,7 +461,139 @@ clustering algorithm for $\epsilon = .2$. This time we give the ratio
 on top of the simplified grammar produced by the clustering algorithm,
 and the time taken to run just the reduction rules.
 
-\begin{table}[p]
+When plotted on a log-log scale, the runtime for our straightforward 
+implementation of the reduction
+rules appears to be superpolynomial. While modest additional gains of about 30 percent
+are possible for highly self-similar data, very few additional gains are
+possible for more diverse datasets such as gen-n. This appears to be because
+the only simplifications that are possible on diverse datasets don't lead to
+the wide-ranging repetitive substitutions which allow reduction rules to be allowed.
+The simplifications in gen-n tend to be more local.
+
+Because we were unable to get reduction rules to scale to larger datasets,
+we will not consider them further.
+
+
+\subsection{Larger Tests}
+
+Though we were ultimately not able to come up with a good way to quantify how much of the
+structure of a text was preserved, we have included the final output strings we obtain
+after running the Clustering Algorithm with $\epsilon = .4$ in the Appendices. We
+believe these tests serve as a good (subjective) summary of the strengths and
+weaknesses of our
+algorithm in compressing data while preserving
+its character.
+
+The first piece of text is from the gen-n dataset again, the first 256000 characters
+of the book of Genesis. As listed in table \ref{seqclus_g_t}, the compressed grammar
+was size 5540 compared with Sequitur's size of 8060. Without knowledge of English 
+spelling, the Cluster algorithm produces output that is hard to read. However,
+key words are clearly recognizable, especially important words such as `God', and
+the overall structure in the book of Genesis is retained.
+
+The second piece of text is one of the entries to this year's International
+Obfuscated C code contest, at \url{http://www.ioccc.org/2012/deckmyn/deckmyn.c} .
+The size of the lossified grammar is 1576 compared with the original size of
+1973. The intricate whitespacing was lost, but the clear delineation into
+sections was retained, key words such as `define' and `for' are very visible,
+and the texture of the obfuscated C is very visible.
+
+\section{Conclusions}
+\subsection{Summary of Results}
+* General concept of simplifying grammars, two proposed algorithms
+* reasonably efficient implementation with runtime better than expected
+* compared algorithms, evaluated effectiveness of reducer
+* looked at effect of epsilon
+
+\subsection{Ratios and Fidelity}
+
+* How useful are these algorithms??
+* What is the ratio we get
+* What kind of fidelity to we get
+
+\subsection{Future Work}
+* Better ways to set epsilon to maximize value / cost for different size and types
+* Better ways to quantify preservation of hierarchies
+* How to find near `self-similarities' that aren't captured by a rule
+* Iterating lossify and reduce in a cycle
+
+\pagebreak
+
+\nocite{*}
+
+\bibliography{sources}
+
+\pagebreak
+
+\appendix
+
+\section{Data}
+
+\begin{table}[h]
+\subfloat[$\epsilon = .4$]{
+\begin{tabular}{l|l|l|l|l||l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
+\hline
+rep-100   & 0.006 & 18/34    & 0.713 & 0.07 & 0.002 & 20/34    & 0.535 & 0.04\\
+rep-400   & 0.028 & 45/76    & 0.269 & 0.01 & 0.009 & 41/76    & 0.743 & 0.04\\
+rep-1600  & 0.355 & 103/194  & 0.873 & 0.03 & 0.042 & 103/194  & 0.804 & 0.02\\
+rep-6400  & 3.978 & 258/448  & 0.706 & 0.005& 0.203 & 256/448  & 0.869 & 0.50\\
+rep-12800 & 44.63 & 604/1064 & 0.791 & 0.01 & 1.136 & 600/1064 & 0.856 & 0.01\\
+rep-25600 & 135.0 & 900/1482 & 0.829 & 0.005& 2.906 & 898/1482 & 0.725 & 0.25\\
+\end{tabular}
+}
+
+
+
+\subfloat[$\epsilon = .2$]{
+\begin{tabular}{l|l|l|l|l||l|l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
+\hline
+rep-100   & 0.002 & 30/34    & 0.040 & 0.05 & 0.002 & 30/34    & 0.040 & 0.05\\
+rep-400   & 0.019 & 60/76    & 0.035 & 0.02 & 0.009 & 60/76    & 0.035 & 0.02\\
+rep-1600  & 0.350 & 123/194  & 0.355 & 0.03 & 0.055 & 123/194  & 0.206 & 0.01\\
+rep-6400  & 3.942 & 280/448  & 0.387 & 0.08 & 0.295 & 274/448  & 0.543 & 0.09\\
+rep-12800 & 42.21 & 638/1064 & 0.491 & 0.03 & 1.105 & 632/1064 & 0.457 & 0.01\\
+rep-25600 & 124.5 & 922/1482 & 0.565 & 0.12 & 2.597 & 926/1482 & 0.437 & 0.007\\
+\end{tabular}
+}
+\caption{rep-n Tests}
+\label{seqclus_r_t}
+\end{table}
+
+\begin{table}[h]
+\subfloat[$\epsilon = .4$]{
+\begin{tabular}{l|l|l|l||l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+gen-100   & 0.006 & 87/89    & 0.04 &0.006 & 87/89    & 0.04\\
+gen-400   & 0.175 & 224/258  & 0.12 &0.069 & 219/258  & 0.19\\
+gen-1600  & 4.863 & 539/697  & 0.31 &0.732 & 529/697  & 0.33\\
+gen-6400  & 216.9 & 1740/2348& 0.41 &9.127 & 1694/2348& 0.43\\
+gen-12800 & 1812  & 3296/4523& 0.40 &29.17 & 3181/4523& 0.44\\
+gen-25600 & 12989 & 5823/8060& 0.43 &176.7 & 5540/8060& 0.50\\
+\end{tabular}
+}
+
+
+
+\subfloat[$\epsilon = .2$]{
+\begin{tabular}{l|l|l|l||l|l|l}
+Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
+\hline
+gen-100   & 0.004 & 89/89    & 0.00 &0.002 & 89/89    & 0.00 \\
+gen-400   & 0.085 & 245/258  & 0.03 &0.053 & 245/258  & 0.03 \\
+gen-1600  & 1.292 & 664/697  & 0.03 &0.874 & 664/697  & 0.03 \\
+gen-6400  & 73.83 & 2173/2348& 0.05 &14.02 & 2171/2348& 0.05\\
+gen-12800 & 549.2 & 4197/4253& 0.05 &45.64 & 4186/4253& 0.05\\
+gen-25600 & 3939  & 7405/8060& 0.06 &224.9 & 7374/8060& 0.06\\
+\end{tabular}
+}
+\caption{gen-n Tests}
+\label{seqclus_g_t}
+\end{table}
+
+\begin{table}[h]
 \subfloat[rep-n tests]{
 \begin{tabular}{l|l|l}
 Dataset & Time & Ratio \\
@@ -537,48 +615,358 @@ gen-1600  & 4.833 & 660/664\\
 gen-6400  & 308.7 & 2139/2171\\
 \end{tabular}
 }
+
 \caption{Reducer Tests for $\epsilon = .2$}
+\label{red_t}
 \end{table}
 
+\pagebreak
 
-When plotted on a log-log scale, the runtime for our straightforward 
-implementation of the reduction
-rules appears to be superpolynomial. While modest additional gains of about 30 percent
-are possible for highly self-similar data, very few additional gains are
-possible for more diverse datasets such as gen-n. This appears to be because
-the only simplifications that are possible on diverse datasets don't lead to
-the wide-ranging repetitive substitutions which allow reduction rules to be allowed.
-The simplifications in gen-n tend to be more local.
+\subsection*{Deckmyn.c Input / Output:}
+\subsubsection*{Input:}
 
-Because we were unable to get reduction rules to scale to larger datasets,
-we will not consider them further.
+\begin{lstlisting}
+#include<stdio.h>
+#define c(C) printf("%c",C)
+#define C(c) ((int*)(C[1]+6))[c]
+main(int c,char    
+*C[])         {(C[c]=C[
+1]+2   )[0]=   c(52*c(\
+'C'+  '4'/4)    );for(c
+=0;  c<491;++   c)for(*
+*C=  C[1]['c'    +c]  =
+0;*   C[0]<8;(    **  C
+)++    )C[1][c+   'c']=
+*(C[  1]+c+'c')+  C[1][
+99+    c]+(C[1    ][**C
++8*c  +99]==32    );  (
+*C)[4]=*C[2]==    75  ?
+*((C[2]+=3)-2    )==70?
+1:0:0;C(0)=C(    1)=c=0
+;while(*C[2]?   C[2][1]
+?*(C[2]+2)?1    :0:0:0)
+{if( *C [2      ]>'w'){
+C(1)=0;C[1]    [2]++;*C
+[2]=0;}else   C(1)+=*C[
+2]==58?2+(    C[2][3]&&
+*(C[2]+3)<   'x'):*C[2]
+=='s'?(C[   2][1]-=48):
+*C[2]>=65  ?3-(*C[2]==\
+'m'?1:0)  :1;C(0)=C(1)>
+C(0)?C(1  ):C(0);c+=3;*
+(C+2)+=3;}printf("  %d\
+          %d\n",        56+8*C(    0),80**(C[3]    ++))
+         ;*C[2]=0       ;C[2]       -=c;*C[3]       =0;
+        while(C[3]      [1,-         1]--){;   for(  **
+        C=0     ;*      *C<          80;(**   C)++)  {C
+       [2]      -=3     **           C[3];   *C[3]   ++
+       =0;      *C[     3]          =**C>=  51||*   *C<
+       18       ||*     *C         %8!=2?0  :255   ;c(1
+       -1       );c     (*C       [3]);for(       (*C)[
+       1]      =0;(     *C)[    1]<3;(*C)[1]    ++)c(*C
+       [3      ]|((     *C)[  4]?**C>18&&* *C<42 ?C[1][
+       42     +*(*      C+1)    +3***C]:0: **C>=  11&&*
+       *C     <64?      ~C[1 ][   7***C+97 +(*C)[  1]]:
+        0)   );c(       *C[3 ]++)   ;for(C (1)=0;   (C(
+        2)   =C(1       ))<C (0);)   {(*C) [2]=C   [2][
+        1]  -49;        c=(* C[2]<=   63); c=(*   C)[0]
+        -4  *(C[        3][0 ]=105-  C[2][ c]   -7*(*(C
+        [2]+c)<         'c') -18*(  C[2][c    ]<77)+2*(
+         *C)[4          ]-7* (C[2] [c]<'C'  ))-6;for(C(
+        3)=0;                                          
+       C(3)<                                (*C[2]?*C[2
+      ]>'r'                             ?C[    2][1]:(1
+     +2*(*C             [2]>   64)    +(2-!C[2    ][3])
+    *(58 ==             (*(C         +2))[0])-         
+    (C[2] [0            ]=='m'   )  ):C(2)?C(0     )-C(
+  2):0  );C(3)++)       C(1)+=c(C  [1][4]|(*     C[2]&&
+ *C[2  ]<'s'?*C[2]      ==58?C(3)  ==1?**C     >17&&**C
+ <51  ?C[ 2]    [1]     ==59?39:  C[2][1     ]==58?9:1:
+0:0  :63  >*     C[2    ]?(c<7&&  c>-9?C[1    ][(*C[2]<
+45?  'c'  *5     +2*    '%':*C[   2]<  61?570    :571)+
+3*c  ]:   0)      :*C   [2]>'o'  ?**C>26&&**C<29    &&!
+(*C  )[    2]     ||(   *C)[2]  ==1&&(&*C[0])       [0]
+ <34  &&   31     <**   C?C(3)  <2?15+225*C(3     ):0:(
+ *C)[  2]  ==     3?C   (3)<2  &&**C>22&&**C     <45&&C
+ (3)<      2?     C[    1][7*  *(*C)+151+C      (3)]:0:
+  7==(     *C    )[2    ]&&*  *C>26&&**C       <42&&C(3
+  )<2?C    [1   ][7     ***C  +135+C(3)]       :0:*C[2]
+   <'k'?    (c >-5                      &&      c<5?C(3
+    )<2?C   [1][(                       (*C)     [2]<3?
+     207:205)+7*                        c+C(3     )]:C[
+      2][2]==46               &&        (c==-2||   c==-
+            1-                          2*(*C[3]%2  ))?
+            96                          :0:0)|((*C)[2  
+             ]?                                        
+             C(         3      )        ?C(3)< 2       
+             &&                        *C[3]>  7   &&  
+             c<           1&&c  >-24  ?8:0:*   C       
+             [3         ]<8&&c  >1   &&c<24    ?   ' ' 
+        :0   :0)        |(C(3) <2     &&(  **  C       
+       ==66   &&        *C[3   ]>14   ||*  C[  3       
+       ]>12   &&        58   ==**C||   *               
+       C[3    ]<        2  &&**C==10   )            ?  
+        5*  51:                       0)|(7==  (       
+         *C)[                        2]?*C[3]  <       
+8?c>13&& c<23&&C(3)<2?C
+[1][144+ 7*c+C(3)]:0:C(
+3) && c< -14&&c>- 24?C[
+1] [7 *c +400+C(3 )]:0:
+0) :! C  (3)?**C> 21&&C
+[0 ][    0]   <32      
+?C     [ 1 ]   [(      
+*   C )    [2   ] +323 
+   +7     **   *C ]:36 
+ + 1   < **   C&& '0'> 
+*     *C ?  C[1][      
+   C[ 2]  [2]+162      
+ + 7* **C]:0:0:0));C[1 
+][ 3] ++;C[2]+=3;}c(0) 
+;C [3 ]-=2;}*C[3]=0;}} 
+
+\end{lstlisting}
+
+\subsection*{Output:}
+
+\begin{lstlisting}
+#include<stdio.h>
+#define c(C) prinf("%c",C)
+#define C(c) (in*)C[]+6))[c]
+mainin c,char  
+*C[])     {C[c]=C
+]+  )[0]=  c(52*c(\
+C'  '4'/4)   );for(c
+=0; c<491;   c)for(*
+*  C[]+'c'  c]  =
+0;*  0]<8;  **  C
+)    C[]+c  'c']=
+C[  ]+c+'c'  C[]+99   c]+C[  ][**C
++8*  +99]=3  );  
+*)[]=*C
+]=  7  
+*C[]+=3)-  )==70?
+1):;C()=C(  )=c=0
+;whileC
+?  2][]+
+?C[]+2)?  ):0)
+{if(*C [    >'w'){C()=0;C[]+  ]++*C
+[2]0;else   C(1)+=C[
+2]=58?2+  C
+3]&&
+*C
++3]  'x'):C
+
+==''?C[  C[]+-=48):
+*3]>=6  3-C
+]=\
+m'?10)  1;C()=C(1)>C(0)?C(  :C();c+=3;*
+C[+)+=3;}prinf("  \
+      \n",    56+8*C(  0),80**C
+  +))
+     *C3]=0    C
+    -=c*C3]    0;
+     whileC
+  [1,-    ]+--){  for  **
+    =0  ;*  *C      80;(*  C)++)  {C
+    3]  -=  **      3]  C[3]  ++    0;      3]      =**>=  51||  *C<    8    ||    *C      8!=2?0  25  ;c(1    -    );        3]);for    (*)[    ]  0;      <3;(*)[]+  +)c(*C    [   ]|(      4]**18&&*C<42 ?C[]+    42   (*  C+1)  3***C]0): **  11&&    *C  64?  ~C
+  7***C+97 +(*)[  ]+]:    0)  );c(     ]++  ;forC[ (1)0;  C[    +)  C(    ))<C (0);  {(*) 3]=C  ][    ]+  -49    c=(* C
+<   63); c=(*   )[0]    -4  C[    3][02]105-  ][ c  -7(*C[    ][c)<    'c' -18*  C[]+    <77)2*    *C)[     ]-7* (C
+ [c]<'C'  )-6;forC[    3)0;              C(3]       (C
+?C
+
+  ]>'r'     C[  C[]+:(1
+  2*      ][  64   +(2-!C
+  3])
+  (58]=      (*C[    +))[0])-    
+  C[3] [0    ]='m'  ):C(+)?C(  )-C(  +)0)  ;C(3)++    C()+=c(  C[]+4]|(    3]&&*C2  ]<''?C
+    =58?C(3)  ]=1?**  >17&&*C <51  C[ ]  ]+    =59?39  C[]+  2]=58?9:1:
+00)  6  >    2   ?(c<7&& c>-9?C
+  (*][
+45  'c'    2*  '%':C[  2]  61?570  571)+
+3*  ]:  0)  *C  ]['o'  **&&*C<29  &&!
+(*     ]  ||  (*)[  ]=&&(&C[0]    [0] <34  &&  3   <**  ?C(3)  2?15+225*C(  ):0:(*C)[    ]=  3?  C(3)<2  &&**22&&*C  45&&C
+C(3)    2?  C[  [7*  (*)+151+    3)]::
+  ]=      )[2   &&*C>&&*C    <42&&C(  )<2?  [1  [7  ***C  +135+C(3)    *C3]   <'k'?  c >-          c<5?C(    2?   []+         (*C  ][3?  207:205)+7        c+C(  ):C
+  ][2]]=46          c]=-2||  c]=-    1-        2*(*3]%  ))?    96      0)|((*)[       ]              *C            ?C(3)<                   ]>           c<     &&  >-  ?8):           [      <8&&  >1  &&c<       ' '      +)  +)    |(C(3) <    &&  **          ]=66           ]>1   ||*              >1        58  ]=**||                <       &&*C]=10            5*  51      0)|(7]=          (*)[      2]?C[  <     8?c>1&& c<2&&C(3)2?C
+C[]+144+ 7*c+C():0:C(
+3) && c< -14&&c>- 24C[
+1] [7 *c +400+C( ):0:
+) :!*C  3)** 2&&C
+[0   0]  3    
+?   [ 1 ]       
+*   )   2    +323    +7     *C ]:36 
+ + 1   **  && '0'> 
+  *C   C
+][      [ 2  ][16    
+ + 7* **]:):0));C
+ 
+][ 3] ++C
++=3;}c() 
+;C [3 ]-=2;}C[]=0;} 
+
+\end{lstlisting}
+
+\pagebreak
+
+\subsection*{gen256000 Output String, Cluster, $\epsilon=.4$:}
+
+\subsubsection*{Input:}
 
 
-\subsection{Larger Tests}
-Genesis-256000
-Obfuscated C Code (looks really cool!)
+\begin{lstlisting}
+1:1 In the beginning God created the heaven and the earth.
 
-\section{Conclusions}
-\subsection{Summary of Results}
-* General concept of simplifying grammars, two proposed algorithms
-* reasonably efficient implementation with runtime better than expected
-* compared algorithms, evaluated effectiveness of reducer
-* looked at effect of epsilon
+1:2 And the earth was without form, and void; and darkness was upon
+the face of the deep. And the Spirit of God moved upon the face of the
+waters.
 
-\subsection{Ratios and Fidelity}
+1:3 And God said, Let there be light: and there was light.
 
-* How useful are these algorithms??
-* What is the ratio we get
-* What kind of fidelity to we get
+1:4 And God saw the light, that it was good: and God divided the light
+from the darkness.
 
-\subsection{Future Work}
-* Better ways to set epsilon to maximize value / cost for different size and types
-* Better ways to quantify preservation of hierarchies
-* How to find near `self-similarities' that aren't captured by a rule
-* Iterating lossify and reduce in a cycle
+1:5 And God called the light Day, and the darkness he called Night.
+And the evening and the morning were the first day.
 
-\nocite{*}
+1:6 And God said, Let there be a firmament in the midst of the waters,
+and let it divide the waters from the waters.
 
-\bibliography{sources}
+1:7 And God made the firmament, and divided the waters which were
+under the firmament from the waters which were above the firmament:
+and it was so.
+
+1:8 And God called the firmament Heaven. And the evening and the
+morning were the second day.
+
+1:9 And God said, Let the waters under the heaven be gathered together
+unto one place, and let the dry land appear: and it was so.
+
+1:10 And God called the dry land Earth; and the gathering together of
+the waters called he Seas: and God saw that it was good.
+
+1:11 And God said, Let the earth bring forth grass, the herb yielding
+seed, and the fruit tree yielding fruit after his kind, whose seed is
+in itself, upon the earth: and it was so.
+
+1:12 And the earth brought forth grass, and herb yielding seed after
+his kind, and the tree yielding fruit, whose seed was in itself, after
+his kind: and God saw that it was good.
+
+1:13 And the evening and the morning were the third day.
+
+1:14 And God said, Let there be lights in the firmament of the heaven
+to divide the day from the night; and let them be for signs, and for
+seasons, and for days, and years: 1:15 And let them be for lights in
+the firmament of the heaven to give light upon the earth: and it was
+so.
+
+1:16 And God made two great lights; the greater light to rule the day,
+and the lesser light to rule the night: he made the stars also.
+
+1:17 And God set them in the firmament of the heaven to give light
+upon the earth, 1:18 And to rule over the day and over the night, and
+to divide the light from the darkness: and God saw that it was good.
+
+1:19 And the evening and the morning were the fourth day.
+
+1:20 And God said, Let the waters bring forth abundantly the moving
+creature that hath life, and fowl that may fly above the earth in the
+open firmament of heaven.
+
+1:21 And God created great whales, and every living creature that
+moveth, which the waters brought forth abundantly, after their kind,
+and every winged fowl after his kind: and God saw that it was good.
+
+1:22 And God blessed them, saying, Be fruitful, and multiply, and fill
+the waters in the seas, and let fowl multiply in the earth.
+
+1:23 And the evening and the morning were the fifth day.
+
+1:24 And God said, Let the earth bring forth the living creature after
+his kind, cattle, and creeping thing, and beast of the earth after his
+kind: and it was so.
+
+1:25 And God made the beast of the earth after his kind, and cattle
+after their kind, and every thing that creepeth upon the earth after
+his kind: and God saw that it was good.
+
+1:26 And God said, Let us make man in our image, after our likeness:
+and let them have dominion over the fish of the sea, and over the fowl
+of the air, and over the cattle, and over all the earth, and over
+every creeping thing that creepeth upon the earth.
+\end{lstlisting}
+
+\subsubsection*{Output:}
+
+\begin{lstlisting}
+1:1 n e beininGod Hae mae ane ar
+
+ine ars itht frm,n void;n darkness aupon
+t ofe en.ine Spirt ofGod moend upont ofwate
+
+3e said, htn e s ht
+
+ine w ht, tht waodn God dividhtfrm darknes
+
+5caledht Dayn darkness e caledNht
+n e e frinwee e frt 
+
+6e said,  amament ine midt ofwate
+ndt t dividwatewate
+
+7ine fealn dividwatehichs in
+underfeal wates hichs inabenfeal:n t wa
+
+8caledmamenHaen.e e e 
+frinwee e secon
+
+9e said, undere mae bemae e mae entoone plcen t e dry ln apart wa
+
+0caleddry ln Earn e mae inmae  fwatecalede Sarine tht waod
+
+ine id, Lt e frargras, e ding
+seedn e rut dingrut fes inwhseseed i
+in tel, e frt wa
+
+n e frrurhtargras, n dingseedfes inn e dingrut , whseseeds in tel, fe
+s inine tht waod3e e frinwee e thir
+
+1e said, e behts ine mamene e 
+todividthayfrm e htn e e e frsignd an
+seasond anayn ar: 1:n e e e frhts in
+e frmamene e  toinhte fr: n t wa
+
+6ine  tcrathts;e grHatoule thay
+nde estoule e hte e e e stars al
+
+7ine t e ine mamene e toinht
+e fr1:n toule e e ayn e e htd an
+todivide htfrm darknes: God tht waod9n e e n frinwee e fr
+
+0e said, binar aundanolye moilngcaledthhath in frwlthay flyabene frentoopen firmamenofmae 
+
+1 n God Haedcratwhalesn enry lcalede 
+moen, hiche wate brurhtar aundanoly, fe
+s inn enrys inedfrwlfes in: God th ts no
+
+n God es te m,saying, e rut fuln multiplyllwateine seasn t frwlmultiply in e fr
+
+3n e e n frinwee e fi
+
+e said, e frare lcaledfe
+s in, cattln crepn e frfehi
+int wa
+
+2n God Haede frfehis inn cattl
+fe
+s inn enry thinge frfes in: God th ts no
+
+6e said, usmae mae ur imae feur ienes:n e e mae dominon e e fish fe saan arfrwl
+e e n arcattln ar alle frn ar
+enrycrepe fr
+
+(Rest Omitted)
+
+\end{lstlisting}
 
 \end{document}
