@@ -1,29 +1,19 @@
 \documentclass[11pt]{article}
+\usepackage[letterpaper,text={7in,9in},centering]{geometry}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{amsfonts,amsmath,amssymb,amsthm}
 \usepackage{array}
-\usepackage{bm}
-\usepackage{commath}
-\usepackage{enumitem}
 \usepackage{fancyhdr,fancyvrb}
-\usepackage[letterpaper,text={7in,9in},centering]{geometry}
 \usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{natbib}
 \usepackage[lofdepth,lotdepth]{subfig}
-\usepackage{ifthen}
-\usepackage{mathrsfs}
-\usepackage{multicol}
-\usepackage{pifont}
 \usepackage{sectsty}
 \usepackage{setspace}
 \usepackage{stackrel}
-\usepackage{stmaryrd}
-\usepackage{tensor}
 \usepackage{xspace}
-\usepackage{natbib}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{listings}
-\usepackage{hyperref}
-\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
 
 \pagestyle{fancy}
 \fancyhead[RO]{Edward Gan \& Max Wang}
@@ -32,6 +22,8 @@
 \subsectionfont{\normalsize}
 
 \newcommand{\Sequitur}{\textsc{Sequitur}\xspace}
+
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
 
 \begin{document}
 \bibliographystyle{plain}
@@ -42,94 +34,94 @@
 \maketitle
 
 \begin{abstract}
-Grammar-based compression schemes like \Sequitur exploit repeated structures
-in streams of symbolic data to achieve good compression ratios.
-We develop a set of algorithms for improving upon Grammar-based compression 
-schemes by allowing some loss in the compression. Although precise 
-subsequences might be altered, in return we can simplify 
-the grammars produced to obtain better ratios while still preserving
-important syntatic patterns at both the micro and macro level.
+
+Grammar-based compression schemes like \Sequitur exploit repeated structures in
+streams of symbolic data to achieve good compression ratios.  We develop a set
+of algorithms for improving upon Grammar-based compression schemes by allowing
+some loss in the compression. Although precise subsequences might be altered,
+in return we can simplify the grammars produced to obtain better ratios while
+still preserving important syntatic patterns at both the micro and macro
+levels.
+
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction and Goals}
+
 Many sources of data exhibit natural hierarchical structure. For instance,
-english text often can be grouped well into sections, paragraphs, sentences, ...
-all the way down to words and phonemes. Music too, consists of repeated motifs,
-phrases, themes, and so on. Finally, computer code is so hierarchical that its
-syntax can usually be put in BNF. This allows grammar-based compression schemes
-to build up Context Free Grammars (CFGs) and achieve very good compression
-ratios.
+english text often can be grouped well into sections, paragraphs, sentences,
+...  all the way down to words and phonemes. Music too, consists of repeated
+motifs, phrases, themes, and so on. Finally, computer code is so hierarchical
+that its syntax can usually be put in BNF. This allows grammar-based
+compression schemes to build up Context Free Grammars (CFGs) and achieve very
+good compression ratios.
 
 Taking a step back, in the image compression world there are both lossless and
 lossy compression schemes. In certain situations, such as for low-pixel count
 logos, one could use a lossless image compression scheme. In other situations
-however, such as for textures and some photographs, the exact pixel values
-are almost irrelevant compared to the overall gradients, colors, and structures
-in the image, and one could use a lossy compression scheme like jpeg.
+however, such as for textures and some photographs, the exact pixel values are
+almost irrelevant compared to the overall gradients, colors, and structures in
+the image, and one could use a lossy compression scheme like jpeg.
 
 We believe it is valuable to bring some of the attitudes prevalent in image/
 video compression to the world of hierarchical text compression. Better
-compression ratios for text are possible. 
+compression ratios for text are possible.
 
-It may seem strange to allow a string such as "mind" to be lossily 
-corrupted into ``rind'', but if one is more interested in recurrent 
-structure in the text than in its precise meaning, these changes 
-aren't important. For instance, if one is looking at a text in a foreign
-language, one is more likely to pick up the texture, the repeated sounds,
-some phrases that come up and the breaks between larger scale sections.
-A change in a single letter probably wouldn't be noticed. Similarly,
-when skimming through huge files, perhaps execution logs, one usually
-first starts looking for patterns or things that stand out. Lorem ipsum
-is a perfect example of a piece of ``text'' whose value lies in its texture
-and sentence/paragraph structure, and we will come back to it again.
+It may seem strange to allow a string such as "mind" to be lossily corrupted
+into ``rind'', but if one is more interested in recurrent structure in the text
+than in its precise meaning, these changes aren't important. For instance, if
+one is looking at a text in a foreign language, one is more likely to pick up
+the texture, the repeated sounds, some phrases that come up and the breaks
+between larger scale sections.  A change in a single letter probably wouldn't
+be noticed. Similarly, when skimming through huge files, perhaps execution
+logs, one usually first starts looking for patterns or things that stand out.
+Lorem ipsum is a perfect example of a piece of ``text'' whose value lies in its
+texture and sentence/paragraph structure, and we will come back to it again.
 
 In this paper we develop 2 algorithms and implement a system for lossily
-compressing text while preserving its hierarchical structures. The goal
-was to preserve the feel of a text at both micro and macro levels. 
-Since grammar-based compression schemes were designed to capture
-these structures, we built
-our system on top of the existing \Sequitur grammar inference algorithm. 
-Starting with the CFG generated by a lossless grammar
-inference algorithm, we repeatedly simplify it, throwing out details
-along the way to emphasize repetitions. Our main contribution lies in the
-development, implementation, and evaluation of 2 algorithms for 
-``simplifying'' CFG grammars while preserving their structure.
+compressing text while preserving its hierarchical structures. The goal was to
+preserve the feel of a text at both micro and macro levels.  Since
+grammar-based compression schemes were designed to capture these structures, we
+built our system on top of the existing \Sequitur grammar inference algorithm.
+Starting with the CFG generated by a lossless grammar inference algorithm, we
+repeatedly simplify it, throwing out details along the way to emphasize
+repetitions. Our main contribution lies in the development, implementation, and
+evaluation of 2 algorithms for ``simplifying'' CFG grammars while preserving
+their structure.
 
 \section{Background}
 
-The work in this paper builds upon existing research in lossless
-grammar based compression, and also draws inspiration from many
-techniques used in lossy image and video compression.
+The work in this paper builds upon existing research in lossless grammar based
+compression, and also draws inspiration from many techniques used in lossy
+image and video compression.
 
 \subsection{Grammar Compression}
+
 As described in the introduction, the proposed research shares many of its
 goals with the \Sequitur algorithm described in \cite{sequitur}.  The authors
 of \cite{sequitur} develop an effective algorithm based on iteratively
 rewriting grammars to keep them small and efficient, and produce interesting
-grammar-based analyses of texts and musical scores.  
+grammar-based analyses of texts and musical scores.
 
-The same author in \cite{nevillphd}
-explores a variety of ad-hoc extensions to the \Sequitur algorithm which
-improve its compression performance on structured data.  These ranged from
-introducing domain-specific constraints to their grammar, adding a few steps of
-backtracking to their normally greedy grammar formation, to guessing
-unifications in attempting to infer recursive grammar rules.  Though these may
-invalidate some of their theoretical results on the asymptotic performance of
-\Sequitur, in practice they seem to have worked and add nicely to the grammar
-inference framework.
+The same author in \cite{nevillphd} explores a variety of ad-hoc extensions to
+the \Sequitur algorithm which improve its compression performance on structured
+data.  These ranged from introducing domain-specific constraints to their
+grammar, adding a few steps of backtracking to their normally greedy grammar
+formation, to guessing unifications in attempting to infer recursive grammar
+rules.  Though these may invalidate some of their theoretical results on the
+asymptotic performance of \Sequitur, in practice they seem to have worked and
+add nicely to the grammar inference framework.
 
 The intution that grammar inference can support many detailed policies is made
 more formal in \cite{grammarcodes}.  The authors classify the properties a
 grammar needs to function as a good compressor, and moreover give a set of
-reduction rules for putting a grammar into an appropriate
-``irreducible'' form.  Within this
-context, grammar inference algorithms similar to \Sequitur can be described as
-simple applications of their reduction rules to different ways of generating
-base grammars.  Even more examples of the variety of grammar inference schemes
-possible under this general framework of reducing grammars can be found in
-\cite{efficientgreedy}
+reduction rules for putting a grammar into an appropriate ``irreducible'' form.
+Within this context, grammar inference algorithms similar to \Sequitur can be
+described as simple applications of their reduction rules to different ways of
+generating base grammars.  Even more examples of the variety of grammar
+inference schemes possible under this general framework of reducing grammars
+can be found in \cite{efficientgreedy}
 
 There has also been very interesting work analyzing how grammar based
 algorithms compare with the theoretical best lossless grammar for a string, in
@@ -149,14 +141,14 @@ may be applicable.
 Kieffer briefly identifies two primary methods for lossy hierarchical
 compression: wavelet-based and fractal-based schemes \cite{tutorial}.  In
 wavelet-based schemas, a signal is compressed by recording the largest
-coefficients of its wavelet decomposition, in effect
-trying to represent a signal as closely as possible using wavelet
-building blocks. The JPEG image format uses a similar technique in
-order to compress images lossily \cite{jpeg}. Fractal based compression
-takes this a step further and represents parts of a signal using self-similarity,
-encoding an image for instance as a fixed point of contraction maps. This is
-similar in spirit to what is done in MPEG-1, where parts of one frame can be
-transformed to encode parts of the next frame.
+coefficients of its wavelet decomposition, in effect trying to represent a
+signal as closely as possible using wavelet building blocks. The JPEG image
+format uses a similar technique in order to compress images lossily
+\cite{jpeg}. Fractal based compression takes this a step further and represents
+parts of a signal using self-similarity, encoding an image for instance as a
+fixed point of contraction maps. This is similar in spirit to what is done in
+MPEG-1, where parts of one frame can be transformed to encode parts of the next
+frame.
 
 Work has also been done regarding the lossy compression of particular input
 formats.  For text, methods such as replacing words with synonyms
@@ -169,70 +161,67 @@ applicable to compressing hierarchical streams.
 
 \subsection{Motivation}
 
-In order to make our algorithm for lossily compressing streams
-as general as possible, we decided
-to approach the problem of lossy compression by starting with a lossless
-grammar inference algorithm. 
-By building off of a grammar inference algorithm, we
-hope to take advantage of some of the partial structures
-that are visible in a CFG representation of a stream. 
-In this project, we chose \Sequitur, but
-any way of obtaining a grammar could be used. Then, transformed
-the grammar, introducing loss and perform compressions by simplifying
-the grammar. Thus our compression system is a multi-step process:
+In order to make our algorithm for lossily compressing streams as general as
+possible, we decided to approach the problem of lossy compression by starting
+with a lossless grammar inference algorithm.  By building off of a grammar
+inference algorithm, we hope to take advantage of some of the partial
+structures that are visible in a CFG representation of a stream.  In this
+project, we chose \Sequitur, but any way of obtaining a grammar could be used.
+Then, transformed the grammar, introducing loss and perform compressions by
+simplifying the grammar. Thus our compression system is a multi-step process:
 
 \begin{itemize}
-\item Infer a CFG representation of a stream (possibly using Sequitur)
-\item Simplify the CFG, possibly introducing loss
-\item Output the CFG
+  \item Infer a CFG representation of a stream (possibly using \Sequitur)
+  \item Simplify the CFG, possibly introducing loss
+  \item Output the CFG
 \end{itemize}
 
+Our core new contribution comes in step two, in what we shall call a
+\emph{lossifier} algorithm, i.e. an algorithm that takes an admissible CFG and
+simplifies it. The output CFG should be smaller than the input CFG but generate
+a string which preserves the structure in the original string as much as
+possible.
 
-Our core new contribution comes in step two, in what we shall call a \emph{lossifier} 
-algorithm, i.e. an algorithm that takes
-an admissible CFG and simplifies it. The output CFG should be smaller
-than the input CFG but generate a string which preserves the
-structure in the original string as much as possible. 
-
-Building off the ideas in lossy compression discussed
-earlier, one idea for simplifying data is to look at a part
-of the data and try to match it as closely as possible with an
-existing set of primitives. In particular, just as with Mpeg and
-fractal compression, to approximate one part of the grammar
-we can use \emph{other parts of the grammar}. This is the seed for
-both of our algorithms. Given a rule $S \rightarrow rhs$, we will
-try to replace occurences of $S$ with other similar variables.
+Building off the ideas in lossy compression discussed earlier, one idea for
+simplifying data is to look at a part of the data and try to match it as
+closely as possible with an existing set of primitives. In particular, just as
+with Mpeg and fractal compression, to approximate one part of the grammar we
+can use \emph{other parts of the grammar}. This is the seed for both of our
+algorithms. Given a rule $S \rightarrow rhs$, we will try to replace occurences
+of $S$ with other similar variables.
 
 For example, consider the grammars in figure \ref{sred}.
 
 \begin{figure}[t]
 \centering
-\includegraphics[scale=0.6]{sred1.pdf}
-\includegraphics[scale=0.6]{sred2.pdf}
+\includegraphics[scale=0.6]{include/sred1.pdf}
+\includegraphics[scale=0.6]{include/sred2.pdf}
 \caption{Grammar Simplification Example}
 \label{sred}
 \end{figure}
 
-To simplify the grammar, it would make sense to replace B with A, since
-they form two almost identical halves of S and are similar.
+To simplify the grammar, it would make sense to replace B with A, since they
+form two almost identical halves of S and are similar.
 
 \subsection{Pair-Similarity}
 
 To define whether two variables are \emph{similar}, we can look at their
-expansions. Let $expand(rhs)$ denote the string of terminal symbols we get
-when we recursively substitute all of the variables inside $rhs$. Then
-$V_1 \rightarrow rhs_1$ and $V_2 \rightarrow rhs_2$ are similar when
+expansions. Let $expand(rhs)$ denote the string of terminal symbols we get when
+we recursively substitute all of the variables inside $rhs$. Then $V_1
+\rightarrow rhs_1$ and $V_2 \rightarrow rhs_2$ are similar when
 
-$$\frac{levenshtein(expand(rhs_1),expand(rhs_2))}
-        {max(len(expand(rhs_1)),len(expand(rhs_2)))} < \epsilon$$.
+\[
+  \frac{levenshtein(expand(rhs_1),expand(rhs_2))}
+      {max(len(expand(rhs_1)),len(expand(rhs_2)))} < \epsilon
+\]
 
-where $levenshtein$ is the levenstein edit distance between two strings.
-For convenience we can define.
+where $levenshtein$ is the levenstein edit distance between two strings.  For
+convenience we can define.
 
-$$lsim(s1,s2) = \frac{levenshtein(s1,s2)}{max(len(s1),len(s2))}$$
+\[ lsim(s1,s2) = \frac{levenshtein(s1,s2)}{max(len(s1),len(s2))} \]
 
-The first algorithm takes the idea of variable similarity and uses it
-to simplify the grammar sequentially as much as possible.
+The first algorithm takes the idea of variable similarity and uses it to
+simplify the grammar sequentially as much as possible.
 
 \begin{algorithm}[h]
 \caption{Similarity Lossifier Algorithm}
@@ -254,16 +243,14 @@ to simplify the grammar sequentially as much as possible.
 
 \subsection{Clustering}
 
-The previous algorithm updates the grammar sequentially, since each
-variable replacement can have an effect on large parts of the grammar,
-we will have to go through comparing all pairs again after the change.
-An alternative algorithm would be to try to replace similar variables in
-parallel. This would avoid many of the repeat pair-comparisons done in
-\emph{Similarity}. In other words, the algorithm below puts 
-similar variables
-into equivalence class clusters, and then replaces each variable
-in a cluster them with the smallest representative
-all at once each iteration.
+The previous algorithm updates the grammar sequentially, since each variable
+replacement can have an effect on large parts of the grammar, we will have to
+go through comparing all pairs again after the change.  An alternative
+algorithm would be to try to replace similar variables in parallel. This would
+avoid many of the repeat pair-comparisons done in \emph{Similarity}. In other
+words, the algorithm below puts similar variables into equivalence class
+clusters, and then replaces each variable in a cluster them with the smallest
+representative all at once each iteration.
 
 \begin{algorithm}[h]
 \caption{Cluster Lossifier Algorithm}
@@ -295,101 +282,98 @@ all at once each iteration.
 \end{algorithm}
 
 Both of the algorithms depend on the concept of the "smallest / smaller"
-variable. We can define the size of a variable to be the length of
-the expansion of its rhs. In this way, if we think of our CFG's as a DAG, then
-variables higher up on the DAG will always have larger expansions than
-those lower down, and thus will have a larger size. By always replacing
-with the smallest variable, we avoid creating cyclic references in our CFG.
-We will prove this fact in the next section.
+variable. We can define the size of a variable to be the length of the
+expansion of its rhs. In this way, if we think of our CFG's as a DAG, then
+variables higher up on the DAG will always have larger expansions than those
+lower down, and thus will have a larger size. By always replacing with the
+smallest variable, we avoid creating cyclic references in our CFG.  We will
+prove this fact in the next section.
 
 \subsection{Proof of Grammar Consistency}
 
-One risk in replacing variables in a CFG is that one could introduce
-cyclical expansion in the CFG, such as if 
-$A\rightarrow aB$ and $B\rightarrow bA$. In this 
-section we will argue that neither of our algorithms do so if the
-original grammar was well formed.
+One risk in replacing variables in a CFG is that one could introduce cyclical
+expansion in the CFG, such as if $A\rightarrow aB$ and $B\rightarrow bA$. In
+this section we will argue that neither of our algorithms do so if the original
+grammar was well formed.
 
 We can view the CFG as a DAG where for variables $V_1$, $V_2$, we add an edge
-whenever $V_1$ contains $V_2$ in its rhs. When sizes are compuated
-on a CFG before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$.
-Replacing a variable $V_1$ with
-$V_2$ has the same effect as redirecting all in-edges to $V_1$ onto $V_2$.
+whenever $V_1$ contains $V_2$ in its rhs. When sizes are compuated on a CFG
+before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$.
+Replacing a variable $V_1$ with $V_2$ has the same effect as redirecting all
+in-edges to $V_1$ onto $V_2$.
 
-Suppose for the sake of contradiction that the Similarity algorithm
-created a cycle at one step by redirecting an edge originally pointing 
-at $A$ to $B$. This would mean that there was a path going from 
-$B$ to $A$. However, by comparing the sizes of $A$ and $B$ we know that
-$A$ must have been bigger than $B$. Thus there cannot have been a path from $B$
-to $A$, and we have a contradiction.
+Suppose for the sake of contradiction that the Similarity algorithm created a
+cycle at one step by redirecting an edge originally pointing at $A$ to $B$.
+This would mean that there was a path going from $B$ to $A$. However, by
+comparing the sizes of $A$ and $B$ we know that $A$ must have been bigger than
+$B$. Thus there cannot have been a path from $B$ to $A$, and we have a
+contradiction.
 
-For the Cluster algorithm the analysis is a bit more involved, since
-to avoid recomputation we only calculate the sizes of the variables once
-before doing all of the replacements. First note that even as we modify
-the DAG, all of the edges we create in the DAG will respect the ordering of
-sizes that we calculated before we did any replacements. This is because
-each time we redirect an edge from $X\rightarrow A$ to $X\rightarrow B$
+For the Cluster algorithm the analysis is a bit more involved, since to avoid
+recomputation we only calculate the sizes of the variables once before doing
+all of the replacements. First note that even as we modify the DAG, all of the
+edges we create in the DAG will respect the ordering of sizes that we
+calculated before we did any replacements. This is because each time we
+redirect an edge from $X\rightarrow A$ to $X\rightarrow B$
 $size(X)>size(A)>size(B)$ and transitivity will preserve the ordering.
 
-Suppose then that we created a cycle during Cluster
-by redirecting an edge from $X \rightarrow A$ to $X \rightarrow B$.
-This means that there must have been a path from $B$ to $X$. However,
-even in its intermediate state we know that the DAG respects the
-$size$ ordering, and $size(X) > size(A) > size(B)$, so there cannot
-be a path from $B$ to $X$. This is a contradiction and we are done.
-
-
+Suppose then that we created a cycle during Cluster by redirecting an edge from
+$X \rightarrow A$ to $X \rightarrow B$.  This means that there must have been a
+path from $B$ to $X$. However, even in its intermediate state we know that the
+DAG respects the $size$ ordering, and $size(X) > size(A) > size(B)$, so there
+cannot be a path from $B$ to $X$. This is a contradiction and we are done.
 
 \subsection{Runtime Analysis}
-Given an input of length $n$, let $r$ be the number of rules generated
-by Sequitur from the input. 
-In the analysis of the Similarity algorithm, let $R$ be the total number of variable
-replacements we perform. For each replacement, we had to have searched though
-up to all pairs of variables, and for each pair of variables expanding
-them and calculating the levenshtein distance could take time linear in $n$.
-Performing the replacement only takes time linear in $r$.
-Thus the runtime is $\boxed{O(R*r^2*n)}$. 
 
-From the \Sequitur paper \cite{sequitur} we
-know that the number of rules in the grammar generated by Sequitur
-is between $O(1)$ and $O(n)$. Thus the worst case runtime on the similarity
-algorithm is $\boxed{O(n^4)}$. This is because we could have up to $r$ replacements.
-However, in practice we will see that the runtime is much better
-than $O(n^4)$. There are a variety of possible reasons for this:
-in our test data, $r$ didn't grow quite linearly in $n$, $R$ could grow much
-slower than $r$, and the use of native code in calculating the levenshtein distance 
-made the its contribution much less noticeable for the input sizes we tested.
+Given an input of length $n$, let $r$ be the number of rules generated by
+\Sequitur from the input.  In the analysis of the Similarity algorithm, let $R$
+be the total number of variable replacements we perform. For each replacement,
+we had to have searched though up to all pairs of variables, and for each pair
+of variables expanding them and calculating the levenshtein distance could take
+time linear in $n$.  Performing the replacement only takes time linear in $r$.
+Thus the runtime is $\boxed{O(R*r^2*n)}$.
 
+From the \Sequitur paper \cite{sequitur} we know that the number of rules in
+the grammar generated by \Sequitur is between $O(1)$ and $O(n)$. Thus the worst
+case runtime on the similarity algorithm is $\boxed{O(n^4)}$. This is because
+we could have up to $r$ replacements.  However, in practice we will see that
+the runtime is much better than $O(n^4)$. There are a variety of possible
+reasons for this: in our test data, $r$ didn't grow quite linearly in $n$, $R$
+could grow much slower than $r$, and the use of native code in calculating the
+levenshtein distance made the its contribution much less noticeable for the
+input sizes we tested.
 
-
-The inner loops of the Cluster are similar to those of the Similarity algorithm.
-We iterate the entire clustering and replacement procedure $C$ times. Going through
-each variable-cluster pair takes up to $O(r^2)$ time and calculating the levenshtein
-distance takes $O(n)$ time. The time taken to actually perform the replacements each
-iteration is absorbed into the $O(r^2)$ term. So, again we have a runtime of
-$\boxed{O(C*r^2*n)}$. Just as with the similarity algorithm,
-a variety of factors make the runtime much better than the
-$\boxed{O(n^4)}$ worst case scenario. 
-The big gain over the similarity algorithm is that $C$ turns out
-to be nearly constant, since there are very few huge chains of reductions that are
-only possible after other reductions have been performed, an in fact we are able to 
-perform a very large number of the remaining reductions each time we perform an iteration
-of the clustering algorithm. Thus a more reasonable upper bound for the runtime
-of cluster would be $\boxed{O(n^3)}$
+The inner loops of the Cluster are similar to those of the Similarity
+algorithm.  We iterate the entire clustering and replacement procedure $C$
+times. Going through each variable-cluster pair takes up to $O(r^2)$ time and
+calculating the levenshtein distance takes $O(n)$ time. The time taken to
+actually perform the replacements each iteration is absorbed into the $O(r^2)$
+term. So, again we have a runtime of $\boxed{O(C*r^2*n)}$. Just as with the
+similarity algorithm, a variety of factors make the runtime much better than
+the $\boxed{O(n^4)}$ worst case scenario.  The big gain over the similarity
+algorithm is that $C$ turns out to be nearly constant, since there are very few
+huge chains of reductions that are only possible after other reductions have
+been performed, an in fact we are able to perform a very large number of the
+remaining reductions each time we perform an iteration of the clustering
+algorithm. Thus a more reasonable upper bound for the runtime of cluster would
+be $\boxed{O(n^3)}$
 
 \section{Implementation}
+
 Overview
 
 \subsection{Grammar Reductions}
-What is their purpose? Why do we want them? What are they?
-Grammar reductions are a way of taking a CFG, generated possibly through
-ad-hoc techniques, and systematically removing internal redundancies
-like duplicate bigrams in Sequitur. They make the CFG representation smaller
-but don't introduce any loss. We want them since our lossifier algorithms
-often make our grammars redundant, even though the each step we take
-in the lossifier makes the grammars smaller.
+
+What is their purpose? Why do we want them? What are they?  Grammar reductions
+are a way of taking a CFG, generated possibly through ad-hoc techniques, and
+systematically removing internal redundancies like duplicate bigrams in
+\Sequitur. They make the CFG representation smaller but don't introduce any
+loss. We want them since our lossifier algorithms often make our grammars
+redundant, even though the each step we take in the lossifier makes the
+grammars smaller.
 
 \subsection{Data Structures and Optimizations}
+
 Grammar Data Structure
 Cluster Data Structure
 Invariants Maintained
@@ -397,12 +381,13 @@ Core utility methods??
 Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Native Levenshtein
 
 \section{Results}
+
 \subsection{Illustrative Examples}
-It is useful to look at how the algorithms function on a small piece of
-data with both plenty of hierarchical structure, and also some messiness
-that most lossless compression schemes would not deal well with. Take
-the string below, similar to what one might come across in a math
-puzzle book.
+
+It is useful to look at how the algorithms function on a small piece of data
+with both plenty of hierarchical structure, and also some messiness that most
+lossless compression schemes would not deal well with. Take the string below,
+similar to what one might come across in a math puzzle book.
 
 \begin{verbatim}
 123,124,123 + 321,323,321 = ???
@@ -413,15 +398,15 @@ puzzle book.
 \end{verbatim}
 
 Disregarding its meaning, it consists of four very similar equations of the
-form $a + b = ?$, and on a smaller scale each summand consists of
-3 repetitions of approximately the same string of either $123,$ or $321,$.
+form $a + b = ?$, and on a smaller scale each summand consists of 3 repetitions
+of approximately the same string of either $123,$ or $321,$.
 
-When comparing grammars, we chose to define the \emph{size} of a grammar
-as the sum of the lengths of the rhs's of the production rules.
-Sequitur yields a relatively complicated inferred grammar with 13 rules and
-a size of 51. Both the Similarity and Clustering Algorithms with $\epsilon = .4$
-, yield the following grammar after reduction. It has 5 rules and is almost
-half the size, at 30.
+When comparing grammars, we chose to define the \emph{size} of a grammar as the
+sum of the lengths of the rhs's of the production rules.  \Sequitur yields a
+relatively complicated inferred grammar with 13 rules and a size of 51. Both
+the Similarity and Clustering Algorithms with $\epsilon = .4$ , yield the
+following grammar after reduction. It has 5 rules and is almost half the size,
+at 30.
 
 \begin{verbatim}
 Grammar:
@@ -437,93 +422,84 @@ Generated String:
 1231212 + 32323321 = ???1231212 + 32323321 = ????
 \end{verbatim}
 
-
-The lossifier algorithm reduced the string to a pair of
-pairs of the same equations, where each equation consists of the
-sum of triples of "12" or "32". Smaller discrepencies
-in the numbers involved were dropped, while the filler
-commas and linebreaks also ended
-up being lost. Note that the structure described is easily
-observable from the grammar generated.
+The lossifier algorithm reduced the string to a pair of pairs of the same
+equations, where each equation consists of the sum of triples of "12" or "32".
+Smaller discrepencies in the numbers involved were dropped, while the filler
+commas and linebreaks also ended up being lost. Note that the structure
+described is easily observable from the grammar generated.
 
 \subsection{Similarity vs Clustering}
-For most of our benchmark tests, we focused on two extreme kinds of data:
-one with large amounts of repetition at all levels, and one with a word
-and sentence level structure but with little obvious large-scale repetition.
-One set of test data was constructed by repeating the same letter `a' n-times
-but then adding some
-texture to the data by changing 1/30 of the characters uniformly
-at random to `*'. Call these test-cases \emph{rep-n}
-Another set of test data was constructed from the first n characters of the
-book of Genesis from the KJV version of the Bible. 
-Call these test-cases \emph{gen-n}
+
+For most of our benchmark tests, we focused on two extreme kinds of data: one
+with large amounts of repetition at all levels, and one with a word and
+sentence level structure but with little obvious large-scale repetition.  One
+set of test data was constructed by repeating the same letter `a' n-times but
+then adding some texture to the data by changing 1/30 of the characters
+uniformly at random to `*'. Call these test-cases \emph{rep-n} Another set of
+test data was constructed from the first n characters of the book of Genesis
+from the KJV version of the Bible.  Call these test-cases \emph{gen-n}
 
 For our first suite of tests, we compare the effectiveness of the
-\emph{Similarity} and \emph{Cluster} algorithms. We might expect
-Similarity to achieve better quality at the same compression ratio
-since it updates the state of the grammar between each variable
-replacement, on the other hand since it must update the grammar
-it has the potential to run much more slowly than Cluster.
+\emph{Similarity} and \emph{Cluster} algorithms. We might expect Similarity to
+achieve better quality at the same compression ratio since it updates the state
+of the grammar between each variable replacement, on the other hand since it
+must update the grammar it has the potential to run much more slowly than
+Cluster.
 
-We don't report the running times for just \Sequitur since its linear
-running time is negligible compared to our algorithms for all but the
-smallest input data.
+We don't report the running times for just \Sequitur since its linear running
+time is negligible compared to our algorithms for all but the smallest input
+data.
 
 \subsubsection{Rep-n results}
 
-In table \ref{simclus_r_t} we report the results on running Sequitur 
-and Cluster, without
-the grammar reductions, on the rep-n datasets. Time is the wall clock
-running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
-Ratio is the relative size of the grammar produced compared with
-Sequitur, where the size of the grammar is the sum of the lengths of the
-rhs's of the rules. Levdistance is the levenshtein distance between
-the output of the lossified grammar and the original input string, it
-is a kind of measure of the fidelity of our algorithms but doesn't
-take into account how well patterns were preserved. For the rep-n tests,
-proportion is the proportion of the final string produced that was
-`*'. The closer to 1/30~0.033, the more accurate the lossifier was
-in recreating the original texture of the input.
+In table \ref{simclus_r_t} we report the results on running \Sequitur and
+Cluster, without the grammar reductions, on the rep-n datasets. Time is the
+wall clock running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
+Ratio is the relative size of the grammar produced compared with \Sequitur,
+where the size of the grammar is the sum of the lengths of the rhs's of the
+rules. Levdistance is the levenshtein distance between the output of the
+lossified grammar and the original input string, it is a kind of measure of the
+fidelity of our algorithms but doesn't take into account how well patterns were
+preserved. For the rep-n tests, proportion is the proportion of the final
+string produced that was `*'. The closer to 1/30~0.033, the more accurate the
+lossifier was in recreating the original texture of the input.
 
-The columns of the data are prefixed by S or T depending on whether
-they are measurements for Similarity or Cluster respectively.
+The columns of the data are prefixed by S or T depending on whether they are
+measurements for Similarity or Cluster respectively.
 
-The compression ratios achieved for both algorithms are roughly equal for the same
-value for $\epsilon$, so it is fair to compare the algorithms for the same $\epsilon$.
+The compression ratios achieved for both algorithms are roughly equal for the
+same value for $\epsilon$, so it is fair to compare the algorithms for the same
+$\epsilon$.
 
-
-From plotting the data, we see that runtime of the algorithms are roughly polynomial
-in the size of the data, so we can perform a linear regression on the log-log transform
-of the data to find the exponents $\alpha$ for the runtime $r(n)=n^\alpha$ where $n$ is the
-length of the input string. In the chart below, all of the linear regressions had
-$R^2$ values of over $0.98$.
+From plotting the data, we see that runtime of the algorithms are roughly
+polynomial in the size of the data, so we can perform a linear regression on
+the log-log transform of the data to find the exponents $\alpha$ for the
+runtime $r(n)=n^\alpha$ where $n$ is the length of the input string. In the
+chart below, all of the linear regressions had $R^2$ values of over $0.98$.
 
 \begin{tabular}{l|l|l|l|l}
 Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Clust: $\epsilon = .2$ \\
 Exponent & $1.859$ & $2.026$ & $1.306$ & $1.305$
 \end{tabular}
 
+For both values of $\epsilon$, The clustering algorithm is nearly linear, while
+the similarity algorithm is roughly quadratic. On this dataset, the leveshtein
+distances were similar for both algorithms but fairly high since the length of
+the final string could change drastically.  The proportion of '*'s in the input
+was usually the right order of magnitude, with both algorithms making big
+mistakes occassionally. In most cases, the two algorithms maintained similarly
+acceptable fidelity levels in recreating the texture of the original rep-n
+input file.
 
-For both values of $\epsilon$, 
-The clustering algorithm is nearly linear, while the similarity algorithm is roughly
-quadratic. On this dataset, the leveshtein distances were similar for both algorithms
-but fairly high since the length of the final string could change drastically.
-The proportion of '*'s in the input was usually the right order of magnitude,
-with both algorithms making big mistakes occassionally. In most cases,
-the two algorithms maintained similarly acceptable fidelity levels in recreating
-the texture of the original rep-n input file.
-
-The actual compression ratio was respectable, with both
-Similarity and Cluster coming in at nearly half the size of the Sequitur CFG.
-Setting higher values for $\epsilon$ had diminishing returns for compression
-for larger and larger file sizes, at the cost of drastically lowering the fidelity
-of the output. 
+The actual compression ratio was respectable, with both Similarity and Cluster
+coming in at nearly half the size of the \Sequitur CFG.  Setting higher values
+for $\epsilon$ had diminishing returns for compression for larger and larger
+file sizes, at the cost of drastically lowering the fidelity of the output.
 
 \subsubsection{Gen-n results}
 
-Repeating the above tests on the \emph{gen-n} datasets yields the results in table
-\ref{simclus_g_t}
-
+Repeating the above tests on the \emph{gen-n} datasets yields the results in
+table \ref{simclus_g_t}.
 
 Just as with the rep-n data, log-log regression tests yield the following
 exponents for the runtime on the gen-n data, again with very high values of
@@ -534,93 +510,89 @@ Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Cl
 Exponent & $2.629$ & $2.493$ & $1.814$ & $2.061$
 \end{tabular}
 
+Just as in the rep-n results, the two algorithms have almost identical
+compression ratios and their fidelity is about the same both subjectively and
+based on levenshtein distance. For an example of the text generated on one of
+the gen-n datasets, see the appendix.
 
-Just as in the rep-n results, the two algorithms have 
-almost identical compression ratios and
-their fidelity is about the same both subjectively and based on levenshtein
-distance. For an example of the text generated on one of the gen-n datasets,
-see the appendix.
+The runtimes are noticeably worse than for the rep-n dataset. The similarity
+algorithm runs in roughly $n^{2.5}$ time while cluster runs in roughly $n^2$
+time.
 
-The runtimes are noticeably worse than for the rep-n dataset. The
-similarity algorithm runs in roughly $n^{2.5}$ time while cluster
-runs in roughly $n^2$ time. 
-
-Changing epsilon in this case had a large effect on both the compression
-ratio and the fidelity of the final output string.
+Changing epsilon in this case had a large effect on both the compression ratio
+and the fidelity of the final output string.
 
 \subsubsection{Summary}
 
-Both of the algorithms were able to achieve great additional compression
-ratios on top of \Sequitur of up to about 40 percent for the highly
-structured rep-n data, and 30 percent for the more loosely structured
-gen-n data without using the grammar reducer. The fidelity between
-the original and lossified strings wasn't great as measured by
-levenshtein distance, but the texture in both the rep-n and
-gen-n datasets was preserved well. Decreasing the $\epsilon$ threshold
-improved fidelity greatly for larger very structured data at little
-cost to the compression ratio, but hurt the compression ratio
-a lot for less structured data.
+Both of the algorithms were able to achieve great additional compression ratios
+on top of \Sequitur of up to about 40 percent for the highly structured rep-n
+data, and 30 percent for the more loosely structured gen-n data without using
+the grammar reducer. The fidelity between the original and lossified strings
+wasn't great as measured by levenshtein distance, but the texture in both the
+rep-n and gen-n datasets was preserved well. Decreasing the $\epsilon$
+threshold improved fidelity greatly for larger very structured data at little
+cost to the compression ratio, but hurt the compression ratio a lot for less
+structured data.
 
 The differences between the two algorithms lie almost entirely in their
-runtime. Both algorithms perform much worse on the less structued
-gen-n data, we believe because simplifications are made more incrementally
-and the grammar does not get dramatically simpler after a few iterations
-of our algorithm like it does for the rep-n data.
-Unfortunately the Similarity algorithm tends to consistently incur
-an overhead of about $O(\sqrt{n})$ on top of the runtime for the
-Cluster algorithm. Because of this we dismiss the Similarity algorithm
-as unscalable and do not test it further.
+runtime. Both algorithms perform much worse on the less structued gen-n data,
+we believe because simplifications are made more incrementally and the grammar
+does not get dramatically simpler after a few iterations of our algorithm like
+it does for the rep-n data.  Unfortunately the Similarity algorithm tends to
+consistently incur an overhead of about $O(\sqrt{n})$ on top of the runtime for
+the Cluster algorithm. Because of this we dismiss the Similarity algorithm as
+unscalable and do not test it further.
 
 \subsection{Grammar Reduction Impact}
-Although the grammars generated by Sequitur are irreducible,
-our lossifiers produce grammars which could potentially be
-compressed further (losslessly) using Reduction Rules without
-changing the output string. To test the cost and
-effectiveness of applying reduction rules, we looked at the
-rep-n and gen-n test cases again, this time focusing on the
-clustering algorithm for $\epsilon = .2$. This time we give the ratio
-on top of the simplified grammar produced by the clustering algorithm,
-and the time taken to run just the reduction rules.
 
-When plotted on a log-log scale, the runtime for our straightforward 
-implementation of the reduction
-rules appears to be superpolynomial. While modest additional gains of about 30 percent
-are possible for highly self-similar data, very few additional gains are
-possible for more diverse datasets such as gen-n. This appears to be because
-the only simplifications that are possible on diverse datasets don't lead to
-the wide-ranging repetitive substitutions which allow reduction rules to be allowed.
-The simplifications in gen-n tend to be more local.
+Although the grammars generated by \Sequitur are irreducible, our lossifiers
+produce grammars which could potentially be compressed further (losslessly)
+using Reduction Rules without changing the output string. To test the cost and
+effectiveness of applying reduction rules, we looked at the rep-n and gen-n
+test cases again, this time focusing on the clustering algorithm for $\epsilon
+= .2$. This time we give the ratio on top of the simplified grammar produced by
+the clustering algorithm, and the time taken to run just the reduction rules.
 
-Because we were unable to get reduction rules to scale to larger datasets,
-we will not consider them further.
+When plotted on a log-log scale, the runtime for our straightforward
+implementation of the reduction rules appears to be superpolynomial. While
+modest additional gains of about 30 percent are possible for highly
+self-similar data, very few additional gains are possible for more diverse
+datasets such as gen-n. This appears to be because the only simplifications
+that are possible on diverse datasets don't lead to the wide-ranging repetitive
+substitutions which allow reduction rules to be allowed.  The simplifications
+in gen-n tend to be more local.
 
+Because we were unable to get reduction rules to scale to larger datasets, we
+will not consider them further.
 
 \subsection{Larger Tests}
 
-Though we were ultimately not able to come up with a good way to quantify how much of the
-structure of a text was preserved, we have included the final output strings we obtain
-after running the Clustering Algorithm with $\epsilon = .4$ in the Appendices. We
-believe these tests serve as a good (subjective) summary of the strengths and
-weaknesses of our
-algorithm in compressing data while preserving
-its character.
+Though we were ultimately not able to come up with a good way to quantify how
+much of the structure of a text was preserved, we have included the final
+output strings we obtain after running the Clustering Algorithm with $\epsilon
+= .4$ in the Appendices. We believe these tests serve as a good (subjective)
+summary of the strengths and weaknesses of our algorithm in compressing data
+while preserving its character.
 
-The first piece of text is from the gen-n dataset again, the first 256000 characters
-of the book of Genesis. As listed in table \ref{seqclus_g_t}, the compressed grammar
-was size 5540 compared with Sequitur's size of 8060. Without knowledge of English 
-spelling, the Cluster algorithm produces output that is hard to read. However,
-key words are clearly recognizable, especially important words such as `God', and
-the overall structure in the book of Genesis is retained.
+The first piece of text is from the gen-n dataset again, the first 256000
+characters of the book of Genesis. As listed in table \ref{simclus_g_t}, the
+compressed grammar was size 5540 compared with \Sequitur's size of 8060.
+Without knowledge of English spelling, the Cluster algorithm produces output
+that is hard to read. However, key words are clearly recognizable, especially
+important words such as `God', and the overall structure in the book of Genesis
+is retained.
 
 The second piece of text is one of the entries to this year's International
-Obfuscated C code contest, at \url{http://www.ioccc.org/2012/deckmyn/deckmyn.c} .
-The size of the lossified grammar is 1576 compared with the original size of
+Obfuscated C code contest, at \url{http://www.ioccc.org/2012/deckmyn/deckmyn.c}
+.  The size of the lossified grammar is 1576 compared with the original size of
 1973. The intricate whitespacing was lost, but the clear delineation into
 sections was retained, key words such as `define' and `for' are very visible,
 and the texture of the obfuscated C is very visible.
 
 \section{Conclusions}
+
 \subsection{Summary of Results}
+
 * General concept of simplifying grammars, two proposed algorithms
 * reasonably efficient implementation with runtime better than expected
 * compared algorithms, evaluated effectiveness of reducer
@@ -750,7 +722,7 @@ gen-6400  & 308.7 & 2139/2171\\
 #include<stdio.h>
 #define c(C) printf("%c",C)
 #define C(c) ((int*)(C[1]+6))[c]
-main(int c,char    
+main(int c,char
 *C[])         {(C[c]=C[
 1]+2   )[0]=   c(52*c(\
 'C'+  '4'/4)    );for(c
@@ -794,11 +766,11 @@ C(0)?C(1  ):C(0);c+=3;*
         -4  *(C[        3][0 ]=105-  C[2][ c]   -7*(*(C
         [2]+c)<         'c') -18*(  C[2][c    ]<77)+2*(
          *C)[4          ]-7* (C[2] [c]<'C'  ))-6;for(C(
-        3)=0;                                          
+        3)=0;
        C(3)<                                (*C[2]?*C[2
       ]>'r'                             ?C[    2][1]:(1
      +2*(*C             [2]>   64)    +(2-!C[2    ][3])
-    *(58 ==             (*(C         +2))[0])-         
+    *(58 ==             (*(C         +2))[0])-
     (C[2] [0            ]=='m'   )  ):C(2)?C(0     )-C(
   2):0  );C(3)++)       C(1)+=c(C  [1][4]|(*     C[2]&&
  *C[2  ]<'s'?*C[2]      ==58?C(3)  ==1?**C     >17&&**C
@@ -817,33 +789,33 @@ C(0)?C(1  ):C(0);c+=3;*
      207:205)+7*                        c+C(3     )]:C[
       2][2]==46               &&        (c==-2||   c==-
             1-                          2*(*C[3]%2  ))?
-            96                          :0:0)|((*C)[2  
-             ]?                                        
-             C(         3      )        ?C(3)< 2       
-             &&                        *C[3]>  7   &&  
-             c<           1&&c  >-24  ?8:0:*   C       
-             [3         ]<8&&c  >1   &&c<24    ?   ' ' 
-        :0   :0)        |(C(3) <2     &&(  **  C       
-       ==66   &&        *C[3   ]>14   ||*  C[  3       
-       ]>12   &&        58   ==**C||   *               
-       C[3    ]<        2  &&**C==10   )            ?  
-        5*  51:                       0)|(7==  (       
-         *C)[                        2]?*C[3]  <       
+            96                          :0:0)|((*C)[2
+             ]?
+             C(         3      )        ?C(3)< 2
+             &&                        *C[3]>  7   &&
+             c<           1&&c  >-24  ?8:0:*   C
+             [3         ]<8&&c  >1   &&c<24    ?   ' '
+        :0   :0)        |(C(3) <2     &&(  **  C
+       ==66   &&        *C[3   ]>14   ||*  C[  3
+       ]>12   &&        58   ==**C||   *
+       C[3    ]<        2  &&**C==10   )            ?
+        5*  51:                       0)|(7==  (
+         *C)[                        2]?*C[3]  <
 8?c>13&& c<23&&C(3)<2?C
 [1][144+ 7*c+C(3)]:0:C(
 3) && c< -14&&c>- 24?C[
 1] [7 *c +400+C(3 )]:0:
 0) :! C  (3)?**C> 21&&C
-[0 ][    0]   <32      
-?C     [ 1 ]   [(      
-*   C )    [2   ] +323 
-   +7     **   *C ]:36 
- + 1   < **   C&& '0'> 
-*     *C ?  C[1][      
-   C[ 2]  [2]+162      
- + 7* **C]:0:0:0));C[1 
-][ 3] ++;C[2]+=3;}c(0) 
-;C [3 ]-=2;}*C[3]=0;}} 
+[0 ][    0]   <32
+?C     [ 1 ]   [(
+*   C )    [2   ] +323
+   +7     **   *C ]:36
+ + 1   < **   C&& '0'>
+*     *C ?  C[1][
+   C[ 2]  [2]+162
+ + 7* **C]:0:0:0));C[1
+][ 3] ++;C[2]+=3;}c(0)
+;C [3 ]-=2;}*C[3]=0;}}
 
 \end{lstlisting}
 
@@ -853,7 +825,7 @@ C(0)?C(1  ):C(0);c+=3;*
 #include<stdio.h>
 #define c(C) prinf("%c",C)
 #define C(c) (in*)C[]+6))[c]
-mainin c,char  
+mainin c,char
 *C[])     {C[c]=C
 ]+  )[0]=  c(52*c(\
 C'  '4'/4)   );for(c
@@ -862,9 +834,9 @@ C'  '4'/4)   );for(c
 0;*  0]<8;  **  C
 )    C[]+c  'c']=
 C[  ]+c+'c'  C[]+99   c]+C[  ][**C
-+8*  +99]=3  );  
++8*  +99]=3  );
 *)[]=*C
-]=  7  
+]=  7
 *C[]+=3)-  )==70?
 1):;C()=C(  )=c=0
 ;whileC
@@ -898,7 +870,7 @@ C[+)+=3;}prinf("  \
   ]>'r'     C[  C[]+:(1
   2*      ][  64   +(2-!C
   3])
-  (58]=      (*C[    +))[0])-    
+  (58]=      (*C[    +))[0])-
   C[3] [0    ]='m'  ):C(+)?C(  )-C(  +)0)  ;C(3)++    C()+=c(  C[]+4]|(    3]&&*C2  ]<''?C
     =58?C(3)  ]=1?**  >17&&*C <51  C[ ]  ]+    =59?39  C[]+  2]=58?9:1:
 00)  6  >    2   ?(c<7&& c>-9?C
@@ -913,17 +885,17 @@ C[]+144+ 7*c+C():0:C(
 3) && c< -14&&c>- 24C[
 1] [7 *c +400+C( ):0:
 ) :!*C  3)** 2&&C
-[0   0]  3    
-?   [ 1 ]       
-*   )   2    +323    +7     *C ]:36 
- + 1   **  && '0'> 
+[0   0]  3
+?   [ 1 ]
+*   )   2    +323    +7     *C ]:36
+ + 1   **  && '0'>
   *C   C
-][      [ 2  ][16    
+][      [ 2  ][16
  + 7* **]:):0));C
- 
+
 ][ 3] ++C
-+=3;}c() 
-;C [3 ]-=2;}C[]=0;} 
++=3;}c()
+;C [3 ]-=2;}C[]=0;}
 
 \end{lstlisting}
 
@@ -1033,7 +1005,7 @@ t ofe en.ine Spirt ofGod moend upont ofwate
 ine w ht, tht waodn God dividhtfrm darknes
 
 5caledht Dayn darkness e caledNht
-n e e frinwee e frt 
+n e e frinwee e frt
 
 6e said,  amament ine midt ofwate
 ndt t dividwatewate
@@ -1041,7 +1013,7 @@ ndt t dividwatewate
 7ine fealn dividwatehichs in
 underfeal wates hichs inabenfeal:n t wa
 
-8caledmamenHaen.e e e 
+8caledmamenHaen.e e e
 frinwee e secon
 
 9e said, undere mae bemae e mae entoone plcen t e dry ln apart wa
@@ -1055,7 +1027,7 @@ in tel, e frt wa
 n e frrurhtargras, n dingseedfes inn e dingrut , whseseeds in tel, fe
 s inine tht waod3e e frinwee e thir
 
-1e said, e behts ine mamene e 
+1e said, e behts ine mamene e
 todividthayfrm e htn e e e frsignd an
 seasond anayn ar: 1:n e e e frhts in
 e frmamene e  toinhte fr: n t wa
@@ -1067,9 +1039,9 @@ nde estoule e hte e e e stars al
 e fr1:n toule e e ayn e e htd an
 todivide htfrm darknes: God tht waod9n e e n frinwee e fr
 
-0e said, binar aundanolye moilngcaledthhath in frwlthay flyabene frentoopen firmamenofmae 
+0e said, binar aundanolye moilngcaledthhath in frwlthay flyabene frentoopen firmamenofmae
 
-1 n God Haedcratwhalesn enry lcalede 
+1 n God Haedcratwhalesn enry lcalede
 moen, hiche wate brurhtar aundanoly, fe
 s inn enrys inedfrwlfes in: God th ts no
 
