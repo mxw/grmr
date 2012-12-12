@@ -685,19 +685,19 @@ Both of these kinds of textures are retained after lossifying.
 
 In this paper, we present the design and implementation of original algorithms
 for performing lossy compression of hierarchical data.  To our knowledge, the
-idea of lossifying context-free grammar as a means of simplifying and
+idea of lossifying context-free grammars as a means of simplifying and
 compressing hierarchical structure has not been explored in the past.  We
 believe, however, that it is a technique worth further investigation.
 
 We were able to produce a reasonably efficient implementation of two basic
 grammar lossification algorithms, and in particular, the runtime for our
 \Cluster was better than we expected.  Our techniques resulted in good
-compression ratios.  The fidelity of the output strings from our compressed
+compression ratios.  The fidelity of the output streams from our compressed
 grammars, as compared to the original inputs, were lacking---however, our
 techniques were intended not to maintain the fidelity of outputs, but rather,
 of hierarchical structure.
 
-Unfortunately, we were unable to establish numerical metrics for the structural
+We were unfortunately unable to establish numerical metrics for the structural
 similarities between the lossless and lossy grammars; however, subjectively, we
 find that lossification maintains interesting invariants, such as the word
 ``God'' in a lossy compression of the Bible, or the texture and block structure
