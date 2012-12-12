@@ -303,7 +303,7 @@ representative all at once each iteration.
         \EndIf
       \EndFor
       \If{$var_1$ hasn't been added to a cluster}
-        \State Add $var_1$ to a new cluster in $clusters$
+        \State add $var_1$ to a new cluster in $clusters$
       \EndIf
     \EndFor
     \State save a mapping $m$ from variables to sizes
@@ -639,10 +639,33 @@ and the texture of the obfuscated C is very visible.
 * What kind of fidelity to we get
 
 \subsection{Future Work}
-* Better ways to set epsilon to maximize value / cost for different size and types
-* Better ways to quantify preservation of hierarchies
-* How to find near `self-similarities' that aren't captured by a rule
-* Iterating lossify and reduce in a cycle
+
+There are many further directions to explore in the area of lossy grammar
+compression.  One immediate direction for future work is to develop additional
+lossifier algorithms, or to determine techniques for improving our existing
+ones.  One shortcoming of our \Cluster algorithm is that, by replacing clusters
+with the shortest rule, we lose both fidelity in the final expanded stream
+\emph{and} structure in the simplified grammar.  Replacing each cluster with
+the most frequently-appearing rule could improve this situation, at some small
+cost to the final compression ratio (small because all rules in a cluster are
+similar in size).  Unfortunately, we were unable to devise an efficient
+algorithm to perform this sort of replacement without accidentally introducing
+cycles.
+
+Investigating the intuition---or perhaps, providing some methodology---for
+choosing the parameter $\epsilon$ would also be useful.  Ideally, we could
+reliably choose $\epsilon$ in such a way that we maximize the ratio of
+compression to fidelity loss.  Investigating the effect that $\epsilon$ has for
+additional types of structured data might shed some light on this problem.
+
+Additional metrics for lossified grammars are also an important direction to
+consider.  Ultimately, our goal is to compress the \emph{hierarchical
+structure} of data, rather than the data itself, efficiently and with high
+fidelity.  However, we were only able to directly measure how well we preserved
+structure on contrived data, such as rep-n.  On real datasets, we instead made
+a first-order approximation by comparing the fully-expanded output streams.
+Some broadly-applicable metrics for comparing hierarchical structures would
+significantly improve the evaluability of lossy grammar compression techniques.
 
 \pagebreak
 
