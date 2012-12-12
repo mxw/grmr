@@ -263,7 +263,7 @@ iteratively simplify the grammar.
     \For{$var_1 \rightarrow rhs_1,\ var_2 \rightarrow rhs_2 \in g$}
       \State $str_{i} \gets expand(rhs_i)$
       \If{$lsim(str_{1},str_{2})<\epsilon$}
-        \State replace the longer var with the smaller throughout $g$
+        \State replace the larger var with the smaller throughout $g$
         \State break
       \EndIf
     \EndFor
@@ -277,7 +277,8 @@ iteratively simplify the grammar.
 The previous algorithm updates the grammar sequentially, since each variable
 replacement can have an effect on large parts of the grammar, we will have to
 go through comparing all pairs again after the change.  An alternative
-algorithm would be to try to replace similar variables in parallel. This would
+algorithm would be to try to replace as many similar variables as possible
+all in one sweep. This would
 avoid many of the repeat pair-comparisons done in \Similarity. In other
 words, the algorithm below puts similar variables into equivalence class
 clusters, and then replaces each variable in a cluster them with the smallest
@@ -663,10 +664,17 @@ was retained.
 
 The second piece of text is one of the entries to this year's International
 Obfuscated C code contest, at \url{http://www.ioccc.org/2012/deckmyn/deckmyn.c}
-.  The size of the lossified grammar is 1576 compared with the original size of
+. We believe this is a particularly good example since its structure is foreign,
+but still discernable. Whitespace is particularly important in standard english
+but our lossifiers don't treat it any differently from any other symbol.
+The size of the lossified grammar is 1576 compared with the original size of
 1973. The intricate whitespacing was lost, but the clear delineation into
 sections was kept, key words such as `define' and `for' are very visible, and
-the texture of the obfuscated C is very obvious.
+the texture of the obfuscated C is very obvious. For instance, after the
+distinct `#define' headers, the first sections has a bunch of control statements
+like `for' and `if', while the middle sections have very generous spacing
+and many repeated pointer derence operators such as `***'. Both of these
+kinds of textures are retained after lossifying.
 
 \section{Conclusions}
 
