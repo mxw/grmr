@@ -74,20 +74,19 @@ used to achieve very good compression ratios.
 
 In the parallel world of image compression, however, two different classes of
 compression schemes exist---\emph{lossless compression} and \emph{lossy
-compression}.  In lossy compression schemes, rather than representing data
-exactly, we allow a certain amount of corruption in order to achieve better
-compression ratios.  Some situations may demand lossless encoding---say, in the
-case of a corporation's trademarked graphical signature.  Many other
-situations, however, may have less stringent requirements.  For texture
-patterns and some photographs, the exact pixel values are far less important
+compression}.  In lossy compression schemes we allow a certain amount of 
+corruption in order to achieve better
+compression ratios.  Some situations may demand lossless encoding, but many others
+have less stringent requirements. With texture
+patterns and some photographs for instance, the exact pixel values are far less important
 than the overall gradients, colors, and structures in the image.  In such
 cases, lossy compression schemes, such as JPEG for images \cite{jpeg}, can be
 valuable and effective.
 
 We believe it is worthwhile to introduce these notions of lossy compression
 that are prevalent in image/video compression into the world of hierarchical
-text compression.  Introducing lossiness to text compression opens up the
-possibility for better compression ratios.
+symbol-stream compression. Introducing lossiness to symbol-stream compression 
+opens up the possibility for better compression ratios.
 
 It may seem strange at first to allow a string such as "mind" to be lossily
 corrupted into, say, ``rind''.  If, however, one is more interested in
@@ -145,7 +144,7 @@ rules.  Though these may invalidate some of their theoretical results on the
 asymptotic performance of \Sequitur, in practice they seem to have worked and
 add nicely to the grammar inference framework.
 
-The intution that grammar inference can support many detailed policies is made
+The intuition that grammar inference can support many detailed policies is made
 more formal in \cite{grammarcodes}.  The authors classify the properties a
 grammar needs to function as a good compressor, and moreover give a set of
 reduction rules for putting a grammar into an appropriate ``irreducible'' form.
@@ -155,20 +154,16 @@ generating base grammars.  Even more examples of the variety of grammar
 inference schemes possible under this general framework of reducing grammars
 can be found in \cite{efficientgreedy}
 
-There has also been very interesting work analyzing how grammar based
-algorithms compare with the theoretical best lossless grammar for a string, in
-the line of \cite{approximation}.  However, these analytic bounds for lossless
-grammars are outside the scope of our proposed research.
-
 In summary, established work on grammar inference algorithms provides a solid
-set of tools for experimenting with the kinds of local lossy modifications we
-propose to make to simplify grammar structure.
+set of tools for experimenting with the kinds of lossy modifications we
+propose to make to simplify grammar structure, and we will draw upon the kinds
+of grammar transformations used in \Sequitur and in Kieffer's reduction rules.
 
 \subsection{Lossy Compression}
 
 While we were unable to find work in the area of lossy grammar compression, a
-number of existing techniques for lossy hierarchical compression more broadly
-may be applicable.
+number of existing techniques for lossy compression more broadly serve
+as inspiration.
 
 Kieffer briefly identifies two primary methods for lossy hierarchical
 compression: wavelet-based and fractal-based schemes \cite{tutorial}.  In
@@ -180,7 +175,8 @@ format uses a similar technique in order to compress images lossily
 represents parts of a signal using self-similarity, encoding an image for
 instance as a fixed point of contraction maps.  This is similar in spirit to
 what is done in MPEG-1, where parts of one frame can be transformed to encode
-parts of the next frame.
+parts of the next frame. Many of these ideas, such as finding largest matching
+components of objects, make their way into our algorithms.
 
 Work has also been done regarding the lossy compression of other input formats.
 For text, methods such as replacing words with synonyms \cite{semanticlossy} or
@@ -331,8 +327,9 @@ this section we will argue that neither of our algorithms do so if the original
 grammar was well formed.
 
 We can view the CFG as a DAG where for variables $V_1$, $V_2$, we add an edge
-whenever $V_1$ contains $V_2$ in its rhs. When sizes are compuated on a CFG
-before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$.
+whenever $V_1$ contains $V_2$ in its rhs. When sizes are computed on a CFG
+before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$ since
+the rhs of $V_1$ contains $V_2$.
 Replacing a variable $V_1$ with $V_2$ has the same effect as redirecting all
 in-edges to $V_1$ onto $V_2$.
 
@@ -350,7 +347,6 @@ edges we create in the DAG will respect the ordering of sizes that we
 calculated before we did any replacements. This is because each time we
 redirect an edge from $X\rightarrow A$ to $X\rightarrow B$
 $size(X)>size(A)>size(B)$ and transitivity will preserve the ordering.
-
 Suppose then that we created a cycle during \Cluster by redirecting an edge from
 $X \rightarrow A$ to $X \rightarrow B$.  This means that there must have been a
 path from $B$ to $X$. However, even in its intermediate state we know that the
@@ -368,7 +364,7 @@ time linear in $n$.  Performing the replacement only takes time linear in $r$.
 Thus the runtime is $\boxed{O(R*r^2*n)}$.
 
 From the \Sequitur paper \cite{sequitur} we know that the number of rules in
-the grammar generated by \Sequitur is between $O(1)$ and $O(n)$. Thus the worst
+the grammar generated by \Sequitur is bounded by $O(n)$. Thus the worst
 case runtime on the similarity algorithm is $\boxed{O(n^4)}$. This is because
 we could have up to $r$ replacements.  However, in practice we will see that
 the runtime is much better than $O(n^4)$. There are a variety of possible
@@ -378,18 +374,14 @@ levenshtein distance made the its contribution much less noticeable for the
 input sizes we tested.
 
 The inner loops of the \Cluster are similar to those of the \Similarity
-algorithm.  We iterate the entire clustering and replacement procedure $C$
-times. Going through each variable-cluster pair takes up to $O(r^2)$ time and
-calculating the levenshtein distance takes $O(n)$ time. The time taken to
-actually perform the replacements each iteration is absorbed into the $O(r^2)$
-term. So, again we have a runtime of $\boxed{O(C*r^2*n)}$. Just as with the
-similarity algorithm, a variety of factors make the runtime much better than
-the $\boxed{O(n^4)}$ worst case scenario.  The big gain over the similarity
-algorithm is that $C$ turns out to be nearly constant, since there are very few
-huge chains of reductions that are only possible after other reductions have
-been performed, an in fact we are able to perform a very large number of the
-remaining reductions each time we perform an iteration of the clustering
-algorithm. Thus a more reasonable upper bound for the runtime of cluster would
+algorithm, and an analogous analysis yields a runtime of $\boxed{O(C*r^2*n)}$. 
+Just as with the
+similarity algorithm however, a variety of factors make the runtime much better than
+the $\boxed{O(n^4)}$ worst case scenario.  The big gain over \Similarity
+is that $C$ turns out to be nearly constant, since there exist very few
+huge chains of reductions that must be performed in sequence
+so we are able to perform many reductions in parallel.
+Thus a more reasonable upper bound for the runtime of cluster would
 be $\boxed{O(n^3)}$
 
 \section{Implementation}
