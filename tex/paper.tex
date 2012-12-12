@@ -447,9 +447,14 @@ clusters \texttt{replace} operations, thereby reducing the number of calls and
 effective overhead of \texttt{expand}.
 
 In addition to this optimization, we also use a native C implementation of the
-Levenshtein function.  We do not compare this to any Ruby implementation, but
-we suspect it has some nontrivial impact on runtime due to the volume of calls
-to the function.
+Levenshtein function. In early versions of our program,
+since every pair of variable expansions must be compared,
+our Ruby implementation of a longest-common-subsequence algorithm was by far the
+largest bottleneck. Replacing it with a native C implementation of levenshtein
+distance improved performance dramatically. Though both implementations have the
+same $O(n^2)$ asymptotic runtime, the constants in the native implementation
+are so small that calls to levenshtein take nearly negligible time on the data
+sizes we were able to test.
 
 \subsection{Grammar Reductions}
 
