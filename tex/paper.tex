@@ -21,6 +21,7 @@
 
 \sectionfont{\large}
 \subsectionfont{\normalsize}
+\subsubsectionfont{\normalfont\itshape}
 
 %\setlength{\cftbeforesecskip}{0pt}
 
@@ -58,6 +59,7 @@ macro levels.
 
 \end{abstract}
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 \section{Introduction and Goals}
@@ -199,11 +201,11 @@ inference, we simplified the resulting grammar, introducing loss and obtaining
 greater compression.  Thus our full lossy grammar compression system is a
 multi-step process:
 
-\begin{itemize}
+\begin{enumerate}
   \item Infer a CFG representation of a stream (we use \Sequitur).
   \item Simplify the CFG, introducing loss.
   \item Encode and output the CFG.
-\end{itemize}
+\end{enumerate}
 
 Our core contribution comes in step two, via what we refer to as a
 \emph{lossifier} algorithm---an algorithm that takes an admissible CFG and
@@ -386,7 +388,47 @@ be $\boxed{O(n^3)}$
 
 \section{Implementation}
 
-Overview
+Our full grammar compression scheme involves the following sequence of
+operations and components:
+\begin{enumerate}
+  \item \Sequitur, which infers a CFG from the input stream.
+  \item Lossifier algorithms, which take the \Sequitur grammar and simplify it,
+    introducing lossiness.
+  \item Reduction engine, which applies Kieffer and Yang's reduction rules to
+    the lossified grammar.
+\end{enumerate}
+
+We implement all these components in the Ruby programming language.  Our
+implementation of \Sequitur exactly mirrors the data structures and algorithm
+described by Nevill-Manning and Witten \cite{sequitur}---and, empirically, it
+has the same asymptotic running time---so we do not discuss it further.
+However, we will examine in this section some of the techniques we used in
+implementing \Similarity, \Cluster, and the reduction engine.
+
+\subsection{Data Structures and Optimizations}
+
+\subsubsection{CFG Representation}
+
+Our representation of a context-free grammar is very similar to that used by
+\Sequitur.  All of our rules are represented by a linked list of symbols;
+however, unlike in \Sequitur, we omit refcounting and do not point from each
+instance of a nonterminal symbol to its corresponding rule.  Instead, our rules
+are kept in a hash table, mapping nonterminal symbols to a list representing
+its RHS.
+
+We chose to implement a list library rather than use Ruby's native arrays in
+order to achieve better runtime for the splice operations.  Both \Sequitur and
+our implementation of Kieffer and Yang's reductions require us to splice out a
+subsequence of terminals from a rule, or to insert a subsequence (e.g., as a
+result of inlining a singleton rule) into a rule.
+
+Grammar Data Structure
+Linked Lists vs Arrays, Caching Expansions, Native Levenshtein
+
+\subsubsection{Lossifier Optimizations}
+
+Perhaps the most crucial optimization we implement deals with the recursive
+expansion of nonterminals into terminal strings.
 
 \subsection{Grammar Reductions}
 
@@ -397,14 +439,6 @@ systematically removing internal redundancies like duplicate bigrams in
 loss. We want them since our lossifier algorithms often make our grammars
 redundant, even though the each step we take in the lossifier makes the
 grammars smaller.
-
-\subsection{Data Structures and Optimizations}
-
-Grammar Data Structure
-Cluster Data Structure
-Invariants Maintained
-Core utility methods??
-Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Native Levenshtein
 
 \section{Results}
 
@@ -474,13 +508,13 @@ For our first suite of tests, we compared the effectiveness of the
 achieve better quality at the same compression ratio since it updates the state
 of the grammar between each variable replacement, on the other hand since it
 must update the grammar it has the potential to run much more slowly than
-\Cluster. 
+\Cluster.
 
 In table \ref{simclus_r_t} we report the results on running \Sequitur and
 \Cluster, without the grammar reductions, on the rep-n datasets. In table
 \ref{simclus_g_t} we do the same for the gen-n datasets.
 In these tests
-we were looking to evaluate the relative fidelity, compression ratios, and runtime 
+we were looking to evaluate the relative fidelity, compression ratios, and runtime
 of the two algorithms.
 
 In the tables, Time is the
@@ -496,10 +530,10 @@ lossifier was in recreating the original texture of the input.
 
 \subsubsection{Result Summary}
 
-In both datasets, the 
+In both datasets, the
 compression ratios achieved for both algorithms are roughly equal given the
 same value for $\epsilon$, so it is fair to compare the algorithms for the same
-values of $\epsilon$. 
+values of $\epsilon$.
 From plotting the data, we see that runtime of the algorithms are roughly
 polynomial in the size of the data, so we can perform a linear regression on
 the log-log transform of the data to find the exponents $\alpha$ for the
@@ -550,7 +584,7 @@ The actual compression ratio was respectable in most tests, with both \Similarit
 coming in at nearly half the size of the \Sequitur CFG for the rep-n data,
 and 70 percent for the gen-n data. A notable exception was
 the gen-n test with $\epsilon=.2$, where $\epsilon$ was so small that barely
-any substitutions were possible. 
+any substitutions were possible.
 However, setting higher values
 for $\epsilon$ had diminishing returns for compression for larger
 file sizes, at the cost of drastically lowering the fidelity of the output.
@@ -572,7 +606,7 @@ unscalable and do not test it further.
 
 Although the grammars generated by \Sequitur are irreducible, our lossifiers
 produce grammars which could potentially be compressed further (losslessly)
-using Reduction Rules without changing the output string. To test these rules, 
+using Reduction Rules without changing the output string. To test these rules,
 we looked at the rep-n and gen-n
 test cases again, this time focusing on the clustering algorithm for $\epsilon
 = .2$. We report our results in table \ref{red_t}, where
@@ -585,7 +619,7 @@ modest additional gains of about 30 percent are possible for highly
 self-similar data, very few additional gains are possible for more diverse
 datasets such as gen-n. This appears to be because the only simplifications
 that are possible on diverse datasets don't lead to the wide-ranging repetitive
-substitutions which allow reduction rules to be allowed.  
+substitutions which allow reduction rules to be allowed.
 
 Because we were unable to get our implementation of
 reduction rules to scale to larger datasets, we
