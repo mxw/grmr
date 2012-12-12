@@ -680,100 +680,95 @@ significantly improve the evaluability of lossy grammar compression techniques.
 
 \section{Data}
 
-\begin{table}[h]
-\subfloat[$\epsilon = .4$]{
-\begin{tabular}{l|l|l|l|l||l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
-\hline
-rep-100   & 0.006 & 18/34    & 0.713 & 0.07 & 0.002 & 20/34    & 0.535 & 0.04\\
-rep-400   & 0.028 & 45/76    & 0.269 & 0.01 & 0.009 & 41/76    & 0.743 & 0.04\\
-rep-1600  & 0.355 & 103/194  & 0.873 & 0.03 & 0.042 & 103/194  & 0.804 & 0.02\\
-rep-6400  & 3.978 & 258/448  & 0.706 & 0.005& 0.203 & 256/448  & 0.869 & 0.50\\
-rep-12800 & 44.63 & 604/1064 & 0.791 & 0.01 & 1.136 & 600/1064 & 0.856 & 0.01\\
-rep-25600 & 135.0 & 900/1482 & 0.829 & 0.005& 2.906 & 898/1482 & 0.725 & 0.25\\
-\end{tabular}
-}
+\begin{table}[H]
+  \centering
+  \subfloat[$\epsilon = .4$]{%
+  \begin{tabular}{l||l|l|l|l||l|l|l|l}
+    & \multicolumn{4}{c||}{\Similarity} & \multicolumn{4}{c}{\Cluster} \\ \hline
+    Dataset & Time & Ratio & Lev. & Prop. & Time & Ratio & Lev. & Prop. \\ \hline
+    rep-100   & 0.006 & 18/34    & 0.713 & 0.07 & 0.002 & 20/34    & 0.535 & 0.04 \\
+    rep-400   & 0.028 & 45/76    & 0.269 & 0.01 & 0.009 & 41/76    & 0.743 & 0.04 \\
+    rep-1600  & 0.355 & 103/194  & 0.873 & 0.03 & 0.042 & 103/194  & 0.804 & 0.02 \\
+    rep-6400  & 3.978 & 258/448  & 0.706 & 0.005& 0.203 & 256/448  & 0.869 & 0.50 \\
+    rep-12800 & 44.63 & 604/1064 & 0.791 & 0.01 & 1.136 & 600/1064 & 0.856 & 0.01 \\
+    rep-25600 & 135.0 & 900/1482 & 0.829 & 0.005& 2.906 & 898/1482 & 0.725 & 0.25 \\
+  \end{tabular}%
+  }
 
-
-
-\subfloat[$\epsilon = .2$]{
-\begin{tabular}{l|l|l|l|l||l|l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & S-P(roportion) & C-T & C-R & C-L & C-P \\
-\hline
-rep-100   & 0.002 & 30/34    & 0.040 & 0.05 & 0.002 & 30/34    & 0.040 & 0.05\\
-rep-400   & 0.019 & 60/76    & 0.035 & 0.02 & 0.009 & 60/76    & 0.035 & 0.02\\
-rep-1600  & 0.350 & 123/194  & 0.355 & 0.03 & 0.055 & 123/194  & 0.206 & 0.01\\
-rep-6400  & 3.942 & 280/448  & 0.387 & 0.08 & 0.295 & 274/448  & 0.543 & 0.09\\
-rep-12800 & 42.21 & 638/1064 & 0.491 & 0.03 & 1.105 & 632/1064 & 0.457 & 0.01\\
-rep-25600 & 124.5 & 922/1482 & 0.565 & 0.12 & 2.597 & 926/1482 & 0.437 & 0.007\\
-\end{tabular}
-}
-\caption{rep-n Tests}
-\label{simclus_r_t}
+  \subfloat[$\epsilon = .2$]{%
+  \begin{tabular}{l||l|l|l|l||l|l|l|l}
+    & \multicolumn{4}{c||}{\Similarity} & \multicolumn{4}{c}{\Cluster} \\ \hline
+    Dataset & Time & Ratio & Lev. & Prop. & Time & Ratio & Lev. & Prop. \\ \hline
+    rep-100   & 0.002 & 30/34    & 0.040 & 0.05 & 0.002 & 30/34    & 0.040 & 0.05 \\
+    rep-400   & 0.019 & 60/76    & 0.035 & 0.02 & 0.009 & 60/76    & 0.035 & 0.02 \\
+    rep-1600  & 0.350 & 123/194  & 0.355 & 0.03 & 0.055 & 123/194  & 0.206 & 0.01 \\
+    rep-6400  & 3.942 & 280/448  & 0.387 & 0.08 & 0.295 & 274/448  & 0.543 & 0.09 \\
+    rep-12800 & 42.21 & 638/1064 & 0.491 & 0.03 & 1.105 & 632/1064 & 0.457 & 0.01 \\
+    rep-25600 & 124.5 & 922/1482 & 0.565 & 0.12 & 2.597 & 926/1482 & 0.437 & 0.007 \\
+  \end{tabular}%
+  }
+  \caption{rep-n Tests}
+  \label{simclus_r_t}
 \end{table}
 
-\begin{table}[h]
-\subfloat[$\epsilon = .4$]{
-\begin{tabular}{l|l|l|l||l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
-\hline
-gen-100   & 0.006 & 87/89    & 0.04 &0.006 & 87/89    & 0.04\\
-gen-400   & 0.175 & 224/258  & 0.12 &0.069 & 219/258  & 0.19\\
-gen-1600  & 4.863 & 539/697  & 0.31 &0.732 & 529/697  & 0.33\\
-gen-6400  & 216.9 & 1740/2348& 0.41 &9.127 & 1694/2348& 0.43\\
-gen-12800 & 1812  & 3296/4523& 0.40 &29.17 & 3181/4523& 0.44\\
-gen-25600 & 12989 & 5823/8060& 0.43 &176.7 & 5540/8060& 0.50\\
-\end{tabular}
-}
+\begin{table}[H]
+  \centering
+  \subfloat[$\epsilon = .4$]{%
+  \begin{tabular}{l||l|l|l||l|l|l}
+    & \multicolumn{3}{c||}{\Similarity} & \multicolumn{3}{c}{\Cluster} \\ \hline
+    Dataset & Time & Ratio & Lev. & Time & Ratio & Lev. \\ \hline
+    gen-100   & 0.006 & 87/89    & 0.04 &0.006 & 87/89    & 0.04 \\
+    gen-400   & 0.175 & 224/258  & 0.12 &0.069 & 219/258  & 0.19 \\
+    gen-1600  & 4.863 & 539/697  & 0.31 &0.732 & 529/697  & 0.33 \\
+    gen-6400  & 216.9 & 1740/2348& 0.41 &9.127 & 1694/2348& 0.43 \\
+    gen-12800 & 1812  & 3296/4523& 0.40 &29.17 & 3181/4523& 0.44 \\
+    gen-25600 & 12989 & 5823/8060& 0.43 &176.7 & 5540/8060& 0.50 \\
+  \end{tabular}%
+  }
 
-
-
-\subfloat[$\epsilon = .2$]{
-\begin{tabular}{l|l|l|l||l|l|l}
-Dataset & S-T(ime) & S-R(atio) & S-L(evdistance) & C-T & C-R & C-L \\
-\hline
-gen-100   & 0.004 & 89/89    & 0.00 &0.002 & 89/89    & 0.00 \\
-gen-400   & 0.085 & 245/258  & 0.03 &0.053 & 245/258  & 0.03 \\
-gen-1600  & 1.292 & 664/697  & 0.03 &0.874 & 664/697  & 0.03 \\
-gen-6400  & 73.83 & 2173/2348& 0.05 &14.02 & 2171/2348& 0.05\\
-gen-12800 & 549.2 & 4197/4253& 0.05 &45.64 & 4186/4253& 0.05\\
-gen-25600 & 3939  & 7405/8060& 0.06 &224.9 & 7374/8060& 0.06\\
-\end{tabular}
-}
-\caption{gen-n Tests}
-\label{simclus_g_t}
+  \subfloat[$\epsilon = .2$]{%
+  \begin{tabular}{l||l|l|l||l|l|l}
+    & \multicolumn{3}{c||}{\Similarity} & \multicolumn{3}{c}{\Cluster} \\ \hline
+    Dataset & Time & Ratio & Lev. & Time & Ratio & Lev. \\ \hline
+    gen-100   & 0.004 & 89/89    & 0.00 &0.002 & 89/89    & 0.00 \\
+    gen-400   & 0.085 & 245/258  & 0.03 &0.053 & 245/258  & 0.03 \\
+    gen-1600  & 1.292 & 664/697  & 0.03 &0.874 & 664/697  & 0.03 \\
+    gen-6400  & 73.83 & 2173/2348& 0.05 &14.02 & 2171/2348& 0.05 \\
+    gen-12800 & 549.2 & 4197/4253& 0.05 &45.64 & 4186/4253& 0.05 \\
+    gen-25600 & 3939  & 7405/8060& 0.06 &224.9 & 7374/8060& 0.06 \\
+  \end{tabular}%
+  }
+  \caption{gen-n Tests}
+  \label{simclus_g_t}
 \end{table}
 
-\begin{table}[h]
-\subfloat[rep-n tests]{
-\begin{tabular}{l|l|l}
-Dataset & Time & Ratio \\
-\hline
-rep-100   & 0.008 & 29/30  \\
-rep-400   & 0.028 & 56/60  \\
-rep-1600  & 0.132 & 96/123 \\
-rep-6400  & 1.145 & 153/186\\
-rep-12800 & 19.43 & 403/632\\
-\end{tabular}
-}
-\subfloat[gen-n tests]{
-\begin{tabular}{l|l|l}
-Dataset & Time & Ratio \\
-\hline
-gen-100   & 0.016 & 89/89\\
-gen-400   & 0.126 & 245/245\\
-gen-1600  & 4.833 & 660/664\\
-gen-6400  & 308.7 & 2139/2171\\
-\end{tabular}
-}
-
-\caption{Reducer Tests for $\epsilon = .2$}
-\label{red_t}
+\begin{table}[H]
+  \centering
+  \subfloat[rep-n tests]{
+  \begin{tabular}{l|l|l}
+    Dataset & Time & Ratio \\ \hline
+    rep-100   & 0.008 & 29/30 \\
+    rep-400   & 0.028 & 56/60 \\
+    rep-1600  & 0.132 & 96/123 \\
+    rep-6400  & 1.145 & 153/186 \\
+    rep-12800 & 19.43 & 403/632 \\
+  \end{tabular}
+  }
+  \subfloat[gen-n tests]{
+    \begin{tabular}{l|l|l}
+    Dataset & Time & Ratio \\ \hline
+    gen-100   & 0.016 & 89/89 \\
+    gen-400   & 0.126 & 245/245 \\
+    gen-1600  & 4.833 & 660/664 \\
+    gen-6400  & 308.7 & 2139/2171 \\
+    \end{tabular}
+  }
+  \caption{Reducer Tests for $\epsilon = .2$}
+  \label{red_t}
 \end{table}
 
-\pagebreak
+\subsection*{deckmyn.c}
 
-\subsection*{Deckmyn.c Input / Output:}
 \subsubsection*{Input:}
 
 \begin{lstlisting}
@@ -962,7 +957,6 @@ C[]+144+ 7*c+C():0:C(
 \subsection*{gen256000 Output String, Cluster, $\epsilon=.4$:}
 
 \subsubsection*{Input:}
-
 
 \begin{lstlisting}
 1:1 In the beginning God created the heaven and the earth.
