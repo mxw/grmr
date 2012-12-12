@@ -89,7 +89,7 @@ that are prevalent in image/video compression into the world of hierarchical
 symbol-stream compression. Introducing lossiness to symbol-stream compression
 opens up the possibility for better compression ratios.
 
-It may seem strange at first to allow a string such as "mind" to be lossily
+It may seem strange at first to allow a string such as ``mind'' to be lossily
 corrupted into, say, ``rind''.  If, however, one is more interested in
 recurrent structure in the text than in its precise semantic meaning, these
 corruptions are unimportant.  For instance, when looking at text in a foreign
@@ -168,7 +168,7 @@ inspiration.
 
 Kieffer briefly identifies two primary methods for lossy hierarchical
 compression: wavelet-based and fractal-based schemes \cite{tutorial}.  In
-wavelet-based schemas, a signal is compressed by recording the largest
+wavelet-based schemes, a signal is compressed by recording the largest
 coefficients of its wavelet decomposition, in effect trying to represent a
 signal as closely as possible using wavelet building blocks.  The JPEG image
 format uses a similar technique in order to compress images lossily
@@ -270,6 +270,7 @@ iteratively simplify the grammar.
   \EndWhile
 \EndProcedure
 \end{algorithmic}
+\label{s_alg}
 \end{algorithm}
 
 \subsection{Clustering}
@@ -280,9 +281,10 @@ go through comparing all pairs again after the change.  An alternative
 algorithm would be to try to replace as many similar variables as possible
 all in one sweep. This would
 avoid many of the repeat pair-comparisons done in \Similarity. In other
-words, the algorithm below puts similar variables into equivalence class
+words, the \Cluster puts similar variables into equivalence class
 clusters, and then replaces each variable in a cluster them with the smallest
-representative all at once each iteration.
+representative all at once each iteration. More detailed pseudocode is given
+in Algorithm \ref{c_alg} below.
 
 \begin{algorithm}[h]
 \caption{Cluster Lossifier Algorithm}
@@ -311,9 +313,10 @@ representative all at once each iteration.
   \EndWhile
 \EndProcedure
 \end{algorithmic}
+\label{c_alg}
 \end{algorithm}
 
-Both of the algorithms depend on the concept of the "smallest / smaller"
+Both of the algorithms depend on the concept of the ``smallest / smaller''
 variable. We can define the size of a variable to be the length of the
 expansion of its rhs. In this way, if we think of our CFG's as a DAG, then
 variables higher up on the DAG will always have larger expansions than those
@@ -330,7 +333,7 @@ grammar was well formed.
 
 We can view the CFG as a DAG where for variables $V_1$, $V_2$, we add an edge
 whenever $V_1$ contains $V_2$ in its rhs. When sizes are computed on a CFG
-before we modify it, if $V_1 \rightarrow V_2$ then $size(V_1) > size(V_2)$
+before we modify it, if $V_1 \hookrightarrow V_2$ is an edge then $size(V_1) > size(V_2)$
 since the rhs of $V_1$ contains $V_2$.  Replacing a variable $V_1$ with $V_2$
 has the same effect as redirecting all in-edges to $V_1$ onto $V_2$.
 
@@ -346,10 +349,10 @@ recomputation we only calculate the sizes of the variables once before doing
 all of the replacements. First note that even as we modify the DAG, all of the
 edges we create in the DAG will respect the ordering of sizes that we
 calculated before we did any replacements. This is because each time we
-redirect an edge from $X\rightarrow A$ to $X\rightarrow B$
+redirect an edge from $X\hookrightarrow A$ to $X\hookrightarrow B$
 $size(X)>size(A)>size(B)$ and transitivity will preserve the ordering.  Suppose
 then that we created a cycle during \Cluster by redirecting an edge from $X
-\rightarrow A$ to $X \rightarrow B$.  This means that there must have been a
+\hookrightarrow A$ to $X \hookrightarrow B$.  This means that there must have been a
 path from $B$ to $X$. However, even in its intermediate state we know that the
 DAG respects the $size$ ordering, and $size(X) > size(A) > size(B)$, so there
 cannot be a path from $B$ to $X$. This is a contradiction and we are done.
@@ -371,7 +374,7 @@ we could have up to $r$ replacements.  However, in practice we will see that
 the runtime is much better than $O(n^4)$. There are a variety of possible
 reasons for this: in our test data, $r$ didn't grow quite linearly in $n$, $R$
 could grow much slower than $r$, and the use of native code in calculating the
-Levenshtein distance made the its contribution much less noticeable for the
+Levenshtein distance made its contribution much less noticeable for the
 input sizes we tested.
 
 The inner loops of the \Cluster are similar to those of the \Similarity
@@ -514,7 +517,7 @@ Generated String:
 \end{verbatim}
 
 The lossifier algorithm reduced the string to a pair of pairs of the same
-equations, where each equation consists of the sum of triples of "12" or "32".
+equations, where each equation consists of the sum of triples of ``12'' or ``32''.
 Smaller discrepencies in the numbers involved were dropped, while the filler
 commas and linebreaks also ended up being lost. Note that the structure
 described is easily observable from the grammar generated.
@@ -538,21 +541,21 @@ at the same compression ratio since it updates the state of the grammar between
 each variable replacement, on the other hand since it must update the grammar
 it has the potential to run much more slowly than \Cluster.
 
-In table \ref{simclus_r_t} we report the results on running \Sequitur and
+In table \ref{simclus_r_t} in the appendix we report the results on running \Sequitur and
 \Cluster, without the grammar reductions, on the rep-n datasets. In table
-\ref{simclus_g_t} we do the same for the gen-n datasets.  In these tests we
+\ref{simclus_g_t} in the appendix we do the same for the gen-n datasets.  In these tests we
 were looking to evaluate the relative fidelity, compression ratios, and runtime
 of the two algorithms.
 
 In the tables, Time is the wall clock running as measured on a 2.26 Ghz Intel
 Core 2 Duo Macbook Pro.  Ratio is the relative size of the grammar produced
 compared with \Sequitur, where the size of the grammar is the sum of the
-lengths of the rhs's of the rules. Levdistance is the Levenshtein distance
+lengths of the rhs's of the rules. \emph{Lev.} is the Levenshtein distance
 between the output of the lossified grammar and the original input string, it
 is a kind of measure of the fidelity of our algorithms but doesn't take into
-account how well patterns were preserved. For the rep-n tests, proportion is
+account how well patterns were preserved. For the rep-n tests, \emph{Prop.} is
 the proportion of the final string produced that was `*'. The closer to
-1/30~0.033, the more accurate the lossifier was in recreating the original
+$1/30 \approx 0.033$, the more accurate the lossifier was in recreating the original
 texture of the input.
 
 \subsubsection{Result Summary}
@@ -560,7 +563,7 @@ texture of the input.
 In both datasets, the compression ratios achieved for both algorithms are
 roughly equal given the same value for $\epsilon$, so it is fair to compare the
 algorithms for the same values of $\epsilon$.  From plotting the data, we see
-that runtime of the algorithms are roughly polynomial in the size of the data,
+that the runtimes of the algorithms are roughly polynomial in the size of the data,
 so we can perform a linear regression on the log-log transform of the data to
 find the exponents $\alpha$ for the runtime $r(n)=n^\alpha$ where $n$ is the
 length of the input string. In the charts below, all of the linear regressions
@@ -609,7 +612,10 @@ Larger Tests section.
 
 The actual compression ratio was respectable in most tests, with both
 \Similarity and \Cluster coming in at nearly half the size of the \Sequitur CFG
-for the rep-n data, and 70 percent for the gen-n data. A notable exception was
+for the rep-n data, and 70 percent for the gen-n data. This is promising because
+in \cite{sequitur}, the authors show that \Sequitur on its own achieves better
+ratios than most standard compression algorithms.
+A notable exception was
 the gen-n test with $\epsilon=.2$, where $\epsilon$ was so small that barely
 any substitutions were possible.  However, setting higher values for $\epsilon$
 had diminishing returns for compression for larger file sizes, at the cost of
@@ -635,7 +641,7 @@ produce grammars which could potentially be compressed further (losslessly)
 using Reduction Rules without changing the output string. To test these rules,
 we looked at the rep-n and gen-n test cases again, this time focusing on the
 clustering algorithm for $\epsilon = .2$. We report our results in table
-\ref{red_t}, where we give the ratio on top of the simplified grammar produced
+\ref{red_t} in the appendix, where we give the ratio on top of the simplified grammar produced
 by the clustering algorithm, and the time taken to run just the reduction
 rules.
 
@@ -645,7 +651,7 @@ modest additional gains of about 30 percent are possible for highly
 self-similar data, very few additional gains are possible for more diverse
 datasets such as gen-n. This appears to be because the only simplifications
 that are possible on diverse datasets don't lead to the wide-ranging repetitive
-substitutions which allow reduction rules to be allowed.
+substitutions which allow reduction rules to be applied.
 
 Because we were unable to get our implementation of reduction rules to scale to
 larger datasets, we will not consider them further.
@@ -676,7 +682,7 @@ other symbol.  The size of the lossified grammar is 1576 compared with the
 original size of 1973. The intricate whitespacing was lost, but the clear
 delineation into sections was kept, key words such as `define' and `for' are
 very visible, and the texture of the obfuscated C is very obvious. For
-instance, after the distinct `\#define' headers, the first sections has a bunch
+instance, after the distinct `\#define' headers, the first section has a bunch
 of control statements like `for' and `if', while the middle sections have very
 generous spacing and many repeated pointer derence operators such as `***'.
 Both of these kinds of textures are retained after lossifying.
@@ -1050,12 +1056,6 @@ and it was so.
 1:8 And God called the firmament Heaven. And the evening and the
 morning were the second day.
 
-1:9 And God said, Let the waters under the heaven be gathered together
-unto one place, and let the dry land appear: and it was so.
-
-1:10 And God called the dry land Earth; and the gathering together of
-the waters called he Seas: and God saw that it was good.
-
 (Rest Omitted)
 
 \end{lstlisting}
@@ -1087,6 +1087,29 @@ frinwee e secon
 9e said, undere mae bemae e mae entoone plcen t e dry ln apart wa
 
 0caleddry ln Earn e mae inmae  fwatecalede Sarine tht waod
+
+ine id, Lt e frargras, e ding
+seedn e rut dingrut fes inwhseseed i
+in tel, e frt wa
+
+n e frrurhtargras, n dingseedfes inn e dingrut , whseseeds in tel, fe
+s inine tht waod3e e frinwee e thir
+
+1e said, e behts ine mamene e 
+todividthayfrm e htn e e e frsignd an
+seasond anayn ar: 1:n e e e frhts in
+e frmamene e  toinhte fr: n t wa
+
+6ine  tcrathts;e grHatoule thay
+nde estoule e hte e e e stars al
+
+7ine t e ine mamene e toinht
+e fr1:n toule e e ayn e e htd an
+todivide htfrm darknes: God tht waod9n e e n frinwee e fr
+
+0e said, binar aundanolye moilngcaledthhath in frwlthay flyabene frentoopen firmamenofmae 
+
+1 n God Haedcratwhalesn enry lcalede 
 
 (Rest Omitted)
 
