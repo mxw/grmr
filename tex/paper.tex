@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[letterpaper,text={7in,9in},centering]{geometry}
+\usepackage{tocloft}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amsfonts,amsmath,amssymb,amsthm}
@@ -20,6 +21,8 @@
 
 \sectionfont{\large}
 \subsectionfont{\normalsize}
+
+%\setlength{\cftbeforesecskip}{0pt}
 
 \newcommand{\Sequitur}{\textsc{Sequitur}\xspace}
 \newcommand{\Similarity}{\textsc{Similarity}\xspace}
@@ -158,8 +161,8 @@ the line of \cite{approximation}.  However, these analytic bounds for lossless
 grammars are outside the scope of our proposed research.
 
 In summary, established work on grammar inference algorithms provides a solid
-set of tools for experimenting with the kinds of local modifications we propose
-to make to improve grammar structure by introducing lossiness.
+set of tools for experimenting with the kinds of local lossy modifications we
+propose to make to simplify grammar structure.
 
 \subsection{Lossy Compression}
 
@@ -171,20 +174,20 @@ Kieffer briefly identifies two primary methods for lossy hierarchical
 compression: wavelet-based and fractal-based schemes \cite{tutorial}.  In
 wavelet-based schemas, a signal is compressed by recording the largest
 coefficients of its wavelet decomposition, in effect trying to represent a
-signal as closely as possible using wavelet building blocks. The JPEG image
+signal as closely as possible using wavelet building blocks.  The JPEG image
 format uses a similar technique in order to compress images lossily
-\cite{jpeg}. Fractal based compression takes this a step further and represents
-parts of a signal using self-similarity, encoding an image for instance as a
-fixed point of contraction maps. This is similar in spirit to what is done in
-MPEG-1, where parts of one frame can be transformed to encode parts of the next
-frame.
+\cite{jpeg}.  Fractal based compression takes this a step further and
+represents parts of a signal using self-similarity, encoding an image for
+instance as a fixed point of contraction maps.  This is similar in spirit to
+what is done in MPEG-1, where parts of one frame can be transformed to encode
+parts of the next frame.
 
-Work has also been done regarding the lossy compression of particular input
-formats.  For text, methods such as replacing words with synonyms
-\cite{semanticlossy} or reordering the middle letters of a word (i.e., all
-letters save for the first and last) \cite{semilossless} have been explored.
-However, these are very specific tricks to optimize text, and not more broadly
-applicable to compressing hierarchical streams.
+Work has also been done regarding the lossy compression of other input formats.
+For text, methods such as replacing words with synonyms \cite{semanticlossy} or
+reordering the middle letters of a word (i.e., all letters save for the first
+and last) \cite{semilossless} have been explored.  However, these are very
+specific tricks to optimize text, and not more broadly applicable to
+compressing hierarchical streams.
 
 \section{Lossifier Algorithms}
 
@@ -193,33 +196,41 @@ applicable to compressing hierarchical streams.
 In order to make our algorithm for lossily compressing streams as general as
 possible, we decided to approach the problem of lossy compression by starting
 with a lossless grammar inference algorithm.  By building off of a grammar
-inference algorithm, we hope to take advantage of some of the partial
-structures that are visible in a CFG representation of a stream.  In this
-project, we chose \Sequitur, but any way of obtaining a grammar could be used.
-Then, transformed the grammar, introducing loss and perform compressions by
-simplifying the grammar. Thus our compression system is a multi-step process:
+inference algorithm, we hope to take advantage of some of the structures that
+are visible in a CFG representation of a stream.  In this project, we chose
+\Sequitur, but any method of inferring a grammar could be used.  After
+inference, we simplified the resulting grammar, introducing loss and obtaining
+greater compression.  Thus our full lossy grammar compression system is a
+multi-step process:
 
 \begin{itemize}
-  \item Infer a CFG representation of a stream (possibly using \Sequitur)
-  \item Simplify the CFG, possibly introducing loss
-  \item Output the CFG
+  \item Infer a CFG representation of a stream (we use \Sequitur).
+  \item Simplify the CFG, introducing loss.
+  \item Encode and output the CFG.
 \end{itemize}
 
-Our core new contribution comes in step two, in what we shall call a
-\emph{lossifier} algorithm, i.e. an algorithm that takes an admissible CFG and
-simplifies it. The output CFG should be smaller than the input CFG but generate
-a string which preserves the structure in the original string as much as
-possible.
+Our core contribution comes in step two, via what we refer to as a
+\emph{lossifier} algorithm---an algorithm that takes an admissible CFG and
+structurally simplifies it.  The output CFG should be smaller than the input
+CFG but generate a string which preserves the structure in the original string
+as much as possible.  In this paper, we focus on implementing and evaluating
+this step, and hence omit step 3 altogether.
 
 Building off the ideas in lossy compression discussed earlier, one idea for
 simplifying data is to look at a part of the data and try to match it as
-closely as possible with an existing set of primitives. In particular, just as
-with Mpeg and fractal compression, to approximate one part of the grammar we
-can use \emph{other parts of the grammar}. This is the seed for both of our
-algorithms. Given a rule $S \rightarrow rhs$, we will try to replace occurences
-of $S$ with other similar variables.
+closely as possible with an existing set of primitives.  In particular, just as
+with MPEG and fractal compression, to approximate one part of the grammar we
+can use \emph{other parts of the grammar}.  This is the core principle behind
+both of our algorithms.  Given a rule $A \rightarrow \alpha_1, \ldots,
+\alpha_n$, we will try to replace occurences of $A$ with other similar
+production rules.
 
-For example, consider the grammars in figure \ref{sred}.
+For example, consider the first grammar given in \autoref{sred}.  In this
+graphical representation, we omit the ordering of symbols on the right-hand
+side of production rules.  The picture makes it clear, however, that one easy
+route for simplifying the grammar is to simply replace the rule B with A.  They
+differ in their expansions by only a single character, `e', and they form
+almost identical halves of S.
 
 \begin{figure}[t]
 \centering
@@ -229,28 +240,22 @@ For example, consider the grammars in figure \ref{sred}.
 \label{sred}
 \end{figure}
 
-To simplify the grammar, it would make sense to replace B with A, since they
-form two almost identical halves of S and are similar.
-
 \subsection{Pair-Similarity}
 
 To define whether two variables are \emph{similar}, we can look at their
 expansions. Let $expand(rhs)$ denote the string of terminal symbols we get when
 we recursively substitute all of the variables inside $rhs$. Then $V_1
 \rightarrow rhs_1$ and $V_2 \rightarrow rhs_2$ are similar when
-
 \[
   \frac{levenshtein(expand(rhs_1),expand(rhs_2))}
       {max(len(expand(rhs_1)),len(expand(rhs_2)))} < \epsilon
 \]
-
-where $levenshtein$ is the levenstein edit distance between two strings.  For
+where $levenshtein$ is the Levenstein edit distance between two strings.  For
 convenience we can define.
 
 \[ lsim(s1,s2) = \frac{levenshtein(s1,s2)}{max(len(s1),len(s2))} \]
-
-The first algorithm takes the idea of variable similarity and uses it to
-simplify the grammar sequentially as much as possible.
+Our first algorithm takes the idea of variable similarity and uses it to
+iteratively simplify the grammar.
 
 \begin{algorithm}[h]
 \caption{Similarity Lossifier Algorithm}
