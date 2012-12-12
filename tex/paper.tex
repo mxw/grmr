@@ -420,7 +420,8 @@ Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Na
 
 It is useful to look at how the algorithms function on a small piece of data
 with both plenty of hierarchical structure, and also some messiness that most
-lossless compression schemes would not deal well with. Take the string below,
+lossless compression schemes would not deal well with. As an example,
+the string below is
 similar to what one might come across in a math puzzle book.
 
 \begin{verbatim}
@@ -469,25 +470,27 @@ with large amounts of repetition at all levels, and one with a word and
 sentence level structure but with little obvious large-scale repetition.  One
 set of test data was constructed by repeating the same letter `a' n-times but
 then adding some texture to the data by changing 1/30 of the characters
-uniformly at random to `*'. Call these test-cases \emph{rep-n} Another set of
+uniformly at random to `*'. These are the \emph{rep-n} test-cases.
+Another set of
 test data was constructed from the first n characters of the book of Genesis
-from the KJV version of the Bible.  Call these test-cases \emph{gen-n}
+from the KJV version of the Bible. Call these test-cases \emph{gen-n}.
 
 For our first suite of tests, we compare the effectiveness of the
 \Similarity and \Cluster algorithms. We might expect \Similarity to
 achieve better quality at the same compression ratio since it updates the state
 of the grammar between each variable replacement, on the other hand since it
 must update the grammar it has the potential to run much more slowly than
-\Cluster.
-
-We don't report the running times for just \Sequitur since its linear running
-time is negligible compared to our algorithms for all but the smallest input
-data.
-
-\subsubsection{Rep-n results}
+\Cluster. The running times for just \Sequitur aren't reported since its linear running
+time is negligible compared to our algorithms.
 
 In table \ref{simclus_r_t} we report the results on running \Sequitur and
-\Cluster, without the grammar reductions, on the rep-n datasets. Time is the
+\Cluster, without the grammar reductions, on the rep-n datasets. In table
+\ref{simclus_g_t} we do the same for the gen-n datasets.
+In these tests
+we wanted to evaluate the relative fidelity, compression ratios, and runtime 
+of the two algorithms.
+
+In the table, Time is the
 wall clock running as measured on a 2.26 Ghz Intel Core 2 Duo Macbook Pro.
 Ratio is the relative size of the grammar produced compared with \Sequitur,
 where the size of the grammar is the sum of the lengths of the rhs's of the
@@ -497,14 +500,13 @@ fidelity of our algorithms but doesn't take into account how well patterns were
 preserved. For the rep-n tests, proportion is the proportion of the final
 string produced that was `*'. The closer to 1/30~0.033, the more accurate the
 lossifier was in recreating the original texture of the input.
-
 The columns of the data are prefixed by S or T depending on whether they are
 measurements for \Similarity or \Cluster respectively.
 
-The compression ratios achieved for both algorithms are roughly equal for the
+In both datasets, the 
+compression ratios achieved for both algorithms are roughly equal given the
 same value for $\epsilon$, so it is fair to compare the algorithms for the same
-$\epsilon$.
-
+$\epsilon$. 
 From plotting the data, we see that runtime of the algorithms are roughly
 polynomial in the size of the data, so we can perform a linear regression on
 the log-log transform of the data to find the exponents $\alpha$ for the
@@ -516,7 +518,8 @@ Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Cl
 Exponent & $1.859$ & $2.026$ & $1.306$ & $1.305$
 \end{tabular}
 
-For both values of $\epsilon$, The clustering algorithm is nearly linear, while
+For both values of $\epsilon$, The runtime for the
+clustering algorithm is nearly linear, while
 the similarity algorithm is roughly quadratic. On this dataset, the leveshtein
 distances were similar for both algorithms but fairly high since the length of
 the final string could change drastically.  The proportion of '*'s in the input
@@ -525,15 +528,13 @@ mistakes occassionally. In most cases, the two algorithms maintained similarly
 acceptable fidelity levels in recreating the texture of the original rep-n
 input file.
 
-The actual compression ratio was respectable, with both \Similarity and \Cluster
-coming in at nearly half the size of the \Sequitur CFG.  Setting higher values
-for $\epsilon$ had diminishing returns for compression for larger and larger
+As mentioned earlier,
+the actual compression ratio was respectable, with both \Similarity and \Cluster
+coming in at nearly half the size of the \Sequitur CFG. 
+However, setting higher values
+for $\epsilon$ had diminishing returns for compression for larger
 file sizes, at the cost of drastically lowering the fidelity of the output.
 
-\subsubsection{Gen-n results}
-
-Repeating the above tests on the \emph{gen-n} datasets yields the results in
-table \ref{simclus_g_t}.
 
 Just as with the rep-n data, log-log regression tests yield the following
 exponents for the runtime on the gen-n data, again with very high values of
@@ -544,7 +545,7 @@ Data     & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Cl
 Exponent & $2.629$ & $2.493$ & $1.814$ & $2.061$
 \end{tabular}
 
-Just as in the rep-n results, the two algorithms have almost identical
+In line he two algorithms have almost identical
 compression ratios and their fidelity is about the same both subjectively and
 based on levenshtein distance. For an example of the text generated on one of
 the gen-n datasets, see the appendix.
