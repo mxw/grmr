@@ -565,16 +565,21 @@ so we can perform a linear regression on the log-log transform of the data to
 find the exponents $\alpha$ for the runtime $r(n)=n^\alpha$ where $n$ is the
 length of the input string. In the charts below, all of the linear regressions
 had $R^2$ values of over $0.98$.
-
-\begin{tabular}{l|l|l|l|l}
-rep-n runtime & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Clust: $\epsilon = .2$ \\
-Exponent      & $1.859$ & $2.026$ & $1.306$ & $1.305$
-\end{tabular}
-
-\begin{tabular}{l|l|l|l|l}
-gen-n runtime & Sim: $\epsilon=.4$ & Sim: $\epsilon=.2$ & Clust: $\epsilon = .4$ & Clust: $\epsilon = .2$ \\
-Exponent      & $2.629$ & $2.493$ & $1.814$ & $2.061$
-\end{tabular}
+\begin{align*}
+  \text{rep-n:}\quad
+  \begin{array}{l|l|l||l|l}
+    & \multicolumn{2}{c||}{\Similarity} & \multicolumn{2}{c}{\Cluster} \\ \hline
+    \epsilon & .4 & .2 & .4 & .2 \\
+    \alpha   & 1.859 & 2.026 & 1.306 & 1.305
+  \end{array}
+  &&
+  \text{gen-n:}\quad
+  \begin{array}{l|l|l||l|l}
+    & \multicolumn{2}{c||}{\Similarity} & \multicolumn{2}{c}{\Cluster} \\ \hline
+    \epsilon & .4 & .2 & .4 & .2 \\
+    \alpha   & 2.629 & 2.493 & 1.814 & 2.061
+  \end{array}
+\end{align*}
 
 In general, \Cluster has a runtime which is slightly better than quadratic,
 while \Similarity has a runtime which is slightly worse than quadratic.
@@ -819,8 +824,6 @@ significantly improve the evaluability of lossy grammar compression techniques.
   \label{red_t}
 \end{table}
 
-\appendix
-
 \section{Large Examples}
 
 \subsection*{deckmyn.c, Cluster, $\epsilon=.4$:}
@@ -930,7 +933,7 @@ C(0)?C(1  ):C(0);c+=3;*
 
 \pagebreak
 
-\subsection*{Output:}
+\subsubsection*{Output:}
 
 \begin{lstlisting}
 #include<stdio.h>
