@@ -21,6 +21,7 @@
 
 \sectionfont{\large}
 \subsectionfont{\normalsize}
+\subsubsectionfont{\normalfont}
 
 %\setlength{\cftbeforesecskip}{0pt}
 
@@ -58,6 +59,7 @@ macro levels.
 
 \end{abstract}
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 \section{Introduction and Goals}
@@ -394,16 +396,47 @@ be $\boxed{O(n^3)}$
 
 \section{Implementation}
 
-In this section, we discuss some of the details of our implementation for
-lossifying and reducing CFGs.
+Our full grammar compression scheme involves the following sequence of
+operations and components:
+\begin{enumerate}
+  \item \Sequitur, which infers a CFG from the input stream.
+  \item Lossifier algorithms, which take the \Sequitur grammar and simplify it,
+    introducing lossiness.
+  \item Reduction engine, which applies Kieffer and Yang's reduction rules to
+    the lossified grammar.
+\end{enumerate}
+
+We implement all these components in the Ruby programming language.  Our
+implementation of \Sequitur exactly mirrors the data structures and algorithm
+described by Nevill-Manning and Witten \cite{sequitur}---and, empirically, it
+has the same asymptotic running time---so we do not discuss it further.
+However, we will examine in this section some of the techniques we used in
+implementing \Similarity, \Cluster, and the reduction engine.
 
 \subsection{Data Structures and Optimizations}
 
+\subsubsection{CFG Representation}
+
+Our representation of a context-free grammar is very similar to that used by
+\Sequitur.  All of our rules are represented by a linked list of symbols;
+however, unlike in \Sequitur, we omit refcounting and do not point from each
+instance of a nonterminal symbol to its corresponding rule.  Instead, our rules
+are kept in a hash table, mapping nonterminal symbols to a list representing
+its RHS.
+
+We chose to implement a list library rather than use Ruby's native arrays in
+order to achieve better runtime for the splice operations.  Both \Sequitur and
+our implementation of Kieffer and Yang's reductions require us to splice out a
+subsequence of terminals from a rule, or to insert a subsequence (e.g., as a
+result of inlining a singleton rule) into a rule.
+
 Grammar Data Structure
-Cluster Data Structure
-Invariants Maintained
-Core utility methods??
-Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Native Levenshtein
+Linked Lists vs Arrays, Caching Expansions, Native Levenshtein
+
+\subsubsection{Lossifier Optimizations}
+
+Perhaps the most crucial optimization we implement deals with the recursive
+expansion of nonterminals into terminal strings.
 
 \subsection{Grammar Reductions}
 
