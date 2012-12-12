@@ -203,11 +203,11 @@ inference, we simplified the resulting grammar, introducing loss and obtaining
 greater compression.  Thus our full lossy grammar compression system is a
 multi-step process:
 
-\begin{itemize}
+\begin{enumerate}
   \item Infer a CFG representation of a stream (we use \Sequitur).
   \item Simplify the CFG, introducing loss.
   \item Encode and output the CFG.
-\end{itemize}
+\end{enumerate}
 
 Our core contribution comes in step two, via what we refer to as a
 \emph{lossifier} algorithm---an algorithm that takes an admissible CFG and
@@ -394,7 +394,16 @@ be $\boxed{O(n^3)}$
 
 \section{Implementation}
 
-Overview
+In this section, we discuss some of the details of our implementation for
+lossifying and reducing CFGs.
+
+\subsection{Data Structures and Optimizations}
+
+Grammar Data Structure
+Cluster Data Structure
+Invariants Maintained
+Core utility methods??
+Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Native Levenshtein
 
 \subsection{Grammar Reductions}
 
@@ -405,14 +414,6 @@ systematically removing internal redundancies like duplicate bigrams in
 loss. We want them since our lossifier algorithms often make our grammars
 redundant, even though the each step we take in the lossifier makes the
 grammars smaller.
-
-\subsection{Data Structures and Optimizations}
-
-Grammar Data Structure
-Cluster Data Structure
-Invariants Maintained
-Core utility methods??
-Linked Lists vs Arrays, Caching Expansions, Strings vs Symbols for expansion, Native Levenshtein
 
 \section{Results}
 
