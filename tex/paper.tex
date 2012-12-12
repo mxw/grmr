@@ -417,28 +417,57 @@ are kept in a hash table, mapping nonterminal symbols to a list representing
 its RHS.
 
 We chose to implement a list library rather than use Ruby's native arrays in
-order to achieve better runtime for the splice operations.  Both \Sequitur and
+order to achieve better runtime for the splice operation.  Both \Sequitur and
 our implementation of Kieffer and Yang's reductions require us to splice out a
 subsequence of terminals from a rule, or to insert a subsequence (e.g., as a
-result of inlining a singleton rule) into a rule.
-
-Grammar Data Structure
-Linked Lists vs Arrays, Caching Expansions, Native Levenshtein
+result of inlining a singleton rule) into a rule.  Moreover, our initial
+implementation of the \texttt{replace} operation---which replaces all
+occurrences of a nonterminal with another---initially employed rule inlining to
+prevent the creation of cycles.  Our first iteration implementation used native
+arrays, and we found that linked lists did result in an empirical improvement
+in runtime.
 
 \subsubsection{Lossifier Optimizations}
 
 Perhaps the most crucial optimization we implement deals with the recursive
-expansion of nonterminals into terminal strings.
+expansion of nonterminals into terminal strings---the \texttt{expand}
+operation.  An extraordinarily na\"ive implementation, in which we simply
+recurse into every rule we find, could have runtime as bad as $O(\prod_{R \in
+G} |R|)$, the product of the lengths of all rules in the grammar $G$.  We can
+easily reduce this to $O(\sum_{R \in G} |R|)$ by caching the expansion of each
+nonterminal when we complete it, and using the cached result for later
+instances.
+
+We further leverage this caching optimization, however, by preserving the
+expansion cache across calls to \texttt{expand}.  This optimization is critical
+to achieving acceptable runtime for the \Similarity and \Cluster algorithms
+because of their heavy reliance on expanding.  Each iteration of the algorithm
+requires expanding all nonterminals.  Since \texttt{replac}ing a nonterminal A
+with B changes the expansion of all rules containing A, we clear the expand
+cache whenever replace is called.  This is the key reason for \Cluster's
+superior runtime relative to \Similarity---\Similarity needs to expand all
+nonterms for each individual \texttt{replace} operation, whereas \Cluster
+clusters \texttt{replace} operations, thereby reducing the number of calls and
+effective overhead of \texttt{expand}.
+
+In addition to this optimization, we also use a native C implementation of the
+Levenshtein function.  We do not compare this to any Ruby implementation, but
+we suspect it has some nontrivial impact on runtime due to the volume of calls
+to the function.
 
 \subsection{Grammar Reductions}
 
-What is their purpose? Why do we want them? What are they?  Grammar reductions
-are a way of taking a CFG, generated possibly through ad-hoc techniques, and
-systematically removing internal redundancies like duplicate bigrams in
-\Sequitur. They make the CFG representation smaller but don't introduce any
-loss. We want them since our lossifier algorithms often make our grammars
-redundant, even though the each step we take in the lossifier makes the
-grammars smaller.
+Kieffer and Yang's grammar reductions are a collection of rules which, when
+applied iteratively to a grammar, systematically eliminate internal
+redundancies, such as duplicate symbol subsequences.  They often reduce the
+size of CFGs by factoring out repeated patterns as new rules and by eliminating
+unnecessary rules, but they introduce no loss.
+
+Since our lossification techniques make no guarantees about the form of the
+resultant grammar, unlike, say, \Sequitur, we produced a na\"ive implementation
+of these reduction rules in order to make our lossy grammars as small as
+possible.  As we shall see in the next section, this simple reduction engine
+has poor runtime and does not scale very well.
 
 \section{Results}
 
